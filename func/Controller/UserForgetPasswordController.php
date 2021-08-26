@@ -9,19 +9,23 @@ class UserForgetPasswordController
   function forget_password($login, $mail, $acp_mail)
   {
     if(empty($login) || empty($mail)){
-      $_SESSION['msg'] = komunikaty("Wypełnij wszystkie pola poprawnie..", 3);
-      return;
+      return Messe::array([
+        'type' => 'warning',
+        'text' => "Wypełnij wszystkie pola poprawnie"
+      ]);
     }
 
     $dane = SQL::row("SELECT `user`, `pass_hash`, `email` FROM `acp_users` WHERE `login` = '$login' AND `email` = '$mail' LIMIT 1");
     if(empty($dane->email)){
-      $_SESSION['msg'] = komunikaty("Nie został dodany adres email, skontaktuj się z administratorem..", 3);
-      return;
+      return Messe::array([
+        'type' => 'warning',
+        'text' => "Nie został dodany adres mail, skontaktuj się z administratorem sieci."
+      ]);
     }
 
     if(empty($dane->pass_hash)){
       $hash = substr(md5(mt_rand()), 0, 30);
-      query("UPDATE `acp_users` SET `pass_hash` = '$hash' WHERE `user` = $dane->user;");
+      SQL::query("UPDATE `acp_users` SET `pass_hash` = '$hash' WHERE `user` = $dane->user;");
 
       $subject = 'Przypomnienie hasła';
       $message = "<html>
@@ -40,29 +44,44 @@ class UserForgetPasswordController
 
       mail($dane->email, $subject, $message, implode("\r\n", $headers));
 
-      $_SESSION['msg'] = komunikaty("$hash", 2);
-      return;
+
+      return Messe::array([
+        'type' => 'success',
+        'text' => $hash
+      ]);
     }
     else{
-      $_SESSION['msg'] = komunikaty("Wygenerowany został już link, sprawdź pocztę.", 2);
-      return;
+      return Messe::array([
+        'type' => 'info',
+        'text' => "Link został wygenerowany i przesłany na adres mail."
+      ]);
     }
   }
 
   public function forget_password_new($pass, $pass2, $hash)
   {
     if(strlen($pass) < 5 ){
-      $_SESSION['msg'] = komunikaty("Hasło za krótkie (Minimalnie 5 znaków)", 3);
-      return;
+      return Messe::array([
+        'type' => 'warning',
+        'text' => "Hasło jest za krótkie (min: 5 znaków)"
+      ]);
     }
 
     if($pass != $pass2){
-      $_SESSION['msg'] = komunikaty("Hasła nie są identyczne..", 3);
-      return;
+      return Messe::array([
+        'type' => 'warning',
+        'text' => "Podane hasła nie są identyczne.."
+      ]);
     }
+
     $user_id = SQL::one("SELECT `user` FROM `acp_users` WHERE `pass_hash` = '$hash' LIMIT 1");
-    query("UPDATE `acp_users` SET `pass` = '".md5($pass)."', `pass_hash` = NULL WHERE `user` = $user_id;");
-    $_SESSION['msg'] = komunikaty("Zaktualizowano hasło <a href='?x=login>'>przejdz tutaj</a> aby się zalgować", 1);
+    SQL::query("UPDATE `acp_users` SET `pass` = '".md5($pass)."', `pass_hash` = NULL WHERE `user` = $user_id;");
+
+    return Messe::array([
+      'type' => 'success',
+      'text' => "Zaktualizowano hasło <a href='?x=login>'>przejdz tutaj</a> aby się zalgować"
+    ]);
+
   }
 
 }

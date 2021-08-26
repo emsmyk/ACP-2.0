@@ -23,7 +23,10 @@ if(isset($_POST['edycja_podstwowe'])) {
     [ 'name' => 'dev_on', 'value' => $_POST['dev_on'] ],
     [ 'name' => 'dev_modul', 'value' => $_POST['dev_modul'] ],
   ]);
-	$_SESSION['msg'] = komunikaty("Podstawowe: Zaktualizowano", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia podstawowe"
+  ]);
 	header("Location: ?x=$x");
 }
 if(isset($_POST['edycja_grafiki'])) {
@@ -50,7 +53,10 @@ if(isset($_POST['edycja_grafiki'])) {
     [ 'name' => 'media_yt', 'value' => $_POST['media_yt'] ],
     [ 'name' => 'danepub_menu_on', 'value' => $_POST['danepub_menu_on'] ],
   ]);
-	$_SESSION['msg'] = komunikaty("Podstawowe: Zaktualizowano", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia podstawowe"
+  ]);
 	header("Location: ?x=$x");
 }
 if(isset($_POST['edycja_steam'])) {
@@ -60,7 +66,11 @@ if(isset($_POST['edycja_steam'])) {
     [ 'name' => 'acp_steam_count_limit', 'value' => $_POST['acp_steam_count_limit'] ],
   ]);
 
-	$_SESSION['msg'] = komunikaty("Steam: Zaktualizowano", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia steam"
+  ]);
+
   header("Location: ?x=$x");
 }
 if(isset($_POST['edycja_cronjobs'])) {
@@ -69,8 +79,10 @@ if(isset($_POST['edycja_cronjobs'])) {
     [ 'name' => 'cron_naglowek', 'value' => $_POST['cron_naglowek'] ],
     [ 'name' => 'cron_stopka', 'value' => $_POST['cron_stopka'] ],
   ]);
-
-	$_SESSION['msg'] = komunikaty("Cronjobs: Zaktualizowano", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia prac zdalnych"
+  ]);
   header("Location: ?x=$x");
 }
 if(isset($_POST['edycja_cronjobs_czasy'])) {
@@ -100,8 +112,10 @@ if(isset($_POST['edycja_cronjobs_czasy'])) {
     [ 'name' => 'cron_optym_powiadomienia_odczytane', 'value' => $_POST['cron_optym_powiadomienia_odczytane'] ],
     [ 'name' => 'cron_optym_powiadomienia_usun', 'value' => $_POST['cron_optym_powiadomienia_usun'] ],
   ]);
-
-	$_SESSION['msg'] = komunikaty("Cronjobs: Zaktualizowano", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia prac zdalnych"
+  ]);
   header("Location: ?x=$x");
 }
 if(isset($_POST['e_galeria_map'])) {
@@ -116,7 +130,10 @@ if(isset($_POST['e_galeria_map'])) {
     [ 'name' => 'GaleriaMap_znak_tekst_kolor', 'value' => $_POST['GaleriaMap_znak_tekst_kolor'] ],
     [ 'name' => 'galeria_map_noimage', 'value' => $_POST['galeria_map_noimage'] ],
   ]);
-  $_SESSION['msg'] = komunikaty("Galeria Map: Zaktualizowano", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia galeri map"
+  ]);
   header("Location: ?x=$x");
 }
 if(isset($_POST['e_raport_opiekuna'])) {
@@ -135,7 +152,10 @@ if(isset($_POST['e_raport_opiekuna'])) {
     [ 'name' => 'AdmRaport_AdmM_color_tekst', 'value' => $_POST['AdmRaport_AdmM_color_tekst'] ],
     [ 'name' => 'AdmRaport_AdmM_ranga_czas', 'value' => $_POST['AdmRaport_AdmM_ranga_czas'] ],
   ]);
-  $_SESSION['msg'] = komunikaty("Galeria Map: Zaktualizowano", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia galeri map"
+  ]);
   header("Location: ?x=$x");
 }
 if(isset($_POST['edycja_sourcebans'])) {
@@ -146,7 +166,10 @@ if(isset($_POST['edycja_sourcebans'])) {
     [ 'name' => 'api_sb_pass', 'value' => $_POST['api_sb_pass'] ],
     [ 'name' => 'sb_optymalize_time', 'value' => $_POST['sb_optymalize_time'] ],
   ]);
-  $_SESSION['msg'] = komunikaty("Sourcebans: Zaktualizowano dane do połaczenia do bazy danych", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia Sourcebans"
+  ]);
   header("Location: ?x=$x");
 }
 if(isset($_POST['edycja_hlstats'])) {
@@ -165,8 +188,10 @@ if(isset($_POST['edycja_hlstats'])) {
     [ 'name' => 'hlx_top50_color_tekst', 'value' => $_POST['hlx_top50_color_tekst'] ],
     [ 'name' => 'hlx_ilosc', 'value' => $_POST['hlx_ilosc'] ],
   ]);
-
-  $_SESSION['msg'] = komunikaty("HLstatsX: Zaktualizowano dane do połaczenia do bazy danych", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia Hlstats"
+  ]);
   header("Location: ?x=$x");
 }
 if(isset($_POST['edycja_wpisy'])) {
@@ -180,7 +205,10 @@ if(isset($_POST['edycja_wpisy'])) {
     [ 'name' => 'wpisy_nowy_dlugosc_tytulu_max', 'value' => $_POST['wpisy_nowy_dlugosc_tytulu_max'] ],
     [ 'name' => 'wpisy_komentarz_dlugosc_min', 'value' => $_POST['wpisy_komentarz_dlugosc_min'] ],
   ]);
-  $_SESSION['msg'] = komunikaty("Wpisy: Zaktualizowano ustawienia", 1);
+  Messe::array([
+    'type' => 'success',
+    'text' => "Zaktualizowano ustawienia Wpisów"
+  ]);
   header("Location: ?x=$x");
 }
 if(isset($_POST['wpisy_kategorie_zapisz'])){

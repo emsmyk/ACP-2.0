@@ -105,8 +105,10 @@ class UslugiController
 		$from->serwery_dostepne = json_decode(SQL::one("SELECT `serwery` FROM `acp_uslugi_rodzaje` WHERE `id` = $from->rodzaj_uslugi LIMIT 1"));
 
 		if(!in_array($from->serwer, $from->serwery_dostepne)){
-			$_SESSION['msg'] = komunikaty("Wybrana Usługa nie jest włączona na wybranym serwerze. Nie możemy jej dodać.", 3);
-			return;
+      return Messe::array([
+        'type' => 'warning',
+        'text' => "Wybrana Usługa nie jest włączona na wybranym serwerze. Nie możemy jej dodać."
+      ]);
 		}
 
 		SQL::insert('acp_uslugi',[
@@ -141,8 +143,10 @@ class UslugiController
 		$from->serwery_dostepne = json_decode(SQL::one("SELECT `serwery` FROM `acp_uslugi_rodzaje` WHERE `id` = $from->rodzaj LIMIT 1"));
 
 		if(!in_array($from->serwer, $from->serwery_dostepne)){
-			$_SESSION['msg'] = komunikaty("Wybrana Usługa nie jest włączona na wybranym serwerze. Nie możemy jej dodać.", 3);
-			return;
+      return Messe::array([
+        'type' => 'warning',
+        'text' => "Wybrana Usługa nie jest włączona na wybranym serwerze. Nie możemy jej dodać."
+      ]);
 		}
 
 		SQL::update(

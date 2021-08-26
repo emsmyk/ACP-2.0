@@ -21,10 +21,13 @@ class LoginController
    	$user = $this->db->get_row("SELECT `user`, `banned` FROM `acp_users` WHERE `login` = '$from->login' AND `pass` = '$from->pass' LIMIT 1", true);
     if(empty($user) && !is_numeric($user->user) && ($user->user > 0)){
       $this->lastLogin([ 'user' => $user->user, 'success' => '0' ]);
-      $_SESSION['msg'] = komunikaty("Wprowadzone błędne dane.", 3);
-      return;
+
+      return Messe::array([
+        'type' => 'warning',
+        'text' => "Wprowadzone błędne dane."
+      ]);
     }
-    
+
     if($user->banned == 0){
       return Messe::array([
         'type' => 'danger',

@@ -101,8 +101,10 @@ class SourceUpdateModel
     $from->sourcemod_katalogi[] = ($from->sm_cfg == 'on') ? 'addons/cfg/sourcemod/' : 'gowno&213&dsadewr34sdfdfgh';
 
     if($from->sourcemod == '0' && $from->metamod == '0'){
-      $_SESSION['msg'] = komunikaty("Nie wbrałeś co aktualizujesz, weź się sprecyzuj.. ", 3);
-      return;
+      return Messe::array([
+        'type' => 'warning',
+        'text' => "Wybierz co chcesz zaktualizować."
+      ]);
     }
 
     if($from->sourcemod != '0'){
@@ -198,8 +200,11 @@ class SourceUpdateModel
         }
       }
     }
-    $_SESSION['msg'] = komunikaty("Dodano pomyślnie zlecenie na aktualizacje plików Source.. Więcej informacji znajdziesz z zakładce Wgrywarka", 1);
-    return;
+
+    return Messe::array([
+      'type' => 'success',
+      'text' => "Dodano zlecenie na aktualizację plików Source. Więcej informacji znajdziesz w zakładce Wgrywarka"
+    ]);
   }
 }
  ?>

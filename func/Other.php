@@ -70,13 +70,17 @@ function daj_bledy($OnOff, $page, $get){
     }
   }
 }
-function tytul_strony($tekst){
+
+function tytul_strony($tekst)
+{
   $nazwa = SQL::one("SELECT `conf_value` FROM `acp_system` WHERE `conf_name` = 'acp_nazwa' LIMIT 1");
   echo '<script>
    document.title = "'.$nazwa.' | '.$tekst.'";
    </script>';
 }
-function generujLosowyCiag($length = 10, $alfabet=true) {
+
+function generujLosowyCiag($length = 10, $alfabet=true)
+{
   if($alfabet==true){
     $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
   }
@@ -92,10 +96,6 @@ function generujLosowyCiag($length = 10, $alfabet=true) {
 }
 
 /* FUNKCJE DO SKASOWANIA */
-function komunikaty($text, $rodzaj) {
-  $rodzaj_array = array(1 => 'success', 2 => 'info', 3 => 'warning', 4 => 'danger');
-  return $Messe->one($rodzaj_array[$rodzaj], $text);
-}
 
 function uprawnienia($dostep, $user){
   $more_user = row("SELECT `role`, `grupa` FROM `acp_users` WHERE `user`= $user LIMIT 1");
