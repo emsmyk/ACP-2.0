@@ -13,7 +13,7 @@ tytul_strony("Usługi: Ustawienia");
 	</section >
   </div>
 <?
-if(isset($_POST)){
+if(isset($_POST) && !empty($_POST['id'])){
   $usluga = SQL::row("SELECT * FROM `acp_uslugi_rodzaje` WHERE `id` = ".$_POST['id']." LIMIT 1");
   if(isset($_POST['edytuj'])){
     Controller('Ustawienia')->updateConf([
@@ -41,10 +41,22 @@ if(isset($_POST)){
     header("Location: ?x=$x&xx=$xx");
   }
 }
-if(!empty($_GET['usluga']) && !empty($_GET['on_off'])){
-  Model('Roundsound')->ustawienia_OnOff($_GET['serwer'],  $_GET['usluga'], $_GET['on_off'], $dostep->UslugiNowaUsluga);
+if(!empty(Get::int('usluga')) && !empty(Get::int('on_off'))){
+  Model('Roundsound')->ustawienia_OnOff($_GET['serwer'],  Get::int('usluga'), Get::int('on_off'), $dostep->UslugiNowaUsluga);
   header("Location: ?x=$x&xx=$xx");
 }
+
+$cronOption = [
+  "0" => "Wyłączony",
+  "60" => "co 60 sekund",
+  "1800" => "co 30 minut",
+  "3600" => "co 1 godzinę",
+  "7200" => "co 2 godziny",
+  "14400" => "co 4 godziny",
+  "43200" => "co 12 godzin",
+  "86400" => "raz 1 dobę"
+];
+
 ?>
 	<div class="row">
 		<div class="col-xs-12">

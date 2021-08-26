@@ -10,7 +10,6 @@ class SQL
 
   public static function one($sql)
   {
-    // show($sql);
     $db = DB::getInstance();
 
     $one = $db->get_row($sql);

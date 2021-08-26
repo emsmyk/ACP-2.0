@@ -70,7 +70,8 @@ class RootUsersController
      'user' => $id
    ]);
 
-   admin_log($dodajacy, "Wygenerowno nowe hasło dla użytkonika $user (ID: $id)");
+   Logs::log("Wygenerowno nowe hasło dla użytkonika $user (ID: $id)");
+   
    return Messe::array([
      'type' => 'success',
      'text' => "Wygenerowno nowe hasło dla użytkonika $user (ID: $id) Hasło: $pass"

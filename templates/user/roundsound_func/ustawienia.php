@@ -57,7 +57,7 @@ if(!empty(Get::int('id')) && !empty($_GET['on_off'])){
         <div class="box-body">
           <form method='post' action="">
 						<p><div class='form-group input-group'><span class='input-group-addon'>Włączony</span>
-							<?= optionHtml(['0' => 'Nie', '1' => 'Tak'], ['name' => 'rs_on' , 'value' => $rsSystem['rs_on'] ]); ?>
+							<?= optionHtml([0 => 'Nie', 1 => 'Tak'], ['name' => 'rs_on' , 'value' => (int)$rsSystem['rs_on'] ]); ?>
             </div></p>
            <p><div class='form-group input-group'><span class='input-group-addon'>Aktualnie Grana</span><input class='form-control' type='text' name='rs_roundsound' value='<?= $dane_rs->aktualny; ?>' disabled /></div></p>
            <p><div class='form-group input-group'><span class='input-group-addon'>W przygotwaniu</span><input class='form-control' type='text' name='rs_roundsound_c' value='<?= $dane_rs->przygotowaniu; ?>' disabled /></div></p>
@@ -74,8 +74,8 @@ if(!empty(Get::int('id')) && !empty($_GET['on_off'])){
           <form method='post' action="<?= "?x=$x&xx=$xx" ?>">
 						<p><div class='form-group input-group'><span class='input-group-addon'>Głosowanie</span>
 							<?= optionHtml(
-								['0' => 'Wiele piosenek na '.$rsSystem['rs_vote_time'].' minut', '1' => 'Tylko jedna piosenka na '.$rsSystem['rs_vote_time'].' minut'],
-								['name' => 'rs_vote' , 'value' => $rsSystem['rs_vote'] ]
+								[0 => 'Wiele piosenek na '.$rsSystem['rs_vote_time'].' minut', 1 => 'Tylko jedna piosenka na '.$rsSystem['rs_vote_time'].' minut'],
+								['name' => 'rs_vote' , 'value' => (int)$rsSystem['rs_vote'] ]
 							); ?>
 	          </div></p>
            <p><div class='form-group input-group'><span class='input-group-addon'>Ograniczenie czasowe</span><input class='form-control' type='text' name='rs_vote_time' value='<?= $rsSystem['rs_vote_time']; ?>'/></div></p>
