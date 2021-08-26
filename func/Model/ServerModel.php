@@ -20,15 +20,25 @@ class ServerModel
 
   function mod($id)
   {
-    $mod = $this->db->get_row("SELECT `mod` FROM `acp_serwery` WHERE `serwer_id` = $id")[0];
-    $mod = (empty($mod)) ? '<i>Serwer nie istnieje</i>' : $mod;
+    if($id === 0){
+      return '<i>Wszystkie</i>';
+    }
+    if( $this->db->exists('acp_serwery', 'serwer_id', ['serwer_id' => $id ]) ){
+      return '<i>Serwer nie istnieje</i>';
+    }
 
-    return $mod;
+    $srv_data = $this->db->get_row("SELECT `serwer_id`, `mod` FROM `acp_serwery` WHERE `serwer_id` = $id");
+
+    if(empty($srv_data->mod)){
+      return '<i>Brak danych</i>';
+    }
+
+    return $srv_data->mod;
   }
 
   function basic($id)
   {
-    $data = $this->db->get_row("SELECT `serwer_id`, `mod`, `ip`, `port` FROM `acp_serwery` WHERE `serwer_id` = $id ", true);
+    $data = $this->db->get_row("SELECT `serwer_id`, `mod`, `ip`, `port`, `nazwa` FROM `acp_serwery` WHERE `serwer_id` = $id ", true);
     $data->adress = $data->ip.':'.$data->port;
 
     return $data;

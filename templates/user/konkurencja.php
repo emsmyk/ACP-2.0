@@ -6,7 +6,7 @@ $KonkurencjaController = Controller('Konkurencja');
 .example-modal .modal { background: transparent !important; }
 </style>
 <?
-$co = Get::string($_GET['co']);
+$co = Get::string('co');
 //
 // Generowanie danych xml, aktualizacja cache
 //

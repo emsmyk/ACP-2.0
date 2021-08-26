@@ -9,12 +9,11 @@
     <p><?= $Messe->show(); ?></p>
 	</section >
   </div>
-  <?
+<?
   $serwer = (!empty($_GET['serwer'])) ? (int)$_GET['serwer'] : null;
-  $serwer_detale = SQL::row("SELECT `nazwa`, `mod` FROM `acp_serwery` WHERE `serwer_id` = $serwer LIMIT 1 ");
-  ?>
 
-  <? if(empty($serwer)): ?>
+  if(empty($serwer)):
+?>
 	<div class="row">
 		<div class="col-xs-12">
 			<div class="box box">
@@ -37,7 +36,10 @@
 			</div>
 		</div>
 	</div>
-  <? elseif(!empty($serwer)): ?>
+  <? elseif(!empty($serwer)):
+    $serwer_detale = Model('Server')->basic($serwer);
+
+  ?>
   <div class="row">
 		<div class="col-xs-12">
 			<div class="box box">

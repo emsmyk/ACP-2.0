@@ -44,14 +44,14 @@ if(isset($_POST['edycja_from_menu_usun'])){
   header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 
-if(Get::string($_GET['co']) == 'usun'){
+if(Get::string('co') == 'usun'){
   Controller('Ustawienia')->acp_moduly_usun(Get::int('id'));
   header("Location: ?x=$x");
 }
 ?>
 
 <?
-if(Get::string($_GET['co']) == 'edytuj' && !empty(Get::int('id'))) {
+if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
   $edycja_id = $_GET["id"];
   $edycja_mod = SQL::row("SELECT * FROM `acp_moduly` WHERE `id` = $edycja_id LIMIT 1;");
 ?>
@@ -70,7 +70,12 @@ if(Get::string($_GET['co']) == 'edytuj' && !empty(Get::int('id'))) {
           <p><div class='form-group input-group'><span class='input-group-addon'>Nazwa Wyświetlana</span><input class='form-control' type='text' name='e_nazwa_wys' value='<?= $edycja_mod->nazwa_wys ?>'/></div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Ikona</span><input class='form-control' type='text' name='e_ikona' value='<?= $edycja_mod->ikona ?>'/></div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Menu</span>
-            <?= optionHtml(['1' => 'Tak (Pojedyńczy link)', '0' => 'NIE (Brak pozycji w menu)', '2' => 'Tak (Rozwiana lista)'], ['name' => 'e_menu' , 'value' => $edycja_mod->menu]); ?>
+            <?=
+            optionHtml(
+              ['0' => 'NIE (Brak pozycji w menu)','1' => 'Tak (Pojedyńczy link)',  '2' => 'Tak (Rozwiana lista)'],
+              ['name' => 'e_menu' , 'value' => $edycja_mod->menu]
+            );
+            ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Kategoria Menu</span>
             <?= optionHtml(['1' => 'Serwery Gier', '0' => 'Podstawowe', '2' => 'Administracja'], ['name' => 'e_menu_kategoria' , 'value' => $edycja_mod->menu_kategoria]); ?>

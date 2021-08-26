@@ -1,4 +1,26 @@
 <?php
+function optionHtml($array, $data)
+{
+  $tekst = '<select class="form-control" name="'.$data['name'].'">';
+
+  if(!in_array($data['value'], $array) && !empty($data['value'])){
+    $tekst .= '<option value="'.$data['value'].'">Brak Danych.. (ID: '.$data['value'].')</option>';
+  }
+
+  elseif(!empty($data['value'])){
+    $tekst .= '<option value="'.$data['value'].'">'.$array[ $data['value'] ].'</option>';
+  }
+
+  foreach ($array as $key => $value) {
+    if($data['value'] != $key){
+      $tekst .= '<option value="'.$key.'">'.$value.'</option>';
+    }
+  }
+  $tekst .= '</select>';
+
+  return $tekst;
+}
+
 function back($POST)
 {
   if(!empty($POST)){
@@ -38,6 +60,10 @@ function daj_bledy($OnOff, $page, $get){
     }
   }
   else{
+    if(User::get() == 0){
+      return;
+    }
+
     $role = SQL::one("SELECT `role` FROM `acp_users` WHERE `user` = ".User::get()." LIMIT 1");
     if($role == 1){
       ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
