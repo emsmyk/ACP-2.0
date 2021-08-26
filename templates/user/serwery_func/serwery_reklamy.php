@@ -10,7 +10,7 @@
 	</section>
   </div>
 <?
-$co =  Get::string('co');
+$co = Get::string('co');
 if(isset($_POST['nowy_rekord'])){
   Controller('ServerConReklamy')->store($dostep->SerwerReklamyDodaj);
   header("Location: ?x=$x&xx=$xx");

@@ -10,11 +10,11 @@ $aktualizacja_source = Model("SourceUpdate")->sprawdz_dostepne((int)$acp_system[
 //
 // Serwery Aktualizacja danych
 //
-foreach($servers->servers as $serwery){
+foreach($servers->servers as $servers){
   //sv_tags
-  $serwery->rcon_dec = encrypt_decrypt('decrypt', $serwery->rcon);
-  if(!empty($serwery->rcon_dec)){
-    $list_tags = SQL::all("SELECT * FROM `acp_serwery_tagi` WHERE `serwer` IN (0, $serwery->serwer_id) ");
+  $servers->rcon_dec = encrypt_decrypt('decrypt', $servers->rcon);
+  if(!empty($servers->rcon_dec)){
+    $list_tags = SQL::all("SELECT * FROM `acp_serwery_tagi` WHERE `serwer` IN (0, $servers->serwer_id) ");
     $sv_tags = 'sm_acvar_console sv_tags "! !,';
     foreach ($list_tags as $key => $value) {
       if($value->staly == 0){
@@ -28,73 +28,73 @@ foreach($servers->servers as $serwery){
       }
     }
     $sv_tags .= '"';
-    $serwery->sv_tags = $sv_tags;
+    $servers->sv_tags = $sv_tags;
   }
 
   // daj szanse na aktualizacje danych serwerow ktore nie odpowiadaja
-  if($serwery->status == 1 && strtotime($serwery->status_data) < (time() - $acp_system['cron_serwery_time_off'])) {
+  if($servers->status == 1 && strtotime($servers->status_data) < (time() - $acp_system['cron_serwery_time_off'])) {
     $db->update('acp_serwery',
       [
         'status' => 0,
       ],
       [
-        'serwer_id' => $serwery->serwer_id
+        'serwer_id' => $servers->serwer_id
       ]
     );
   }
 
-  if(strtotime($acp_system['cron_serwery']) < (time() - $acp_system['time_serwery']) && $serwery->status == 0){
+  if(strtotime($acp_system['cron_serwery']) < (time() - $acp_system['time_serwery']) && $servers->status == 0){
     $Query = new SourceQuery( );
 
     try
     {
-      switch ($serwery->game) {
+      switch ($servers->game) {
         case 'CSGO':
-          $Query->Connect( $serwery->ip, $serwery->port, 1, SourceQuery::SOURCE );
-          if(!empty($serwery->rcon_dec)){
-            $Query->SetRconPassword($serwery->rcon_dec);
-            $Query->Rcon( $serwery->sv_tags );
+          $Query->Connect( $servers->ip, $servers->port, 1, SourceQuery::SOURCE );
+          if(!empty($servers->rcon_dec)){
+            $Query->SetRconPassword($servers->rcon_dec);
+            $Query->Rcon( $servers->sv_tags );
           }
           break;
         case 'CS':
-          $Query->Connect( $serwery->ip, $serwery->port, 1, SourceQuery::GOLDSOURCE );
+          $Query->Connect( $servers->ip, $servers->port, 1, SourceQuery::GOLDSOURCE );
           break;
       }
 
-      $serwery->sourcequery = $Query->GetInfo( );
+      $servers->sourcequery = $Query->GetInfo( );
 
       $db->insert('acp_serwery_logs',[
-          'serwer_id' => $serwery->serwer_id,
-          'graczy' => $serwery->sourcequery['Players'],
-          'boty' => $serwery->sourcequery['Bots'],
-          'sloty' => $serwery->sourcequery['MaxPlayers'],
+          'serwer_id' => $servers->serwer_id,
+          'graczy' => $servers->sourcequery['Players'],
+          'boty' => $servers->sourcequery['Bots'],
+          'sloty' => $servers->sourcequery['MaxPlayers'],
           'data' => date('Y-m-d H:i:s'),
         ]
       );
 
       // update serwer
       $db->update('acp_serwery',[
-          'nazwa' => $serwery->sourcequery['HostName'],
-          'mapa' => $serwery->sourcequery['Map'],
-          'graczy' => $serwery->sourcequery['Players'],
-          'max_graczy' => $serwery->sourcequery['MaxPlayers'],
-          'boty' => $serwery->sourcequery['Bots'],
-          'tags' => $serwery->sourcequery['GameTags'],
+          'nazwa' => $servers->sourcequery['HostName'],
+          'mapa' => $servers->sourcequery['Map'],
+          'graczy' => $servers->sourcequery['Players'],
+          'max_graczy' => $servers->sourcequery['MaxPlayers'],
+          'boty' => $servers->sourcequery['Bots'],
+          'tags' => $servers->sourcequery['GameTags'],
         ],[
-          'serwer_id' => $serwery->serwer_id
+          'serwer_id' => $servers->serwer_id
         ]
       );
 
       //lista graczy cache
-      $db->delete('acp_cache_api', [ 'get' => 'serwer_id'.$serwery->serwer_id ]);
+      $db->delete('acp_cache_api', [ 'get' => 'serwer_id'.$servers->serwer_id ]);
       $db->insert('acp_cache_api',[
-        'get' => "sewer_id".$serwery->serwer_id,
+        'get' => "sewer_id".$servers->serwer_id,
         'dane' => Model('Cronjobs')->jsonRemoveUnicodeSequences($Query->GetPlayers()),
         'data' => date('Y-m-d H:i:s'),
       ]);
 
       Model('Cronjobs')->UpdateTime('cron_serwery');
-      echo "<p>Dane Serwera ID: $serwery->serwer_id - ".$serwery->sourcequery['HostName']." zostały zaktualizowane.</p>";
+      echo "<p>Dane Serwera ID: $servers->serwer_id - ".$servers->sourcequery['HostName']." zostały zaktualizowane.</p>";
     }
     catch( Exception $e )
     {
@@ -107,9 +107,9 @@ foreach($servers->servers as $serwery){
             'graczy' => '0',
             'max_graczy' => '0',
             'boty' => '0',
-            'tags' => $serwery->sourcequery['GameTags'],
+            'tags' => $servers->sourcequery['GameTags'],
           ],[
-            'serwer_id' => $serwery->serwer_id
+            'serwer_id' => $servers->serwer_id
           ]
         );
       }
@@ -128,7 +128,7 @@ foreach($servers->servers as $serwery){
     $admin_list = new stdClass();
     $admin_list_det = new stdClass();
     $i = 1;
-    foreach (Model('Sourcebans')->admins_list($serwery->prefix_sb) as $admin) {
+    foreach (Model('Sourcebans')->admins_list($servers->prefix_sb) as $admin) {
       $steamData = $Steam->GetSteamData($admin->authid);
 
       $admin_list->{$i++} = $admin_list_det = new stdClass();
@@ -146,16 +146,16 @@ foreach($servers->servers as $serwery){
 
     $admin_list = Model('Cronjobs')->jsonRemoveUnicodeSequences($admin_list);
 
-    if( $db->exists('acp_cache_api', 'get', [ 'get' => 'serwer_id'.$serwery->serwer_id.'_admin' ]) ){
+    if( $db->exists('acp_cache_api', 'get', [ 'get' => 'serwer_id'.$servers->serwer_id.'_admin' ]) ){
       $db->update('acp_cache_api', [
         'dane' => $admin_list
       ], [
-        'get' => 'serwer_id'.$serwery->serwer_id.'_admin'
+        'get' => 'serwer_id'.$servers->serwer_id.'_admin'
       ]);
     }
     else {
       $db->insert('acp_cache_api', [
-        'get' => "serwer_id".$serwery->serwer_id."_admin",
+        'get' => "serwer_id".$servers->serwer_id."_admin",
         'dane' => $admin_list
       ]);
     }

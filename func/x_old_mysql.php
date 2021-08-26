@@ -50,12 +50,4 @@ class SQL
 function query($sql) { return SQL::query($sql); }
 function one($sql){ return SQL::one($sql); }
 function row($sql){ return SQL::row($sql); }
-
-function show($what, $die=true){
-  echo "<pre><span style='color: red'>ACP | Admin Control Panel</br><small>return text/data</br></br></small></span>";
-  print_r($what);
-  echo "</pre>";
-
-  if($die==true) { die; }
-}
 ?>
