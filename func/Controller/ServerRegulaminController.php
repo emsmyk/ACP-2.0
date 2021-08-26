@@ -4,7 +4,7 @@ class ServerRegulaminController
 
   function __construct()
   {
-    // code...
+    $this->db = DB::getInstance();
   }
 
   function edit($serwer)
@@ -12,28 +12,26 @@ class ServerRegulaminController
     $from = From::check();
     $from->tekst = htmlspecialchars($from->tekst);
 
-    $czy_jest = SQL::one("SELECT `id` FROM `acp_serwery_regulamin` WHERE `id` = $from->id");
-    if(empty($czy_jest)){
-      SQL::insert('acp_serwery_regulamin',[
-        'serwer_id' => $serwer,
+    if( $this->db->exists('acp_serwery_regulamin', 'id', [ 'id' => $from->id ]) ){
+      $this->db->update('acp_serwery_regulamin',[
         'tekst' => $from->tekst,
         'link' => $from->link
+      ], [
+        'serwer_id' => $serwer
       ]);
 
-      Logs::log("Dodano nowy regulamin dla serwera ID: $serwer", "?x=serwery_det&serwer_id=$serwer");
+      Logs::log("Zaktualizowano regulamin (ID: $from->id) serwera ID: $serwer", "?x=serwery_det&serwer_id=$serwer");
       return;
     }
-    else {
-      SQL::update('acp_serwery_regulamin',[
-        'tekst' => $from->tekst,
-        'link' => $from->link
-      ],
-      $serwer,
-      'serwer_id'
-      );
 
-      Logs::log("Zaktualizowano regulamin (ID: $from->id) serwera ID: $serwer", "?x=serwery_det&serwer_id=$serwer");
-    }
+    $this->db->insert('acp_serwery_regulamin',[
+      'serwer_id' => $serwer,
+      'tekst' => $from->tekst,
+      'link' => $from->link
+    ]);
+
+    Logs::log("Dodano nowy regulamin dla serwera ID: $serwer", "?x=serwery_det&serwer_id=$serwer");
+    return;
   }
 }
  ?>

@@ -5,14 +5,14 @@ switch ($xx) {
     $page = 'templates/user/uslugi/moje_uslugi.php';
     break;;
   case 'ustawienia':
-    if(uprawnienia($dostep->UslugiUstawienia, $player->user) != 1){
+    if(Permission::check($dostep->UslugiUstawienia, false) != 1){
       header("Location: ?x=default");
       break;
     }
     $page = 'templates/user/uslugi/ustawienia.php';
     break;
   case 'dodaj_usluge':
-    if(uprawnienia($dostep->UslugiDodaj, $player->user) != 1){
+    if(Permission::check($dostep->UslugiDodaj, false) != 1){
       header("Location: ?x=default");
       break;
     }

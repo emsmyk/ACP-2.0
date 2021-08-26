@@ -3,6 +3,8 @@
  {
      public function __construct()
      {
+       $this->db = DB::getInstance();
+
        $this->id = Get::int('id');
        $this->OnOff = array(1 => 'Włączony', 0 => 'Wyłączony');
      }
@@ -18,8 +20,8 @@
        $from = From::check();
 
        $serwer_nazwa = Model('Server')->mod($from->serwer);
-       $czy_serwer_istenieje = SQL::one("SELECT COUNT(`id`) FROM `acp_serwery_helpmenu` WHERE `serwer_id` = $from->serwer");
-       if($czy_serwer_istenieje != 0){
+
+       if( $this->db->exists('acp_serwery_helpmenu', 'id', [ 'serwer_id' => $from->serwer ]) ){
          return Messe::array([
            'type' => 'success',
            'text' => "Serwer $serwer_nazwa (ID: $from->serwer) posiada już menu."

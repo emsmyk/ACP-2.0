@@ -2,7 +2,7 @@
 $raport = new stdClass();
 $raport->on = (int)$acp_system['AdmRaport_on'];
 
-if(uprawnienia($dostep->serwery_det_RaportOpiekuna, $player->user) == 1):
+if(Permission::check($dostep->serwery_det_RaportOpiekuna, false) == 1):
   $raport = new stdClass();
   $raport->on = (int)$acp_system['AdmRaport_on'];
   $raport->start =(int)$acp_system['AdmRaport_start'];

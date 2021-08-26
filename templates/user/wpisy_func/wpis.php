@@ -61,23 +61,23 @@ if(isset($_GET['ogloszenie'])){
     	<div class="box-body">
     	  <p style="word-wrap:break-word;"><?= $wpis->text; ?></p>
         <span class="pull-right">
-          <? if(uprawnienia($dostep->WpisyOgloszenie, $player->user) == 1): ?>
+          <? if(Permission::check($dostep->WpisyOgloszenie, false) == 1): ?>
             <a href="<?= "?x=$x&xx=$xx&ogloszenie=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-bullhorn"></i> Ogłoszenie</button></a>
           <? endif; ?>
 
-          <? if(uprawnienia($dostep->WpisyKategoria, $player->user) == 1): ?>
+          <? if(Permission::check($dostep->WpisyKategoria, false) == 1): ?>
             <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#wpis_kategoria"><i class="fa fa fa-keyboard-o"></i> Kategoria</button>
           <? endif; ?>
 
-          <? if(uprawnienia($dostep->WpisyZamknij, $player->user) == 1): ?>
+          <? if(Permission::check($dostep->WpisyZamknij, false) == 1): ?>
             <a href="<?= "?x=$x&xx=$xx&close_open=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-eye-open"></i> <?= $wpis->closed ?></button></a>
           <? endif; ?>
 
-          <? if(uprawnienia($dostep->WpisyEdytujWpis, $player->user) == 1): ?>
+          <? if(Permission::check($dostep->WpisyEdytujWpis, false) == 1): ?>
               <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#wpis_edytuj"><i class="fa fa-edit"></i> Edytuj</button>
           <? endif; ?>
 
-          <? if(uprawnienia($dostep->WpisyUsun, $player->user) == 1): ?>
+          <? if(Permission::check($dostep->WpisyUsun, false) == 1): ?>
               <a href="<?= "?x=$x&xx=$xx&usun=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-remove"></i> Usuń</button></a>
           <? endif; ?>
         </span>

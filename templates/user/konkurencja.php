@@ -136,10 +136,10 @@ usort($fora_items_all, function($a, $b) {
                     <?
                     $lista_stron->konkurencja_show = (in_array($lista_stron->code, $_SESSION['konkurencja_show'])) ? 'glyphicon glyphicon-eye-open' : 'glyphicon glyphicon-eye-close' ;?>
                       <a href="<?= "?x=$x&co=konkurencja_show&code=$lista_stron->code" ?>" class="btn btn-xs btn-default"><i class="<?= $lista_stron->konkurencja_show ?>"></i></a>
-                    <? if(uprawnienia($dostep->KonkurencjaEdytuj, $player->user) == 1): ?>
+                    <? if( Permission::check($dostep->KonkurencjaEdytuj, false) == 1): ?>
                       <a href="#kon_<?= $lista_stron->id ?>" data-toggle="modal" data-target="#kon_<?= $lista_stron->id ?>" class="btn btn-xs btn-primary"><i class="fa fa-pencil"></i> Edytuj</a>
                     <? endif;
-                    if(uprawnienia($dostep->KonkurencjaEdytuj, $player->user) == 1): ?>
+                    if( Permission::check($dostep->KonkurencjaEdytuj, false) == 1): ?>
                       <a href="<?= "?x=$x&co=usun&id=$lista_stron->id" ?>" class="btn btn-xs btn-danger"><i class="fa fa-remove"></i> Usuń</a>
                     <? endif; ?>
                   </div>
@@ -165,7 +165,7 @@ usort($fora_items_all, function($a, $b) {
 
     <div class="col-lg-12">
       <?
-      if(uprawnienia($dostep->KonkurencjaEdytuj, $player->user) != 0):
+      if(Permission::check($dostep->KonkurencjaEdytuj, false) != 0):
       $lista_stron_q = SQL::all("SELECT `id`, `nazwa` , `code`, `color`, `url`, `ilosc`, `dane_time` FROM `acp_konkurencja`");
       if(!empty($lista_stron_q)):
           foreach ($lista_stron_q as $lista_stron):
@@ -301,7 +301,7 @@ usort($fora_items_all, function($a, $b) {
           </div>
         </div>
       </div>
-      <? if(uprawnienia($dostep->KonkurencjaCach, $player->user) != 0): ?>
+      <? if(Permission::check($dostep->KonkurencjaCach, false) != 0): ?>
       <div class="modal fade" id="cache" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content modal-danger">

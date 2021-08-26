@@ -94,36 +94,4 @@ function generujLosowyCiag($length = 10, $alfabet=true)
   }
   return $randomString;
 }
-
-/* FUNKCJE DO SKASOWANIA */
-
-function uprawnienia($dostep, $user){
-  $more_user = row("SELECT `role`, `grupa` FROM `acp_users` WHERE `user`= $user LIMIT 1");
-
-  // gdy nie ma ustawionej żadnej grupy pooglądowej
-  if(empty($_SESSION['acp_grupa_sesja']) && empty($_SESSION['acp_grupa_sesja_nazwa'])):
-    // gdy jest dostep
-    if($dostep == 1):
-      return 1;
-    // gdy user jest rootem
-    elseif($more_user->role == 1):
-      return 1;
-    // brak dostepu
-    else:
-      Messe::array([
-        'type' => 'info',
-        'text' => "Nie posiadasz dostępu do tej funkcji."
-      ]);
-      return 0;
-    endif;
-  // gdy mamy nadaną grupę pooglądową
-  elseif((int)$_SESSION['acp_grupa_sesja'] != (int)$more_user->grupa):
-    if($dostep == 1):
-      return 1;
-    endif;
-  // gdy nic nie mamy
-  else:
-    return 0;
-  endif;
-}
 ?>

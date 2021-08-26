@@ -33,11 +33,13 @@ foreach($servers->servers as $serwery){
 
   // daj szanse na aktualizacje danych serwerow ktore nie odpowiadaja
   if($serwery->status == 1 && strtotime($serwery->status_data) < (time() - $acp_system['cron_serwery_time_off'])) {
-    SQL::update('acp_serwery', [
-         'status' => 0,
-       ],
-       $serwery->serwer_id,
-       'serwer_id'
+    $db->update('acp_serwery',
+      [
+        'status' => 0,
+      ],
+      [
+        'serwer_id' => $serwery->serwer_id
+      ]
     );
   }
 
@@ -61,7 +63,7 @@ foreach($servers->servers as $serwery){
 
       $serwery->sourcequery = $Query->GetInfo( );
 
-      SQL::insert('acp_serwery_logs',[
+      $db->insert('acp_serwery_logs',[
           'serwer_id' => $serwery->serwer_id,
           'graczy' => $serwery->sourcequery['Players'],
           'boty' => $serwery->sourcequery['Bots'],
@@ -71,37 +73,25 @@ foreach($servers->servers as $serwery){
       );
 
       // update serwer
-      SQL::update('acp_serwery',[
+      $db->update('acp_serwery',[
           'nazwa' => $serwery->sourcequery['HostName'],
           'mapa' => $serwery->sourcequery['Map'],
           'graczy' => $serwery->sourcequery['Players'],
           'max_graczy' => $serwery->sourcequery['MaxPlayers'],
           'boty' => $serwery->sourcequery['Bots'],
           'tags' => $serwery->sourcequery['GameTags'],
-        ],
-        $serwery->serwer_id,
-        'serwer_id'
+        ],[
+          'serwer_id' => $serwery->serwer_id
+        ]
       );
 
       //lista graczy cache
-      $serwery->ostatnia_aktualizacja = SQL::one("SELECT `data` FROM `acp_cache_api` WHERE `get` = 'serwer_id".$serwery->serwer_id."'; ");
-      if(empty($serwery->ostatnia_aktualizacja)){
-        SQL::insert('acp_cache_api',[
-            'get' => "sewer_id".$serwery->serwer_id,
-            'dane' => Model('Cronjobs')->jsonRemoveUnicodeSequences($Query->GetPlayers()),
-            'data' => date('Y-m-d H:i:s'),
-          ]
-        );
-      }
-      else if(strtotime($serwery->ostatnia_aktualizacja) < (time() - $acp_system['time_serwery'])) {
-        SQL::update('acp_cache_api',[
-            'dane' => Model('Cronjobs')->jsonRemoveUnicodeSequences($Query->GetPlayers()),
-            'data' => date('Y-m-d H:i:s'),
-          ],
-          "sewer_id".$serwery->serwer_id,
-          'get'
-        );
-      }
+      $db->delete('acp_cache_api', [ 'get' => 'serwer_id'.$serwery->serwer_id ]);
+      $db->insert('acp_cache_api',[
+        'get' => "sewer_id".$serwery->serwer_id,
+        'dane' => Model('Cronjobs')->jsonRemoveUnicodeSequences($Query->GetPlayers()),
+        'data' => date('Y-m-d H:i:s'),
+      ]);
 
       Model('Cronjobs')->UpdateTime('cron_serwery');
       echo "<p>Dane Serwera ID: $serwery->serwer_id - ".$serwery->sourcequery['HostName']." zostały zaktualizowane.</p>";
@@ -109,7 +99,7 @@ foreach($servers->servers as $serwery){
     catch( Exception $e )
     {
       if($e->getMessage( ) == 'Failed to read any data from socket') {
-        SQL::update('acp_serwery',[
+        $db->update('acp_serwery',[
             'status' => '1',
             'status_data' => date('Y-m-d H:i:s'),
             'nazwa' => 'none',
@@ -118,9 +108,9 @@ foreach($servers->servers as $serwery){
             'max_graczy' => '0',
             'boty' => '0',
             'tags' => $serwery->sourcequery['GameTags'],
-          ],
-          $serwery->serwer_id,
-          'serwer_id'
+          ],[
+            'serwer_id' => $serwery->serwer_id
+          ]
         );
       }
     }
@@ -156,20 +146,20 @@ foreach($servers->servers as $serwery){
 
     $admin_list = Model('Cronjobs')->jsonRemoveUnicodeSequences($admin_list);
 
-    $czy_istnieje = SQL::one("SELECT `get` FROM `acp_cache_api` WHERE `get`='serwer_id".$serwery->serwer_id."_admin'; ");
-    if(empty($czy_istnieje)){
-      SQL::insert('acp_cache_api', [
+    if( $db->exists('acp_cache_api', 'get', [ 'get' => 'serwer_id'.$serwery->serwer_id.'_admin' ]) ){
+      $db->update('acp_cache_api', [
+        'dane' => $admin_list
+      ], [
+        'get' => 'serwer_id'.$serwery->serwer_id.'_admin'
+      ]);
+    }
+    else {
+      $db->insert('acp_cache_api', [
         'get' => "serwer_id".$serwery->serwer_id."_admin",
         'dane' => $admin_list
       ]);
     }
-    else {
-      SQL::update('acp_cache_api', [
-        'dane' => $admin_list
-      ],
-      "serwer_id".$serwery->serwer_id."_admin",
-      'get');
-    }
+
     Model('Cronjobs')->UpdateTime('cron_adminlist');
   }
 }
@@ -178,19 +168,20 @@ foreach($servers->servers as $serwery){
 // Aktualizacja danych profili steam
 //
 $limit_steam = $acp_system['acp_steam_count_limit'];
-$users = SQL::all("SELECT `user`, `login`, `steam`, `steam_update` FROM `acp_users` WHERE `banned` = -1 AND `steam` NOT LIKE '%STEAM%' AND `steam` != '' AND `steam_update` < NOW() - INTERVAL 900 SECOND LIMIT $limit_steam; ");
+$users = $db->get_results("SELECT `user`, `login`, `steam`, `steam_update` FROM `acp_users` WHERE `banned` = -1 AND `steam` NOT LIKE '%STEAM%' AND `steam` != '' AND `steam_update` < NOW() - INTERVAL 900 SECOND LIMIT $limit_steam; ", true);
 foreach($users as $user){
   $steamData = $Steam->GetSteamData($user->steam);
 
-  SQL::update(
+  $db->update(
     'acp_users',
-     array(
-       'steam_avatar' => $steamData['avatarfull'],
-       'steam_login' => $steamData['personaname'],
-       'steam_update' => date("Y-m-d H:i:s")
-     ),
-     $user->user,
-     'user'
+    [
+      'steam_avatar' => $steamData['avatarfull'],
+      'steam_login' => $steamData['personaname'],
+      'steam_update' => date("Y-m-d H:i:s")
+    ],
+    [
+      'user' => $user->user
+    ]
   );
 }
 

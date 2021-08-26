@@ -23,7 +23,7 @@
               <div class="box-body">
                 <ul>
                 <? foreach ($logi_sm as $value):
-                  $logi_link = (uprawnienia($dostep->serwery_det_logi, $player->user)) ? "?x=serwery_det&serwer_id=$serwer_id&logi=$value" : "#";
+                  $logi_link = (Permission::check($dostep->serwery_det_logi, false)) ? "?x=serwery_det&serwer_id=$serwer_id&logi=$value" : "#";
                 ?>
                   <li><a href="<?= $logi_link ?>"><?= $value ?></a></li>
                 <? endforeach; ?>
@@ -42,7 +42,7 @@
             <div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
               <ul>
               <? foreach ($logi_source as $value):
-                $logi_link = (uprawnienia($dostep->serwery_det_logi, $player->user)) ? "?x=serwery_det&serwer_id=$serwer_id&logi=$value" : "#";
+                $logi_link = (Permission::check($dostep->serwery_det_logi, false)) ? "?x=serwery_det&serwer_id=$serwer_id&logi=$value" : "#";
               ?>
                 <li><a href="<?= $logi_link ?>"><?= $value ?></a></li>
               <? endforeach; ?>

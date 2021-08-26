@@ -27,7 +27,7 @@ $require_once = 'templates/user/serwery_det/';
 
   <div class="row">
     <?
-    if(uprawnienia($dostep->serwery_det_logi, $player->user) && !empty($_GET['logi'])):
+    if(Permission::check($dostep->serwery_det_logi, false) && !empty($_GET['logi'])):
       require_once($require_once.'Logi.php');
     endif;
     ?>

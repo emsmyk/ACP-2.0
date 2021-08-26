@@ -108,8 +108,7 @@ class GaleriaMapController
       ]);
     }
 
-    $czy_istnieje = $this->db->get_row("SELECT `id` FROM `acp_serwery_mapy_img` WHERE `id_mapy` = $from->id")[0];
-    if(!empty($czy_istnieje)){
+    if( $this->db->exists('acp_serwery_mapy_img', 'id', [ 'id_mapy' => $from->id ]) ){
       $this->db->update(
         'acp_serwery_mapy_img',
         [
@@ -124,6 +123,7 @@ class GaleriaMapController
         'imgur_url' => $url
       ]);
     }
+    
     Logs::log("Zaktualizowano galerię mapy $from->mapa (ID: $from->id)", "?x=galeria_map&id=$from->id");
 
     // Skasowanie plików z acp
