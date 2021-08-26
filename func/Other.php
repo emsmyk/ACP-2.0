@@ -29,31 +29,35 @@ function back($POST)
   header("Location: ".$_SERVER['HTTP_REFERER']);
   exit;
 }
+
 function redirect($link)
 {
   header("Location: ".$link);
   exit;
 }
 
-function encrypt_decrypt($action, $string) {
-    $output = false;
-    $encrypt_method = "AES-256-CBC";
-    $secret_key = 'g3r2\reT\RD28YCw/%3E#4Szd';
-    $secret_iv = 'NyGjxx5#mj<+dpF>bHNuUxR<>';
-    // hash
-    $key = hash('sha256', $secret_key);
+function encrypt_decrypt($action, $string)
+{
+  $output = false;
+  $encrypt_method = "AES-256-CBC";
+  $secret_key = $acp_system['acp_special_key'];
+  $secret_iv = $acp_system['acp_special_iv'];
+  // hash
+  $key = hash('sha256', $secret_key);
 
-    // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
-    $iv = substr(hash('sha256', $secret_iv), 0, 16);
-    if ( $action == 'encrypt' ) {
-        $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
-        $output = base64_encode($output);
-    } else if( $action == 'decrypt' ) {
-        $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
-    }
-    return $output;
+  // iv - encrypt method AES-256-CBC expects 16 bytes - else you will get a warning
+  $iv = substr(hash('sha256', $secret_iv), 0, 16);
+  if ( $action == 'encrypt' ) {
+      $output = openssl_encrypt($string, $encrypt_method, $key, 0, $iv);
+      $output = base64_encode($output);
+  } else if( $action == 'decrypt' ) {
+      $output = openssl_decrypt(base64_decode($string), $encrypt_method, $key, 0, $iv);
+  }
+  return $output;
 }
-function daj_bledy($OnOff, $page, $get){
+
+function daj_bledy($OnOff, $page, $get)
+{
   if($OnOff === 1){
     if($page === $get){
       ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);

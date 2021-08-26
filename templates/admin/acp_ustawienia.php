@@ -16,6 +16,8 @@ if(isset($_POST['edycja_podstwowe'])) {
     [ 'name' => 'acp_wersja', 'value' => $_POST['acp_wersja'] ],
     [ 'name' => 'acp_mail', 'value' => $_POST['acp_mail'] ],
     [ 'name' => 'acp_timezone', 'value' => $_POST['acp_timezone'] ],
+    [ 'name' => 'acp_special_key', 'value' => $_POST['acp_special_key'] ],
+    [ 'name' => 'acp_special_iv', 'value' => $_POST['acp_special_iv'] ],
     [ 'name' => 'logo_podstawowe', 'value' => $_POST['logo_podstawowe'] ],
     [ 'name' => 'logo_logo', 'value' => $_POST['logo_logo'] ],
     [ 'name' => 'logo_napis', 'value' => $_POST['logo_napis'] ],
@@ -273,6 +275,9 @@ $cronOption = [
                  <p><div class='form-group input-group'><span class='input-group-addon'>Wersja</span><input class='form-control' type='text' name='acp_wersja' value='<?= $acp_system['acp_wersja']; ?>'/></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Mail</span><input class='form-control' type='text' name='acp_mail' value='<?= $acp_system['acp_mail']; ?>'/></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Timezone</span><input class='form-control' type='text' name='acp_timezone' value='<?= $acp_system['acp_timezone']; ?>'/></div></p>
+                 <hr>
+                 <p><div class='form-group input-group'><span class='input-group-addon'>Specjalny KLucz</span><input class='form-control' type='text' name='acp_special_key' value='<?= $acp_system['acp_special_key']; ?>'/></div></p>
+                 <p><div class='form-group input-group'><span class='input-group-addon'>Specjalny iv (Klucz)</span><input class='form-control' type='text' name='acp_special_iv' value='<?= $acp_system['acp_special_iv']; ?>'/></div></p>
                  <hr>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Logo Podstawowe</span><input class='form-control' type='text' name='logo_podstawowe' value='<?= $acp_system['logo_podstawowe']; ?>'/></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Logo Logo</span><input class='form-control' type='text' name='logo_logo' value='<?= $acp_system['logo_logo']; ?>'/></div></p>
