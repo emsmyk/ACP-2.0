@@ -3,12 +3,16 @@ function optionHtml($array, $data)
 {
   $tekst = '<select class="form-control" name="'.$data['name'].'">';
 
-  if(!in_array($data['value'], $array) && !empty($data['value'])){
+  if($data['value'] == ''){
+    $tekst .= '<option>Wybierz</option>';
+  }
+
+  elseif(!in_array($data['value'], $array) && !$data['value'] != ''){
     $tekst .= '<option value="'.$data['value'].'">Brak Danych.. (ID: '.$data['value'].')</option>';
   }
 
-  elseif(!empty($data['value'])){
-    $tekst .= '<option value="'.$data['value'].'">'.$array[ $data['value'] ].'</option>';
+  else {
+    $tekst .= '<option value="'.$data['value'].'">'.$array[$data['value']].'</option>';
   }
 
   foreach ($array as $key => $value) {
@@ -38,10 +42,15 @@ function redirect($link)
 
 function encrypt_decrypt($action, $string)
 {
+  $key = [
+    'acp_special_key' => SQL::one('SELECT `conf_value` FROM `acp_system` WHERE `conf_name` = "acp_special_key" LIMIT 1'),
+    'acp_special_iv' => SQL::one('SELECT `conf_value` FROM `acp_system` WHERE `conf_name` = "acp_special_iv" LIMIT 1')
+  ];
+
   $output = false;
   $encrypt_method = "AES-256-CBC";
-  $secret_key = $acp_system['acp_special_key'];
-  $secret_iv = $acp_system['acp_special_iv'];
+  $secret_key = $key['acp_special_key'];
+  $secret_iv = $key['acp_special_iv'];
   // hash
   $key = hash('sha256', $secret_key);
 

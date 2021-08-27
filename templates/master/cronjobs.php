@@ -2,6 +2,8 @@
 require __DIR__ . './../../func/SourceQuery/bootstrap.php';
 use xPaw\SourceQuery\SourceQuery;
 
+$db = DB::getInstance();
+
 //
 // SOURCEMOD sprawdzenie dostepnych nowych silnikow
 //
@@ -12,7 +14,7 @@ $aktualizacja_source = Model("SourceUpdate")->sprawdz_dostepne((int)$acp_system[
 //
 foreach($servers->servers as $servers){
   //sv_tags
-  $servers->rcon_dec = encrypt_decrypt('decrypt', $servers->rcon);
+  $servers->rcon_dec = encrypt_decrypt('decrypt', SQL::one('SELECT `rcon` FROM `acp_serwery` WHERE `serwer_id` = '.$servers->serwer_id.' LIMIT 1') );
   if(!empty($servers->rcon_dec)){
     $list_tags = SQL::all("SELECT * FROM `acp_serwery_tagi` WHERE `serwer` IN (0, $servers->serwer_id) ");
     $sv_tags = 'sm_acvar_console sv_tags "! !,';
@@ -35,7 +37,7 @@ foreach($servers->servers as $servers){
   if($servers->status == 1 && strtotime($servers->status_data) < (time() - $acp_system['cron_serwery_time_off'])) {
     $db->update('acp_serwery',
       [
-        'status' => 0,
+        'status' => '0',
       ],
       [
         'serwer_id' => $servers->serwer_id
@@ -88,7 +90,7 @@ foreach($servers->servers as $servers){
       //lista graczy cache
       $db->delete('acp_cache_api', [ 'get' => 'serwer_id'.$servers->serwer_id ]);
       $db->insert('acp_cache_api',[
-        'get' => "sewer_id".$servers->serwer_id,
+        'get' => "serwer_id".$servers->serwer_id,
         'dane' => Model('Cronjobs')->jsonRemoveUnicodeSequences($Query->GetPlayers()),
         'data' => date('Y-m-d H:i:s'),
       ]);
