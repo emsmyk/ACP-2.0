@@ -1,7 +1,6 @@
 <?php
 ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
 
-
 require_once('func/x_old_mysql.php');
 require_once('func/SQL.php');
 
@@ -68,7 +67,7 @@ if($player->role != -1 ) {
 		$moduly_grupa = json_decode($grupa_dane->moduly);
 		$dostep = json_decode($grupa_dane->dostep)[0];
 
-		$_SESSION['acp_grupa_sesja_nazwa'] = SQL::one("SELECT `nazwa` FROM `acp_users_grupy` WHERE `id` = ".$_SESSION['acp_grupa_sesja']." LIMIT 1");		
+		$_SESSION['acp_grupa_sesja_nazwa'] = SQL::one("SELECT `nazwa` FROM `acp_users_grupy` WHERE `id` = ".$_SESSION['acp_grupa_sesja']." LIMIT 1");
 		$_SESSION['msg'] = $Messe->expanded('warning', "Jesteś aktualnie w trakcie podglądu jao grupa <b>".$grupa_dane->nazwa."</b> (ID: ".$grupa_dane->id."), aby wyjść wyloguj się albo zmień w ustawieniach..", "TRYB POGLĄDOWY", "fa fa-warning");
 	}
 	else {

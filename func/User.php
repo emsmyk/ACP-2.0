@@ -4,8 +4,8 @@ function getUser($id)
   if(empty($id)){
     $user = new stdClass();
 
-  	$user->user = 0;
-  	$user->role = -1;
+  	$user->user = '0';
+  	$user->role = '-1';
   	$user->szablon = 'skin-blue';
 
     return $user;
