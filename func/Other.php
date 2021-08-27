@@ -101,10 +101,6 @@ function generujLosowyCiag($length = 10, $alfabet=true)
 
 function show($array, $die=true)
 {
-  // foreach ($array as $value) {
-  //   print_r($value);
-  // };
-
   echo "<pre><span style='color: red'>ACP | Admin Control Panel</br><small>return text/data</br></br></small></span>";
   print_r($array);
   echo "</pre>";
