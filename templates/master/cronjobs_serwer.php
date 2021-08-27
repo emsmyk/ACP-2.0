@@ -1,38 +1,6 @@
 <?
 require_once('func/FTP.php');
 
-// $ftp = new FTP([
-//   'ftp_user' => 'srv69939',
-//   'ftp_password' => 'gusOBRpuoy',
-//   'ftp_host' => 'e90.1shot1kill.pl',
-//   'sever' => 0
-// ]);
-//
-// // $ftp->fileList();
-// // $ftp->fileList('Steam/', 'nlist');
-//
-// $ftp->upload([
-//   'ftp_directory' => 'test',
-//   'ftp_dest_file_name' => '1.txt',
-//   'ftp_source_file_name' => 'testuploadfile.txt',
-//   'type_upload' => 'FTP_ASCII',
-//   'modul' => '?x=test',
-//   'info_wykonanie' => 'test_time',
-//   'special_table' => 'acp_system',
-//   // 'wgrywarka_file_id' => '0'
-// ]);
-// $ftp->upload([
-//   'ftp_directory' => 'test',
-//   'ftp_dest_file_name' => '2.txt',
-//   'ftp_source_file_name' => 'testuploadfile.txt',
-//   'type_upload' => 'FTP_ASCII',
-//   'modul' => '?x=test',
-//   'info_wykonanie' => 'test_time',
-//   'special_table' => 'acp_system',
-//   // 'wgrywarka_file_id' => '0'
-// ]);
-
-//start
 $TEST = 0;
 $MakeFile = Model('MakeFile');
 $Cronjobs = Model('Cronjobs');

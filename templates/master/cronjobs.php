@@ -2,8 +2,6 @@
 require __DIR__ . './../../func/SourceQuery/bootstrap.php';
 use xPaw\SourceQuery\SourceQuery;
 
-$db = DB::getInstance();
-
 //
 // SOURCEMOD sprawdzenie dostepnych nowych silnikow
 //
