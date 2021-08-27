@@ -13,7 +13,7 @@ $typ = (isset($_GET['type'])) ? (int)$_GET['type'] : null;
 $co = (isset($_GET['co'])) ? $_GET['co'] : null;
 $strona = (isset($_GET['str'])) ? (int)$_GET['str'] : null;
 
-if(!isset($typ)){ header('Location: ?x=wiadomosci&xx=skrzynka&type=1'); }
+if(!isset($typ)){ redirect('?x=wiadomosci&xx=skrzynka&type=1'); }
 
 $dane = array(0 => "Kosz <br><small>Automatycznie usuwa wiadomości starsze niż ".$acp_system['cron_optym_stare_wiadomosci_day']." dni</small>", 1 => "Skrzynka Odbiorcza", 2 => "Skrzynka Nadawcza", 3 => "Kopie Robocze");
 

@@ -102,7 +102,7 @@ class ServerModel
     }
 
     if(empty( $this->db->get_row("SELECT `serwer_id` FROM `acp_serwery` WHERE `serwer_id` = $server AND `ser_a_jr` = $player OR  `ser_a_opiekun` = $player OR  `ser_a_copiekun` = $player LIMIT 1", true) )){
-      header('Location: ?x=serwery');
+      redirect('?x=serwery');
     }
   }
 }

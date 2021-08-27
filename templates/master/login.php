@@ -9,7 +9,7 @@
 <?
 if(!empty($_POST)){
   Controller('Login')->login();
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
 

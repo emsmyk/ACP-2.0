@@ -9,7 +9,7 @@
 <?
 if(!empty($_POST)){
   Controller('Register')->register();
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
 

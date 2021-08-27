@@ -6,39 +6,42 @@
 		</div>
 	</div>
 <?
-if(!empty($_GET['co']) && !empty( Get::int('id') )) {
-	if($_GET['co'] == "usun") {
-		query("DELETE FROM `acp_users_notification` WHERE `id` = '".$_GET['id']."' AND `u_id`= '".$player->user."';");
+$co = Get::string('co');
+$id = Get::int('id');
+
+if(!empty($co) && !empty( Get::int('id') )) {
+	if($co == "usun") {
+		SQL::query("DELETE FROM `acp_users_notification` WHERE `id` = '".$id."' AND `u_id`= '".$player->user."';");
     Messe::array([
       'type' => 'success',
       'text' => "Powiadomienie zostało usunięte."
     ]);
 	}
-	else if($_GET['co'] == "read") {
-		query("UPDATE `acp_users_notification` SET `read` = '0' WHERE `id` = '".$_GET['id']."' AND `u_id`= '".$player->user."';");
+	else if($co == "read") {
+		SQL::query("UPDATE `acp_users_notification` SET `read` = '0' WHERE `id` = '".$id."' AND `u_id`= '".$player->user."';");
     Messe::array([
       'type' => 'success',
       'text' => "Powiadomienie zostało oznaczone jako odczytane."
     ]);
 	}
-	header('Location: ?x=powiadomienia');
+	redirect('?x=powiadomienia');
 }
-if(!empty($_GET['co'])) {
-	if($_GET['co'] == "odczytane_all") {
-		query("UPDATE `acp_users_notification` SET `read` = '0' WHERE `u_id`= '".$player->user."';");
+if(!empty($co)) {
+	if($co == "odczytane_all") {
+		SQL::query("UPDATE `acp_users_notification` SET `read` = '0' WHERE `u_id`= '".$player->user."';");
     Messe::array([
       'type' => 'success',
       'text' => "Wszystkie powioadmienie zostały oznacznone jako odczytane"
     ]);
 	}
-	else if($_GET['co'] == "usun_all") {
-		query("DELETE FROM `acp_users_notification` WHERE `u_id`= '".$player->user."';");
+	else if($co == "usun_all") {
+		SQL::query("DELETE FROM `acp_users_notification` WHERE `u_id`= '".$player->user."';");
     Messe::array([
       'type' => 'success',
       'text' => "Wszystkie powiadomienia zostały skasowane"
     ]);
 	}
-	header('Location: ?x=powiadomienia');
+	redirect('?x=powiadomienia');
 }
 ?>
   <div class="row">

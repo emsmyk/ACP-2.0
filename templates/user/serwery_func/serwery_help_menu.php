@@ -13,31 +13,31 @@
 $co =  Get::string('co');
 if(isset($_POST['nowy_rekord'])){
   Controller('ServerConHelpMenu')->store($dostep->SerwerHelpMenuDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if(isset($_POST['edycja_from'])){
   Controller('ServerConHelpMenu')->update($dostep->SerwerHelpMenuEdytuj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if($co == "usun"){
   Controller('ServerConHelpMenu')->destroy($dostep->SerwerHelpMenuUsun);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 if(Get::int('wymus_aktualizacje') == 1){
   Model('ServerKonfiguracja')->UpdateNow($dostep->SerwerWymusAktualizacje);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 $konfiguruj =  Get::string('konfiguruj');
 
 if(isset($_POST['opis_vipa_form_add'])) {
   Controller('ServerConHelpMenu')->storeVip($dostep->SerwerHelpMenuKonfiguracja);
-  header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
+  redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
 }
 if(isset($_POST['opis_vipa_form_zapisz'])) {
   Controller('ServerConHelpMenu')->updateVip($dostep->SerwerHelpMenuKonfiguracja);
-  header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
+  redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
 }
 if(isset($_POST['opis_vipa_kolejonosc_up'])) {
   Model('ServerKonfiguracja')->sortKolejnosc(
@@ -50,7 +50,7 @@ if(isset($_POST['opis_vipa_kolejonosc_up'])) {
     ],
     $dostep->SerwerHelpMenuKonfiguracja
   );
-  header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
+  redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
 }
 if(isset($_POST['opis_vipa_kolejonosc_down'])) {
   Model('ServerKonfiguracja')->sortKolejnosc(
@@ -63,20 +63,20 @@ if(isset($_POST['opis_vipa_kolejonosc_down'])) {
     ],
     $dostep->SerwerHelpMenuKonfiguracja
   );
-  header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
+  redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
 }
 if(isset($_POST['opis_vipa_usun'])){
  Controller('ServerConHelpMenu')->destroyVip($player->user, $dostep->SerwerHelpMenuKonfiguracja);
- header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
+ redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=opis_vipa");
 }
 
 if(isset($_POST['komenda_form_add'])) {
   Controller('ServerConHelpMenu')->storeKomenda($dostep->SerwerHelpMenuKonfiguracja);
-  header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
+  redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
 }
 if(isset($_POST['komenda_form_zapisz'])) {
   Controller('ServerConHelpMenu')->updateKomenda($dostep->SerwerHelpMenuKonfiguracja);
-  header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
+  redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
 }
 if(isset($_POST['komenda_kolejonosc_up'])){
   Model('ServerKonfiguracja')->sortKolejnosc(
@@ -89,7 +89,7 @@ if(isset($_POST['komenda_kolejonosc_up'])){
     ],
     $dostep->SerwerHelpMenuKonfiguracja
   );
-  header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
+  redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
 }
 if(isset($_POST['komenda_kolejonosc_down'])){
   Model('ServerKonfiguracja')->sortKolejnosc(
@@ -102,11 +102,11 @@ if(isset($_POST['komenda_kolejonosc_down'])){
     ],
     $dostep->SerwerHelpMenuKonfiguracja
   );
-  header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
+  redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
 }
 if(isset($_POST['komenda_usun'])){
  Controller('ServerConHelpMenu')->destroyKomenda($dostep->SerwerHelpMenuKonfiguracja);
- header("Location: ?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
+ redirect("?x=$x&xx=$xx&edycja=".Controller('ServerConHelpMenu')->id."&konfiguruj=lista_komend");
 }
 
 $serwer_array = $servers->servers_list();

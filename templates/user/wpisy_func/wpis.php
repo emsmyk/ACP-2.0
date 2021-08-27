@@ -18,28 +18,28 @@ Powiadomienia::read(Get::int('powiadomienie_id'));
 <?
 if(isset($_POST['komentarz'])) {
   Controller('Wpisy')->storeComment();
-  header("Location: ?x=$x&xx=$xx&wpis=$wpis_one&wpisid=$wpis_id");
+  redirect("?x=$x&xx=$xx&wpis=$wpis_one&wpisid=$wpis_id");
 }
 
 if(isset($_POST['zmiana_kategori'])){
   Controller('Wpisy')->kategoria($wpis_id, $dostep->WpisyKategoria);
-  header("Location: ?x=$x&xx=$xx&wpis=$wpis_one&wpisid=$wpis_id");
+  redirect("?x=$x&xx=$xx&wpis=$wpis_one&wpisid=$wpis_id");
 }
 if(isset($_POST['edytuj_wpis'])){
   Controller('Wpisy')->update($wpis_id, $dostep->WpisyEdytujWpis);
-  header("Location: ?x=$x&xx=$xx&wpis=$wpis_one&wpisid=$wpis_id");
+  redirect("?x=$x&xx=$xx&wpis=$wpis_one&wpisid=$wpis_id");
 }
 if(isset($_GET['close_open'])){
   Controller('Wpisy')->close($_GET['close_open'], $dostep->WpisyZamknij);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_GET['usun'])){
   Controller('Wpisy')->destroy($_GET['usun'], $dostep->WpisyUsun);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_GET['ogloszenie'])){
   Controller('Wpisy')->ogloszenie($_GET['ogloszenie'], $dostep->WpisyOgloszenie);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 
 ?>

@@ -15,7 +15,7 @@ tytul_strony("RoundSound: Listy");
 <?
 if(isset($_POST['nowe'])) {
   Controller('RoundsoundLista')->store($dostep->RsListaDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 ?>
 

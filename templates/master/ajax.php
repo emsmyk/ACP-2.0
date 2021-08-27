@@ -3,24 +3,21 @@ if(empty($player)){
   die ('user nie zalogowany');
 }
 
-$xxx = $_GET['xxx'];
+$xxx = Get::string('xxx');
 
 switch ($xx) {
   case 'header':
     switch ($xxx) {
       case 'ilosc_powiadomien':
-        $return = SQL::one("SELECT COUNT(*) AS `count` FROM `acp_users_notification` WHERE `read` = 1 AND `u_id` = $player->user;");
-        $return = ($return == 0) ? '<i class="fa fa-bell-o"></i>' : '<i class="fa fa-bell-o"></i><span class="label label-warning">'.$return.'</span><script>playSound();</script>';
+        $return = ($player->notyfi['notyfication_count'] == 0) ? '<i class="fa fa-bell-o"></i>' : '<i class="fa fa-bell-o"></i><span class="label label-warning">'.$player->notyfi['notyfication_count'].'</span><script>playSound();</script>';
         echo $return;
         break;
       case 'ilosc_zadan':
-        $return = SQL::one("SELECT COUNT(`id`) AS `count` FROM `acp_zadania_users` LEFT JOIN (`acp_zadania`) ON `acp_zadania_users`.`id_zadania` = `acp_zadania`.`id` WHERE `u_id` = $player->user AND `status` IN (0, 1, 2); ");
-        $return = ($return == 0) ? '<i class="fa fa-flag-o"></i>' : '<i class="fa fa-flag-o"></i><span class="label label-danger">'.$return.'</span>';
+        $return = ($player->notyfi['task_count'] == 0) ? '<i class="fa fa-flag-o"></i>' : '<i class="fa fa-flag-o"></i><span class="label label-danger">'.$player->notyfi['task_count'].'</span>';
         echo $return;
         break;
       case 'ilosc_wiadomosc':
-        $return = SQL::one("SELECT COUNT(*) AS `count` FROM `acp_messages` INNER JOIN `acp_users` ON `m_from` = `user` WHERE `m_to` = $player->user AND `m_type` = 1 AND `m_status` = 0;");
-        $return = ($return == 0) ? '<i class="fa fa-envelope-o"></i>' : '<i class="fa fa-envelope-o"></i><span class="label label-success">'.$return.'</span><script>playSound();</script>';
+        $return = ($player->notyfi['message_count'] == 0) ? '<i class="fa fa-envelope-o"></i>' : '<i class="fa fa-envelope-o"></i><span class="label label-success">'.$player->notyfi['message_count'].'</span><script>playSound();</script>';
         echo $return;
         break;
 

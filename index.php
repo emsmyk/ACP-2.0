@@ -34,7 +34,7 @@ if(!empty($_SESSION['user']) && is_numeric($_SESSION['user']))
 
 	if($player->banned === 0)
 	{
-		$_SESSION = array(); session_destroy(); header('Location: ?x=login');
+		$_SESSION = array(); session_destroy(); redirect('?x=login');
 	}
 
 	$player->szablon = (empty($player->szablon)) ? 'skin-blue': $player->szablon;

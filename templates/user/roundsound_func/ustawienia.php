@@ -39,11 +39,11 @@ if(isset($_POST['edytuj'])) {
   Model('Roundsound')->zmien_wartosc($_POST['rs_vote'], "rs_vote", $dostep->RsUstPodstawowe);
   Model('Roundsound')->zmien_wartosc($_POST['rs_vote_time'], "rs_vote_time", $dostep->RsUstPodstawowe);
   Model('Roundsound')->zmien_wartosc($_POST['rs_katalog'], "rs_katalog", $dostep->RsUstPodstawowe);
-	header("Location: ?x=$x&xx=$xx");
+	redirect("?x=$x&xx=$xx");
 }
 if(!empty(Get::int('id')) && !empty($_GET['on_off'])){
 	Model('Roundsound')->ustawienia_OnOff($rsSystem['rs_serwery'], Get::int('id'), $_GET['on_off'], $dostep->RsUstSerwery);
-	header("Location: ?x=$x&xx=$xx");
+	redirect("?x=$x&xx=$xx");
 }
 
 ?>

@@ -31,12 +31,12 @@ tytul_strony("Usługi: Moje Usługi");
       case 'edycja':
         if(isset($_POST['edycja_from'])){
           Controller('Uslugi')->uslugi_edytuj($dostep->UslugiListaEdytuj);
-          header("Location: ?x=$x&xx=$xx&co=$co&id=$id");
+          redirect("?x=$x&xx=$xx&co=$co&id=$id");
         }
         break;
       case 'usun':
         Controller('Uslugi')->uslugi_usun($id, $dostep->UslugiListaUsun);
-        header("Location: ?x=$x&xx=$xx");
+        redirect("?x=$x&xx=$xx");
         break;
     }
   }

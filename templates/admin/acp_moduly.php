@@ -12,41 +12,41 @@
 <?
 if(isset($_POST['dodaj'])) {
   Controller('Ustawienia')->acp_moduly_dodaj();
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['edycja_from'])) {
   Controller('Ustawienia')->acp_moduly_edytuj_modul();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 if(isset($_POST['edycja_from_uprawnienia_add'])){
   Controller('Ustawienia')->edycja_from_uprawnienia_add();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 if(isset($_POST['edycja_from_uprawnienia_zapisz'])){
   Controller('Ustawienia')->edycja_from_uprawnienia_zapisz();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 if(isset($_POST['edycja_from_uprawnienia_usun'])){
   Controller('Ustawienia')->edycja_from_uprawnienia_usun();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 
 if(isset($_POST['edycja_from_menu_add'])){
   Controller('Ustawienia')->edycja_from_menu_add();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 if(isset($_POST['edycja_from_menu_zapisz'])){
   Controller('Ustawienia')->edycja_from_menu_zapisz();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 if(isset($_POST['edycja_from_menu_usun'])){
   Controller('Ustawienia')->edycja_from_menu_usun();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 
 if(Get::string('co') == 'usun'){
   Controller('Ustawienia')->acp_moduly_usun(Get::int('id'));
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
 

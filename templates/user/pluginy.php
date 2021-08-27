@@ -14,33 +14,33 @@ $id = Controller('Pluginy')->id;
 
 if(isset($_POST['nowe'])) {
   Controller('Pluginy')->store($dostep->PluginyDodaj);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['edytuj'])) {
   Controller('Pluginy')->update($dostep->PluginyEdytuj);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 switch (Controller('Pluginy')->co) {
   case 'usun':
     Controller('Pluginy')->destroy($dostep->PluginyUsun);
-    header("Location: ?x=$x");
+    redirect("?x=$x");
     break;
   case 'usun_plik':
     Controller('PluginyFile')->destroy($dostep->PluginyPlikUsun);
-    header("Location: ?x=$x&id=$id");
+    redirect("?x=$x&id=$id");
     break;
 }
 if (isset($_POST['wgraj_plik'])) {
   Controller('PluginyFile')->store($dostep->PluginyPlikDodaj);
-  header("Location: ?x=$x&id=$id");
+  redirect("?x=$x&id=$id");
 }
 if(isset($_POST['edytuj_plik'])) {
   Controller('PluginyFile')->update($dostep->PluginyPlikEdytuj);
-  header("Location: ?x=$x&id=$id");
+  redirect("?x=$x&id=$id");
 }
 if(isset($_POST['wgrywarka'])){
   Controller('Pluginy')->uploadServer($dostep->PluginyWgrywarka);
-  header("Location: ?x=$x&id=$id");
+  redirect("?x=$x&id=$id");
 }
 ?>
   <div class="row">

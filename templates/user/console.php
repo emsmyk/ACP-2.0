@@ -21,21 +21,21 @@ if($id == null || $id == 0){
     'type' => 'warning',
     'text' => "Brak wybranego serwera."
   ]);
-  header("Location: ?x=wpisy");
+  redirect("?x=wpisy");
 }
 elseif(empty($serwer->ip)){
   return Messe::array([
     'type' => 'warning',
     'text' => "Wybrany serwer nie istnieje"
   ]);
-  header("Location: ?x=wpisy");
+  redirect("?x=wpisy");
 }
 elseif(empty($serwer->rcon_dec)){
   return Messe::array([
     'type' => 'warning',
     'text' => "Błąd hasła RCON, sprawdź jest! Jeśli nie posiadasz dostępu do aktualizacji poinformuj o tym administratora."
   ]);
-  header("Location: ?x=wpisy");
+  redirect("?x=wpisy");
 }
 
 if(isset($_POST['komenda'])){

@@ -13,7 +13,7 @@
 $ss_acp_logi = (empty($_SESSION['ss_acp_logi'])) ? 0 : $_SESSION['ss_acp_logi'];
 if(Get::string('co') == 'zdalny'){
   Controller('Logi')->zmien_ss_logi_zdalne($ss_acp_logi);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
 	<div class="row">
@@ -49,7 +49,7 @@ if(Get::string('co') == 'zdalny'){
 							</tr>
 						</thead>
 						<tbody>
-						<?            
+						<?
 						foreach(Controller('Logi')->index($ss_acp_logi) as $log){
 						?>
 							<tr class="odd gradeX">

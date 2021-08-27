@@ -20,60 +20,60 @@ $id = Get::int('id');
 
 if(isset($_POST['edytuj'])) {
   $TaskController->update($id, $dostep->ZadanieEdytuj);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(!empty($_GET['usun'])) {
   $TaskController->destroy($id, $dostep->ZadanieEdytuj);
-  header("Location: ?x=$x&xx=lista");
+  redirect("?x=$x&xx=lista");
 }
 if(!empty($_GET['akceptuj'])) {
   $TaskController->task_akcept($id, $dostep->ZadanieAkcOdrz);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(!empty($_GET['odrzuc'])) {
   $TaskController->task_odrzuc($id, $dostep->ZadanieAkcOdrz);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(!empty($_GET['przyjmnij'])) {
   $TaskController->task_przyjmnij($id, $dostep->ZadaniePrzyjmnij);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(!empty($_GET['zakoncz'])) {
   $TaskController->task_zakoncz($id, $dostep->ZadanieZakoncz);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(!empty($_GET['anuluj'])) {
   $TaskController->task_anuluj($id, $dostep->ZadanieAnuluj);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(isset($_POST['komentarz_tekst'])) {
   $TaskController->comment($id, $dostep->ZadanieKomentarze);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(isset($_POST['todo_dodaj'])) {
   $TaskController->todoStore($id, $dostep->ZadanieToDo);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(!empty($_GET['todo_status'])) {
   $TaskController->todoStatus($id, $dostep->ZadanieToDo);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(!empty($_GET['todo_usun'])) {
   $TaskController->todoDestroy($id, $dostep->ZadanieToDo);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(isset($_POST['zapros'])) {
   $TaskController->zapros($id, $dostep->ZadanieZapros);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 if(Get::string('public_link')){
   $TaskModel->public_link($id, $dostep->ZadanieLink);
-  header("Location: ?x=$x&xx=$xx&id=$id");
+  redirect("?x=$x&xx=$xx&id=$id");
 }
 
 $zadanie = $TaskController->indexTask($id)['task'];
 if(empty($zadanie)){
-  header("Location: ?x=zadania&xx=lista");
+  redirect("?x=zadania&xx=lista");
 }
 
 tytul_strony("Zadania: $zadanie->temat");

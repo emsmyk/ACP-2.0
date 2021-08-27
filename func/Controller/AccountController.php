@@ -9,13 +9,13 @@ class AccountController
   public function index($id)
   {
     if(empty($id) || $id == 0){
-      header("Location: ?x=wpisy");
+      redirect("?x=wpisy");
     }
 
     $user = $this->db->get_row("SELECT `user`, `login`, `role`, `grupa`, `last_login`, `data_rejestracji`, `urodziny`, `banned`, `cash`, `ulubiony_serwer`, `lokalizacja`, `wyksztalcenie`, wirepusher,  `steam`, `steam_update`, `steam_avatar`, `steam_login`, (SELECT `nazwa` FROM `acp_serwery` WHERE `serwer_id` = `ulubiony_serwer` LIMIT 1) AS `ulubiony_serwer_nazwa`, (SELECT `nazwa` FROM `acp_users_grupy` WHERE `id` = `grupa` lIMIT 1) AS `nazwa_grupy`, (SELECT COUNT(*) FROM `acp_wpisy` WHERE `u_id` = `user`) AS `ilosc_wpisow` FROM `acp_users` WHERE `user` = $this->id;", true);
 
     if(empty($user->user)){
-      header("Location: ?x=wpisy");
+      redirect("?x=wpisy");
     }
 
     $wpisy = $this->db->get_results("SELECT *,

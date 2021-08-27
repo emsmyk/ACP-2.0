@@ -22,28 +22,28 @@ if(isset($_POST) && !empty($_POST['id'])){
       ['time_uslugi' => 'cron_optym_stare_uslugi_hour', 'value' => $_POST['cron_optym_stare_uslugi_hour']],
       ['time_uslugi' => 'cron_optym_stare_uslugi_day', 'value' => $_POST['cron_optym_stare_uslugi_day']],
     ]);
-    header("Location: ?x=$x&xx=$xx");
+    redirect("?x=$x&xx=$xx");
   }
   if(isset($_POST['Dodaj'])){
     Controller('Uslugi')->dodaj_usluge($dostep->UslugiNowaUsluga);
-    header("Location: ?x=$x&xx=$xx");
+    redirect("?x=$x&xx=$xx");
   }
   if(isset($_POST['save'])){
     Controller('Uslugi')->zapisz_zmiany($dostep->UslugiNowaUsluga);
-    header("Location: ?x=$x&xx=$xx");
+    redirect("?x=$x&xx=$xx");
   }
   if(isset($_POST['usun'])){
     Controller('Uslugi')->usun_usluge($dostep->UslugiNowaUsluga);
-    header("Location: ?x=$x&xx=$xx");
+    redirect("?x=$x&xx=$xx");
   }
   if(isset($_POST['edytuj_publiczne'])){
     Controller('Uslugi')->edytuj_dane_publiczne($dostep->UslugiNowaUsluga);
-    header("Location: ?x=$x&xx=$xx");
+    redirect("?x=$x&xx=$xx");
   }
 }
 if(!empty(Get::int('usluga')) && !empty(Get::int('on_off'))){
   Model('Roundsound')->ustawienia_OnOff($_GET['serwer'],  Get::int('usluga'), Get::int('on_off'), $dostep->UslugiNowaUsluga);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 $cronOption = [

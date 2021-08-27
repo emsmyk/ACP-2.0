@@ -9,11 +9,11 @@
 <?
 if(isset($_POST['przypomnij'])){
   Controller('UserForgetPassword')->forget_password($_POST['login'], $_POST['mail'], $acp_system['acp_mail']);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['nowe_haslo'])){
   Controller('UserForgetPassword')->forget_password_new($_POST['pass'], $_POST['pass2'], $_POST['hash']);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
 

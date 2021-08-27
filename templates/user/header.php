@@ -51,7 +51,6 @@
 <script> function playSound () { document.getElementById('play').play(); }</script>
 <audio id="play" src="./www/powiadomienie.ogg"></audio>
 
-
 <body class="sidebar-mini <?= $player->szablon, " ", $player->uklad_16_4, " ", $player->menu, " ", $player->pudelkowy ?>">
 	<div class="wrapper">
 <?

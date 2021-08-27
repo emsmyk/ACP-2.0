@@ -13,20 +13,20 @@
 $co = Get::string('co');
 if(isset($_POST['nowy_rekord'])){
   Controller('ServerConReklamy')->store($dostep->SerwerReklamyDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if(isset($_POST['edycja_from'])){
   Controller('ServerConReklamy')->update($dostep->SerwerReklamyEdytuj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if($co == "usun"){
   Controller('ServerConReklamy')->destroy($dostep->SerwerReklamyUsun);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 if(Get::int('wymus_aktualizacje') == 1){
   Model('ServerKonfiguracja')->UpdateNow($dostep->SerwerWymusAktualizacje);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 $serwer_array = $servers->servers_list();

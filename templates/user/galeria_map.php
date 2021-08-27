@@ -19,7 +19,7 @@ if(!empty($id)):
 
   if(isset($_POST['wgraj_grafike_mapy'])) {
     Controller('GaleriaMap')->store($dostep->GaleriaMapWgraj);
-    header("Location: ?x=$x&id=$id");
+    redirect("?x=$x&id=$id");
   }
 ?>
 <div class="row">

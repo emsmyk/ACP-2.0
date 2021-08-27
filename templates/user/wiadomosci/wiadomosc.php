@@ -17,19 +17,19 @@ $co = Get::string('co');
 
 if(isset($_POST['nowa_wiadomosc'])) {
   Controller('Mess')->send();
-	header("Location: ?x=wiadomosci&xx=skrzynka&type=$typ");
+	redirect("?x=wiadomosci&xx=skrzynka&type=$typ");
 }
 if(isset($_POST['odrzuc_wiadomosc'])) {
 	Controller('Mess')->odrzuc_wiadomosc($_POST['id']);
-  header("Location: ?x=wiadomosci&xx=skrzynka&type=$typ");
+  redirect("?x=wiadomosci&xx=skrzynka&type=$typ");
 }
 if(isset($_POST['zapisz_wiadomosc'])) {
   Controller('Mess')->zapisz_wiadomosc();
-  header("Location: ?x=wiadomosci&xx=skrzynka&type=$typ");
+  redirect("?x=wiadomosci&xx=skrzynka&type=$typ");
 }
 if(isset($_POST['zapisz_wiadomosc_update'])) {
 	Controller('Mess')->zapisz_wiadomosc_update($_POST['id']);
-	header("Location: ?x=wiadomosci&xx=wiadomosc&type=$typ&id=".$_POST['id']."&co=update");
+	redirect("?x=wiadomosci&xx=wiadomosc&type=$typ&id=".$_POST['id']."&co=update");
 }
 ?>
   <div class="row">

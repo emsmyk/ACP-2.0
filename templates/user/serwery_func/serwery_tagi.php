@@ -16,20 +16,20 @@ $co = Get::string('co');
 
 if(!empty($co) && !empty($id) &&  $co == "usun"){
   Controller('ServerConTagi')->destroy($id, $dostep->SerwerTagiUsun);
-	header("Location: ?x=$x&xx=$xx");
+	redirect("?x=$x&xx=$xx");
 }
 if(isset($_POST['edycja_from'])) {
   Controller('ServerConTagi')->update($_POST['id'], $dostep->SerwerTagiEdytuj);
-	header("Location: ?x=$x&xx=$xx&edycja=$edycja_id");
+	redirect("?x=$x&xx=$xx&edycja=$edycja_id");
 }
 if(isset($_POST['nowy_rekord'])) {
   Controller('ServerConTagi')->store($dostep->SerwerTagiDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 if(Get::int('wymus_aktualizacje') == 1){
   Model('ServerKonfiguracja')->UpdateNow($dostep->SerwerWymusAktualizacje);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 $serwer_array = $servers->servers_list();

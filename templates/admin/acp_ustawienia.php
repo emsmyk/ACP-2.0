@@ -29,7 +29,7 @@ if(isset($_POST['edycja_podstwowe'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia podstawowe"
   ]);
-	header("Location: ?x=$x");
+	redirect("?x=$x");
 }
 if(isset($_POST['edycja_grafiki'])) {
   Controller('Ustawienia')->updateConf([
@@ -59,7 +59,7 @@ if(isset($_POST['edycja_grafiki'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia podstawowe"
   ]);
-	header("Location: ?x=$x");
+	redirect("?x=$x");
 }
 if(isset($_POST['edycja_steam'])) {
   Controller('Ustawienia')->updateConf([
@@ -73,7 +73,7 @@ if(isset($_POST['edycja_steam'])) {
     'text' => "Zaktualizowano ustawienia steam"
   ]);
 
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['edycja_cronjobs'])) {
   Controller('Ustawienia')->updateConf([
@@ -85,7 +85,7 @@ if(isset($_POST['edycja_cronjobs'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia prac zdalnych"
   ]);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['edycja_cronjobs_czasy'])) {
   Controller('Ustawienia')->updateConf([
@@ -118,7 +118,7 @@ if(isset($_POST['edycja_cronjobs_czasy'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia prac zdalnych"
   ]);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['e_galeria_map'])) {
   Controller('Ustawienia')->updateConf([
@@ -136,7 +136,7 @@ if(isset($_POST['e_galeria_map'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia galeri map"
   ]);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['e_raport_opiekuna'])) {
   Controller('Ustawienia')->updateConf([
@@ -158,7 +158,7 @@ if(isset($_POST['e_raport_opiekuna'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia galeri map"
   ]);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['edycja_sourcebans'])) {
   Controller('Ustawienia')->updateConf([
@@ -172,7 +172,7 @@ if(isset($_POST['edycja_sourcebans'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia Sourcebans"
   ]);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['edycja_hlstats'])) {
   Controller('Ustawienia')->updateConf([
@@ -194,7 +194,7 @@ if(isset($_POST['edycja_hlstats'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia Hlstats"
   ]);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['edycja_wpisy'])) {
   Controller('Ustawienia')->updateConf([
@@ -211,31 +211,31 @@ if(isset($_POST['edycja_wpisy'])) {
     'type' => 'success',
     'text' => "Zaktualizowano ustawienia Wpisów"
   ]);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['wpisy_kategorie_zapisz'])){
   Controller('Ustawienia')->wpisySave();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 if(isset($_POST['wpisy_kategorie_dodaj'])){
   Controller('Ustawienia')->wpisyStore();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 if(isset($_POST['wpisy_kategorie_usun'])){
   Controller('Ustawienia')->wpisyDestroy();
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
 }
 if(isset($_POST['danepub_menu_edycja_zapisz'])){
   Controller('Ustawienia')->danepub_zapisz(json_decode($acp_system['danepub_menu_list']));
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."");
+  redirect("?x=$x&id=".(int)$_GET["id"]."");
 }
 if(isset($_POST['danepub_menu_dodaj'])){
   Controller('Ustawienia')->danepub_dodaj(json_decode($acp_system['danepub_menu_list']));
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."");
+  redirect("?x=$x&id=".(int)$_GET["id"]."");
 }
 if(isset($_POST['danepub_menu_edycja_usun'])){
   Controller('Ustawienia')->danepub_usun(json_decode($acp_system['danepub_menu_list']));
-  header("Location: ?x=$x&id=".(int)$_GET["id"]."");
+  redirect("?x=$x&id=".(int)$_GET["id"]."");
 }
 
 $cronOption = [

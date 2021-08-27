@@ -45,15 +45,15 @@ usort($fora_items_all, function($a, $b) {
   <?
   if(isset($_POST['edytuj'])){
     $KonkurencjaController->update($dostep->KonkurencjaEdytuj);
-    header("Location: ?x=$x");
+    redirect("?x=$x");
   }
   if(isset($_POST['dodaj'])){
     $KonkurencjaController->dodaj($dostep->KonkurencjaDodaj);
-    header("Location: ?x=$x");
+    redirect("?x=$x");
   }
   if(!empty($_GET['usun_cache'])){
     $KonkurencjaController->usun_cache($dostep->KonkurencjaCache);
-    header("Location: ?x=$x");
+    redirect("?x=$x");
   }
 
   if(empty($_SESSION['konkurencja_show'])){
@@ -79,11 +79,11 @@ usort($fora_items_all, function($a, $b) {
         'text' => "Na czas trwania sesji strona została ukryta z głównego strumienia danych."
       ]);
     }
-    header("Location: ?x=$x");
+    redirect("?x=$x");
   }
   if($co == 'usun'){
     $KonkurencjaController->usun(Get::int('id') , $player->user, $dostep->KonkurencjaCache);
-    header("Location: ?x=$x");
+    redirect("?x=$x");
   }
   ?>
   <div class="row">

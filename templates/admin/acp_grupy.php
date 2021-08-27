@@ -15,12 +15,12 @@ $id = Controller('RootGrups')->id;
 
 if(isset($_POST['nowa_grupa'])) {
   Controller('RootGrups')->store();
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 
 if($co == 'usun_grupa' && $id >= 0) {
   Controller('RootGrups')->destroy($id);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
 <?
@@ -39,7 +39,7 @@ if($co == 'edytuj_grupa' && $id >= 0) {
     query("UPDATE `acp_users_grupy` SET `dostep` = '[".$tablica_post_dostep."]', `moduly` = '$tablica_post', `nazwa` = '$e_nazwa', `kolor` = '$e_kolor' WHERE `id` = $e_id;");
 
     Logs::log("Grupa $e_nazwa (ID: $e_id) została zedytowana");
-  	header("Location: ?x=$x&co=$co&id=$id");
+  	redirect("?x=$x&co=$co&id=$id");
   }
 ?>
 <div class="row">

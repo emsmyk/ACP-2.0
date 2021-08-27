@@ -34,7 +34,7 @@ Powiadomienia::read(Get::int('powiadomienie_id'));
 <?
 if(isset($_POST['aktualizuj'])){
   Model('SourceUpdate')->aktualizuj($player->user, $dostep->SourceUpdate);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
 	<div class="row">

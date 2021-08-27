@@ -13,11 +13,11 @@ if(isset($_POST['user_ustawienia'])) {
 	  'text' => "Zaktualizowano styl oraz ustawienia strony"
 	]);
 
-	header("Location: ?x=$x");
+	redirect("?x=$x");
 }
 if(isset($_POST['acp_grupa_sesja'])){
 	$_SESSION['acp_grupa_sesja'] = $_POST['id_grupy_sessja'];
-	header("Location: ?x=$x");
+	redirect("?x=$x");
 }
 ?>
 

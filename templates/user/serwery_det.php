@@ -1,7 +1,7 @@
 <?
 $changelog = Controller('Changelog');
 
-$serwer_id = $_GET['serwer_id'];
+$serwer_id = Get::int('serwer_id');
 Model('Server')->dostep($serwer_id, $player->user);
 
 $srv_dane = SQL::row("SELECT *, (SELECT `login` FROM `acp_users` WHERE `user` = `ser_a_copiekun`) AS `nick_copiekun` FROM `acp_serwery` WHERE `serwer_id` = $serwer_id; ");

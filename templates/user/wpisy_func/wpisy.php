@@ -26,11 +26,11 @@ else {
 <?
 if(isset($_POST['komentarz'])) {
   Controller('WpisyCom')->storeComment();
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['nowy_wpis'])) {
   Controller('Wpisy')->store();
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
   <div class="row">

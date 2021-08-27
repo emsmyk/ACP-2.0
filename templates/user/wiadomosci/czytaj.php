@@ -15,11 +15,11 @@ $co = Get::string('co');
 
 if($co == 'usun') {
 	Controller('Mess')->destroy($id, $typ);
-  header("Location: ?x=$x&xx=skrzynka&type=$typ");
+  redirect("?x=$x&xx=skrzynka&type=$typ");
 }
 if($co == 'kosz') {
 	Controller('Mess')->kosz($id, $typ);
-  header("Location: ?x=$x&xx=skrzynka&type=$typ");
+  redirect("?x=$x&xx=skrzynka&type=$typ");
 }
 
 Controller('Mess')->read($id);

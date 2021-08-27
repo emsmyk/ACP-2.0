@@ -15,24 +15,24 @@ $co = Controller('RootUsers')->co;
 
 if(isset($_POST['edycja'])) {
   Controller('RootUsers')->update();
-	header("Location: ?x=$x");
+	redirect("?x=$x");
 }
 if(isset($_POST['dodaj'])) {
   Controller('Register')->addUser();
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 
 if(!empty($id) && $co == 'password') {
   Controller('RootUsers')->password($id);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(!empty($id) && $co == 'ban'){
   Controller('RootUsers')->ban($id);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(!empty($id) && $co == 'delete'){
   Controller('RootUsers')->destroy($id);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 ?>
 <?

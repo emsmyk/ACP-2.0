@@ -20,7 +20,7 @@ $func = Controller('Account');
 
   if(isset($_POST['user_edytuj'])){
     $func->user_password();
-    header("Location: ?x=$x&id=$user->user");
+    redirect("?x=$x&id=$user->user");
   }
 
   ?>

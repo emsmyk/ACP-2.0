@@ -18,7 +18,7 @@ $TaskModel = Model('Task');
 <?
 if(isset($_POST['nowe'])) {
   $TaskListController->store($dostep->ZadaniaDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 ?>
   <div class="row">

@@ -28,7 +28,7 @@ if(isset($co) && isset($xx)){
         'text' => "Zaktualizowano ustawienia dla serwera $dane_xx->nazwa - $dane_xx->mod"
       ]);
 
-      header("Location: ?x=$x");
+      redirect("?x=$x");
     }
     if(isset($_POST['dodaj_from'])){
       $form = new stdClass();
@@ -52,8 +52,8 @@ if(isset($co) && isset($xx)){
         'type' => 'success',
         'text' => "Dodano serwer $dane_xx->nazwa - $dane_xx->mod do analizatora ilości slotów"
       ]);
-      
-      header("Location: ?x=$x");
+
+      redirect("?x=$x");
     }
 }
 ?>

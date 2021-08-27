@@ -29,11 +29,11 @@ $dane = Controller('Roundsound')->DanePubliczne($id_roundsound);
         <?
         if(isset($_POST['propozycja'])){
           Controller('Roundsound')->propozycja($dane->rs->id);
-          header("Location: ?x=$x&id_roundsound=$id_roundsound");
+          redirect("?x=$x&id_roundsound=$id_roundsound");
         }
         if($_GET['co'] == 'vote'){
           Controller('Roundsound')->vote($dane->rs->id, Get::int('id') );
-          header("Location: ?x=$x&id_roundsound=$id_roundsound");
+          redirect("?x=$x&id_roundsound=$id_roundsound");
         }
         ?>
          <div class="row text-center text-lg-left">

@@ -13,15 +13,15 @@
 $co =  Get::string('co');
 if(isset($_POST['nowy_rekord'])){
   Controller('ServerConHextags')->store($dostep->SerwerRangiDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if(isset($_POST['edycja_from'])){
   Controller('ServerConHextags')->update($dostep->SerwerRangiEdytuj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if($co == "usun"){
   Controller('ServerConHextags')->destroy($dostep->SerwerRangiUsun);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 if(!empty(Controller('ServerConHextags')->id) && $co == "kolejonosc_up"){
@@ -35,7 +35,7 @@ if(!empty(Controller('ServerConHextags')->id) && $co == "kolejonosc_up"){
     ],
     $dostep->SerwerRangiEdytuj
   );
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if(!empty(Controller('ServerConHextags')->id) && $co == "kolejonosc_down"){
   Model('ServerKonfiguracja')->sortKolejnosc(
@@ -48,11 +48,11 @@ if(!empty(Controller('ServerConHextags')->id) && $co == "kolejonosc_down"){
     ],
     $dostep->SerwerRangiEdytuj
   );
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if(Get::int('wymus_aktualizacje') == 1){
   Model('ServerKonfiguracja')->UpdateNow($dostep->SerwerWymusAktualizacje);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 $serwer_array = $servers->servers_list();

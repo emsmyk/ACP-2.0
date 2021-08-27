@@ -16,28 +16,28 @@ $row = Controller('RoundsoundLista')->edit(Get::int('id'));
 tytul_strony("RoundSound: Lista - $row->nazwa");
 
 if(empty($row)){
-  header("Location: ?x=roundsound&xx=lista");
+  redirect("?x=roundsound&xx=lista");
 }
 
 if(isset($_POST['edit'])) {
   Controller('RoundsoundLista')->update($row->id, $dostep->RsListaEdycja);
-  header("Location: ?x=$x&xx=$xx&id=$row->id");
+  redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if(isset($_POST['dodaj_piosenke'])) {
   Controller('RoundsoundListSong')->addSong($_POST['piosenka'], $row->id, $dostep->RsListaDodajPiosenke);
-  header("Location: ?x=$x&xx=$xx&id=$row->id");
+  redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if($co == 'usun'){
   Controller('RoundsoundLista')->destroy($row->id, $dostep->RsListaUsun);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if($co == 'usun_piosenke_z_listy'){
   Controller('RoundsoundListaSong')->deletesong(Get::int('id_piosenki'), $row->id, $dostep->RsListaUsunPiosenke);
-  header("Location: ?x=$x&xx=$xx&id=$row->id");
+  redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if($co == 'ustaw_status'){
   Controller('RoundsoundLista')->status($row->id, Get::string('jaki'), $dostep->RsUstawStatus);
-  header("Location: ?x=$x&xx=$xx&id=$row->id");
+  redirect("?x=$x&xx=$xx&id=$row->id");
 }
 
 ?>

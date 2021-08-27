@@ -17,14 +17,14 @@ if($id == null || $id == 0){
     'type' => 'warning',
     'text' => "Brak wybranego serwera.."
   ]);
-  header("Location: ?x=wpisy");
+  redirect("?x=wpisy");
 }
 elseif(empty($serwer->ip)){
   Messe::array([
     'type' => 'warning',
     'text' => "Wybrany serwer nie istnieje"
   ]);
-  header("Location: ?x=wpisy");
+  redirect("?x=wpisy");
 }
 
 $serwer->say = Model('Hlstats')->say($serwer->prefix_hls);

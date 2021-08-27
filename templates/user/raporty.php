@@ -14,6 +14,6 @@ if($page != 'default') {
   require_once($page);
 }
 else {
-  header("Location: ?x=default");
+  redirect("?x=default");
 }
 ?>

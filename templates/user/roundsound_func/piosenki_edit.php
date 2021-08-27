@@ -20,27 +20,27 @@ tytul_strony("RoundSound: Piosenka - $row->nazwa");
 
 if(isset($_POST['edit'])) {
   Controller('RoundsoundSong')->update($row->id, $dostep->RsPiosenkaEdytuj);
-  header("Location: ?x=$x&xx=$xx&id=$row->id");
+  redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if(isset($_POST['wgraj_mp3'])) {
   Controller('RoundsoundSong')->uploadMp3($row->id, $dostep->RsPiosenkaMp3);
-  header("Location: ?x=$x&xx=$xx&id=$row->id");
+  redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if($co == 'usun'){
   Controller('RoundsoundSong')->destroy($row->id, $dostep->RsPiosenkaUsun);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if($co == 'akceptuj'){
   Controller('RoundsoundSong')->akcept($row->id, $dostep->RsPiosenkaAkcept);
-  header("Location: ?x=$x&xx=$xx&id=$row->id");
+  redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if($co == 'dodaj_do_listy'){
   Controller('RoundsoundListSong')->addSong($row->id, Get::int('id_roundsound'), $dostep->RsPiosenkaDodajDoListy);
-  header("Location: ?x=$x&xx=$xx&id=$row->id");
+  redirect("?x=$x&xx=$xx&id=$row->id");
 }
 
 if(empty($row)){
-  header("Location: ?x=roundsound&xx=piosenki");
+  redirect("?x=roundsound&xx=piosenki");
 }
 ?>
   <div class="row">

@@ -14,20 +14,20 @@
 $co =  Get::string('co');
 if(isset($_POST['nowy_rekord'])){
   Controller('ServerConDB')->store($dostep->SerwerBazaDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if(isset($_POST['edycja_from'])){
   Controller('ServerConDB')->update($dostep->SerwerBazaEdytuj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if($co == "usun"){
   Controller('ServerConDB')->destroy($dostep->SerwerBazaUsun);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 if(Get::int('wymus_aktualizacje') == 1){
   Model('ServerKonfiguracja')->UpdateNow($dostep->SerwerWymusAktualizacje);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 $serwer_array = $servers->servers_list();

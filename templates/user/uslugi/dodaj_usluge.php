@@ -11,7 +11,7 @@ tytul_strony("Usługi: Dodaj Usługę");
 <?
 if(isset($_POST['nowe'])){
   Controller('Uslugi')->admin_dodaj_usluge($dostep->ZadaniaDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 ?>
 	<div class="row">

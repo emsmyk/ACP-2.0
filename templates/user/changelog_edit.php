@@ -27,16 +27,16 @@ if(Get::string('changelog') == 'changelog'){
   if(isset($_POST['changelog_wlasny'])) {
     $changelog->store('wlasny');
   }
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 
 if(!empty($id) &&  $co == "usun"){
   $changelog->destroy($id, $dostep->ChangelogUsun);
-	header("Location: ?x=$x");
+	redirect("?x=$x");
 }
 if(isset($_POST['edycja_from'])) {
   $changelog->update($id, $dostep->ChangelogEdytuj);
-	header("Location: ?x=$x");
+	redirect("?x=$x");
 }
 ?>
 <?

@@ -21,23 +21,23 @@ $serverId = Controller('ServerUstawienia')->serverId;
 
 if(isset($_POST['nowy_serwer'])){
   Controller('ServerUstawienia')->store($dostep->SerwerDodaj);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if(isset($_POST['edycja'])) {
   Controller('ServerUstawienia')->update($dostep->SerwerEdytuj);
-	header("Location: ?x=$x&co=edycja&server_id=$serverId");
+	redirect("?x=$x&co=edycja&server_id=$serverId");
 }
 if(isset($_POST['cron'])) {
   Controller('ServerUstawienia')->updateCron($dostep->SerwerCron);
-	header("Location: ?x=$x&co=cron&server_id=$serverId");
+	redirect("?x=$x&co=cron&server_id=$serverId");
 }
 if(isset($_FILES['nazwa_pliku'])){
   Controller('ServerUstawienia')->updateImg($dostep->SerwerEdytuj);
-  header("Location: ?x=$x");
+  redirect("?x=$x");
 }
 if($co == "usun"){
   Controller('ServerUstawienia')->destroy($dostep->SerwerUsun);
-	header("Location: ?x=$x");
+	redirect("?x=$x");
 }
 
 $users_list = User::user_list('Wybierz');

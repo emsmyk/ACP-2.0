@@ -15,7 +15,7 @@ tytul_strony("RoundSound: Piosenki");
 <?
 if(isset($_POST['nowe'])) {
   Controller('RoundsoundSong')->store($player->user, $dostep->RsPiosenkaDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 ?>
 

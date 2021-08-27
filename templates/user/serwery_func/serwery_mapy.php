@@ -21,39 +21,39 @@ $edycja_id_mapy = Get::int('edycja_mapy');
 
 if(isset($_POST['edycja_from'])) {
   Controller('ServerConMapy')->updateMapsGrup($_POST['edycja_from'], $dostep->SerwerMapyGrupaEdytuj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if($co == 'usun'){
   Controller('ServerConMapy')->destroyMapsGrup($id, $dostep->SerwerMapyGrupaUsun);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if(isset($_POST['mapy_dodaj'])) {
   Controller('ServerConMapy')->storeMap($_POST['mapy_dodaj'], $dostep->SerwerMapaDodaj);
-  header("Location: ?x=$x&xx=$xx&edycja=$edycja_id");
+  redirect("?x=$x&xx=$xx&edycja=$edycja_id");
 }
 if(isset($_POST['mapy_usun'])) {
   Controller('ServerConMapy')->destroyMap($_POST['mapy_usun'], $dostep->SerwerMapaUsun);
-  header("Location: ?x=$x&xx=$xx&edycja=$edycja_id");
+  redirect("?x=$x&xx=$xx&edycja=$edycja_id");
 }
 if(isset($_POST['edycja_from_mapa'])) {
   Controller('ServerConMapy')->editMap($_POST['edycja_from_mapa'], $dostep->SerwerMapaEdytuj);
-  header("Location: ?x=$x&xx=$xx&edycja_mapy=$edycja_id_mapy");
+  redirect("?x=$x&xx=$xx&edycja_mapy=$edycja_id_mapy");
 }
 if(isset($_POST['edycja_from_mapa_grafiki'])) {
   Controller('GaleriaMap')->store($dostep->SerwerMapaGaleria);
-  header("Location: ?x=$x&xx=$xx&edycja_mapy=$edycja_id_mapy");
+  redirect("?x=$x&xx=$xx&edycja_mapy=$edycja_id_mapy");
 }
 if(isset($_POST['mapy_zapisz'])) {
   Controller('ServerConMapy')->updateMap($_POST['mapy_zapisz'], $dostep->SerwerMapyZapisz);
-  header("Location: ?x=$x&xx=$xx&edycja=$edycja_id");
+  redirect("?x=$x&xx=$xx&edycja=$edycja_id");
 }
 if(isset($_POST['nowy_rekord'])) {
   Controller('ServerConMapy')->storeMapsGrup($_POST['nowy_rekord'], $dostep->SerwerMapyGrupaDodaj);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 if(Get::int('wymus_aktualizacje') == 1){
   Model('ServerKonfiguracja')->UpdateNow($dostep->SerwerWymusAktualizacje);
-  header("Location: ?x=$x&xx=$xx");
+  redirect("?x=$x&xx=$xx");
 }
 
 $serwer_array = $servers->servers_list();
