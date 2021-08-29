@@ -2,10 +2,14 @@
 class UstawieniaController
 {
   /*
-    $confs=[
+    $confs=[[
       'name' => 'nazwa wiersza',
       'value' => 'wartosc'
     ],
+    [
+      'name' => 'nazwa wiersza',
+      'value' => 'wartosc'
+    ]],
     $table = nazwa tabeli
   */
   function updateConf($confs='', $table='acp_system')

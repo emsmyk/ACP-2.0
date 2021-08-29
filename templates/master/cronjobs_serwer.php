@@ -9,6 +9,9 @@ $test_servers = ($TEST == 1) ? 'AND `test_serwer` = 1' : 'AND `serwer_on` = 1 AN
 $servers = SQL::all("SELECT `serwer_id`, `test_serwer`, `nazwa`, `serwer_on`, `ftp_user`, `ftp_haslo`, `ftp_host`, `rangi`, `mapy`, `mapy_plugin`, `help_menu`, `bazy`, `reklamy`, `hextags`, `uslugi`, `katalog` FROM `acp_serwery` LEFT JOIN (`acp_serwery_cronjobs`) ON `acp_serwery`.`serwer_id` = `acp_serwery_cronjobs`.`serwer` WHERE `ip` != '' AND `port` != '' $test_servers");
 
 foreach ($servers as $server) {
+  $MakeFile->makeFile("admins_simple.ini", $server->serwer_id, "uslugi");
+
+
   if($TEST == 1){
     show('UWAGA! Włączony tryb testowy!', false);
   }
@@ -195,7 +198,7 @@ foreach ($servers as $server) {
   }
 
   if($Cronjobs->ThisTime($acp_system['cron_file_list_pluginy'], $acp_system['cron_file_list_pluginy_time'])){
-    $ftp->scan([
+    $connect_server->scan([
       'katalog' => $server->katalog."/addons/sourcemod/plugins",
       'type' => 'nlist',
       'acp_cache_api' => 'serwer_id'.$server->serwer_id.'_pluginy',
@@ -204,7 +207,7 @@ foreach ($servers as $server) {
   }
 
   if($Cronjobs->ThisTime($acp_system['cron_file_list_mapy'], $acp_system['cron_file_list_mapy_time'])){
-    $ftp->scan([
+    $connect_server->scan([
       'katalog' => $server->katalog."/maps",
       'type' => 'nlist',
       'acp_cache_api' => 'serwer_id'.$server->serwer_id.'_mapy',
@@ -213,13 +216,13 @@ foreach ($servers as $server) {
   }
 
   if($Cronjobs->ThisTime($acp_system['cron_file_list_logi'], $acp_system['cron_file_list_logi_time'])){
-    $ftp->scan([
+    $connect_server->scan([
       'katalog' => $server->katalog."/addons/sourcemod/logs",
       'type' => 'nlist',
       'acp_cache_api' => 'serwer_id'.$server->serwer_id.'_logs_sm',
       'info_wykonanie' => 'cron_file_list_logi'
     ]);
-    $ftp->scan([
+    $connect_server->scan([
       'katalog' => $server->katalog."/logs",
       'type' => 'nlist',
       'acp_cache_api' => 'serwer_id'.$server->serwer_id.'_logs',
@@ -229,7 +232,7 @@ foreach ($servers as $server) {
 
   // ROUNDSOUND
   if(Controller('RoundsoundUploadFTP')->setting['rs_on'] == '1'){
-    foreach ($Controller('RoundsoundUploadFTP')->setting['rs_serwery'] as $rs_serwer) {
+    foreach ( Controller('RoundsoundUploadFTP')->setting['rs_serwery'] as $rs_serwer) {
 
       if(strtotime(Controller('RoundsoundUploadFTP')->setting['rs_cron'])< (time() - 360) && $server->serwer_id == $rs_serwer){
         $connect_server->upload([

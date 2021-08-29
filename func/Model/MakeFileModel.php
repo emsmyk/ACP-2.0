@@ -9,30 +9,30 @@ class MakeFileModel
     ];
   }
 
-  function dir_exist($serwer)
-  {
-    $path = "www/upload/serwer_$serwer";
-    if(!file_exists("$path")) {
-      mkdir("www/upload/serwer_$serwer", 0700, true);
-    }
-
-    return $path;
-  }
-
-
   function makeFile($name, $serwer, $type)
   {
     $path = $this->dir_exist($serwer);
 
     $file = fopen($path.$name, 'w');
+
     $text =  $this->file['naglowek'];
-
     $text .=  $this->makeFileType($type, $serwer);
-
     $text .=  $this->file['stopka'];
+
+    fwrite($file,$text);
     fclose($file);
 
     return $name;
+  }
+
+  function dir_exist($serwer)
+  {
+    $path = "www/upload/serwer_$serwer/";
+    if(!file_exists("$path")) {
+      mkdir("www/upload/serwer_$serwer", 0700, true);
+    }
+
+    return $path;
   }
 
   function makeFileType($type, $serwer)
@@ -284,9 +284,6 @@ class MakeFileModel
           }
 
         $text .= "  \n} \n";
-
-        $text .= $stopka;
-        fclose($file);
         break;
       case 'roundsound_cfg':
         $text .= "\n";

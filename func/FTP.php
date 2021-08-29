@@ -3,6 +3,8 @@ class FTP
 {
   function __construct($ftp)
   {
+    $this->db = DB::getInstance();
+
     $this->ftp = $ftp;
     $this->server = $ftp['sever'];
 
@@ -21,6 +23,15 @@ class FTP
     }
 
     $this->conn = $this->connect();
+    $this->ifCon();
+  }
+
+  function ifCon(){
+    if(empty($this->conn)){
+      echo 'sa';
+      die('brak polaczenia ftp');
+    }
+    return $this->conn;
   }
 
   function connect()
@@ -32,6 +43,7 @@ class FTP
     }
 
     $login = ftp_login($conn, $this->ftp['ftp_user'], $this->ftp['ftp_password']);
+
     if(!$login){
       // Logs::ftpServer($serwer, "?x=cronjobs_serwer", "[FTP] Błąd połaczenia (Złe Hasło/Login)", "FTP connection has failed! Attempted to connect to $ftp->serwer for user $ftp->user");
       return '[FTP] Błąd logowania, złe hasło lub login..';
@@ -78,21 +90,29 @@ class FTP
 
       // dodatkowe powiadomienie wgryawrki ze sie nie udało wgrać pliku
       if(isset($file['wgrywarka_file_id'])){
-        SQL::query("UPDATE `acp_wgrywarka` SET `status` = '-1' WHERE `id` = ".$file['wgrywarka_file_id']."; ");
+        $this->db->update('acp_wgrywarka', [ 'status' => '-1'], [ 'id' => $file['wgrywarka_file_id'] ]);
       }
 
       return false;
     }
 
     if(isset($file['info_wykonanie']) && empty($file['special_table'])){
-      $this->UpdateDateCONF($file['info_wykonanie']);
+      Controller('Ustawienia')->updateConf([[
+        'name' => $file['info_wykonanie'],
+        'value' => date("Y-m-d H:i:s")
+      ]]);
     }
     elseif(isset($file['info_wykonanie'])){
-      $this->UpdateDateCONF($file['info_wykonanie'], $file['special_table']);
+      Controller('Ustawienia')->updateConf([[
+        'name' => $file['info_wykonanie'],
+        'value' => date("Y-m-d H:i:s")
+        ]],
+        $file['special_table']
+      );
     }
 
     if(isset($file['wgrywarka_file_id'])){
-      SQL::query("UPDATE `acp_wgrywarka` SET `status` = '1' WHERE `id` = ".$file['wgrywarka_file_id']."; ");
+      $this->db->update('acp_wgrywarka', [ 'status' => '1'], [ 'id' => $file['wgrywarka_file_id'] ]);
     }
 
     return true;
@@ -110,15 +130,18 @@ class FTP
   {
     $data = $this->fileList($scan['katalog'], $scan['type']);
 
-    SQL::query("DELETE FROM `acp_cache_api` WHERE `acp_cache_api`.`get` = ".$scan['acp_cache_api']."; ");
-    SQL::insert('acp_cache_api', [
+    $this->db->delete('acp_cache_api', [ 'get' => $scan['acp_cache_api'] ] );
+    $this->db->insert('acp_cache_api', [
       'get' => $scan['acp_cache_api'],
       'dane' => json_encode($data, JSON_PARTIAL_OUTPUT_ON_ERROR)
     ]);
 
     if( isset( $scan['info_wykonanie'] ) )
     {
-      UpdateDateCONF($scan['info_wykonanie']);
+      Controller('Ustawienia')->updateConf([[
+        'name' => 'info_wykonanie',
+        'value' => date("Y-m-d H:i:s")
+      ]]);
     }
 
     return;
@@ -156,11 +179,6 @@ class FTP
     $aPath = explode('/',ftp_pwd($this->conn));
     $sHomeDir = str_repeat('../', count($aPath) - 1);
     ftp_chdir($this->conn, $sHomeDir);
-  }
-
-  function UpdateDateCONF($conf_name, $special_table='acp_system')
-  {
-    SQL::query("UPDATE `$special_table` SET `conf_value` = '".date("Y-m-d H:i:s")."' WHERE `$special_table`.`conf_name` = '$conf_name';");
   }
 
   function __destruct()
