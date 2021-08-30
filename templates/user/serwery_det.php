@@ -128,28 +128,6 @@ $require_once = 'templates/user/serwery_det/';
   <? require_once($require_once.'row/RowWykresy.php'); ?>
 
   <div class="row">
-    <div class="col-lg-3 col-xs-6">
-      <div class="small-box bg-red">
-        <div class="inner">
-          <h3>
-            <?
-              $ilosc_zadan = SQL::one("SELECT COUNT(`id`) FROM `acp_zadania` WHERE `serwer_id` = $serwer_id");
-              $ilosc_zadan_zrealizowanych = SQL::one("SELECT COUNT(`id`) FROM `acp_zadania` WHERE `status` = 3 AND `serwer_id` = $serwer_id");
-              echo $ilosc_zadan;
-              echo " / ";
-              echo $ilosc_zadan_zrealizowanych;
-            ?>
-          </h3>
-          <p>Zgłoszonych/Zrealizowanych Zadań</p>
-        </div>
-        <div class="icon">
-          <i class="ion ion-pie-graph"></i>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="row">
     <? require_once($require_once.'modal/ModalChangelog.php'); ?>
     <? require_once($require_once.'modal/ModalRegulamin.php'); ?>
     <? require_once($require_once.'modal/ModalWykresy.php'); ?>
