@@ -53,13 +53,11 @@ class ServerModel
   {
     $query = $this->db->get_row("SELECT `id` as `id_map`, (SELECT `imgur_url` FROM `acp_serwery_mapy_img` WHERE `id_mapy` = `id_map`) AS `img` FROM `acp_serwery_mapy_det` WHERE `nazwa` = '$map' LIMIT 1", true);
 
-    if($query->img == '#' || is_null($query->img) || empty($query->img)){
+    if(empty($query)){
       return 'https://acp.sloneczny-dust.pl/www/maps/nomap.jpg';
     }
-
-    $src_headers = @get_headers($query->img);
-    if($src_headers[0] == 'HTTP/1.1 404 Not Found') {
-      $map = 'https://acp.sloneczny-dust.pl/www/maps/nomap.jpg';
+    if($query->img == '#' || is_null($query->img) || empty($query->img)){
+      return 'https://acp.sloneczny-dust.pl/www/maps/nomap.jpg';
     }
 
     return $query->img;
@@ -97,7 +95,8 @@ class ServerModel
   {
     $this->exist($server, '?x=serwery');
 
-    if($this->db->get_row("SELECT `role` FROM `acp_users` WHERE `user` = $player", true) == 1){
+    $user_root = $this->db->get_row("SELECT `role` FROM `acp_users` WHERE `user` = $player", true);
+    if($user_root->role == 1){
       return;
     }
 
