@@ -43,7 +43,6 @@ if(!empty($id)):
           $lista_map->display = (empty($lista_map->display)) ? 'brak danych': $lista_map->display;
           $lista_map->min_players = (empty($lista_map->min_players)) ? 'brak danych': $lista_map->min_players;
           $lista_map->max_players = (empty($lista_map->max_players)) ? 'brak danych': $lista_map->max_players;
-
         ?>
           <div class="row">
             <div class="col-lg-12">
@@ -81,7 +80,8 @@ if(!empty($id)):
             </div>
           </div>
           <hr>
-        <? endforeach; ?>
+        <? 
+ endforeach; ?>
       </div>
     </div>
   </div>
