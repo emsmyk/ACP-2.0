@@ -17,35 +17,38 @@ $TaskModel = Model('Task');
 Powiadomienia::read(Get::int('powiadomienie_id'));
 
 $id = Get::int('id');
+$co = Get::string('co');
 
 if(isset($_POST['edytuj'])) {
   $TaskController->update($id, $dostep->ZadanieEdytuj);
   redirect("?x=$x&xx=$xx&id=$id");
 }
-if(!empty($_GET['usun'])) {
+
+if($co == 'usun') {
   $TaskController->destroy($id, $dostep->ZadanieEdytuj);
   redirect("?x=$x&xx=lista");
 }
-if(!empty($_GET['akceptuj'])) {
+if($co == 'akceptuj') {
   $TaskController->task_akcept($id, $dostep->ZadanieAkcOdrz);
   redirect("?x=$x&xx=$xx&id=$id");
 }
-if(!empty($_GET['odrzuc'])) {
+if($co == 'odrzuc') {
   $TaskController->task_odrzuc($id, $dostep->ZadanieAkcOdrz);
   redirect("?x=$x&xx=$xx&id=$id");
 }
-if(!empty($_GET['przyjmnij'])) {
+if($co == 'przyjmnij') {
   $TaskController->task_przyjmnij($id, $dostep->ZadaniePrzyjmnij);
   redirect("?x=$x&xx=$xx&id=$id");
 }
-if(!empty($_GET['zakoncz'])) {
+if($co == 'zakoncz') {
   $TaskController->task_zakoncz($id, $dostep->ZadanieZakoncz);
   redirect("?x=$x&xx=$xx&id=$id");
 }
-if(!empty($_GET['anuluj'])) {
+if($co == 'anuluj') {
   $TaskController->task_anuluj($id, $dostep->ZadanieAnuluj);
   redirect("?x=$x&xx=$xx&id=$id");
 }
+
 if(isset($_POST['komentarz_tekst'])) {
   $TaskController->comment($id, $dostep->ZadanieKomentarze);
   redirect("?x=$x&xx=$xx&id=$id");
@@ -54,12 +57,13 @@ if(isset($_POST['todo_dodaj'])) {
   $TaskController->todoStore($id, $dostep->ZadanieToDo);
   redirect("?x=$x&xx=$xx&id=$id");
 }
-if(!empty($_GET['todo_status'])) {
-  $TaskController->todoStatus($id, $dostep->ZadanieToDo);
+
+if($co == 'todo_status') {
+  $TaskController->todoStatus(Get::int('todoid'), $dostep->ZadanieToDo);
   redirect("?x=$x&xx=$xx&id=$id");
 }
-if(!empty($_GET['todo_usun'])) {
-  $TaskController->todoDestroy($id, $dostep->ZadanieToDo);
+if($co == 'todo_usun') {
+  $TaskController->todoDestroy(Get::int('todoid'), $dostep->ZadanieToDo);
   redirect("?x=$x&xx=$xx&id=$id");
 }
 if(isset($_POST['zapros'])) {
@@ -224,8 +228,8 @@ $zadanie->bar = $TaskModel->taskStatusPrc($zadanie->id);
                 <span class="text">#<?= $todo->id  ?> <?= $todo->tekst_s ?></span>
                 <small class='label label-<?= $todo->realizuj_kolor ?>'><i class='fa fa-clock-o'></i> <?= $todo->realizuj_czas ?></small>
                 <div class="tools">
-                  <a href="<?= "?x=$x&xx=$xx&id=$id&todo_status=$todo->id" ?>"><?= $todo->icon ?></a>
-                  <a href="<?= "?x=$x&xx=$xx&id=$id&todo_usun=$todo->id" ?>"><i class="fa fa-trash-o"></i></a>
+                  <a href="<?= "?x=$x&xx=$xx&id=$id&co=todo_status&todoid=$todo->id" ?>"><?= $todo->icon ?></a>
+                  <a href="<?= "?x=$x&xx=$xx&id=$id&co=todo_usun&todoid=$todo->id" ?>"><i class="fa fa-trash-o"></i></a>
                 </div>
               </li>
             <? } ?>
@@ -478,7 +482,7 @@ $zadanie->bar = $TaskModel->taskStatusPrc($zadanie->id);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Nie</button>
-            <a class="btn btn-outline pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&usun=$id" ?>">Tak</a>
+            <a class="btn btn-outline pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&co=usun" ?>">Tak</a>
           </div>
         </div>
       </div>
@@ -495,7 +499,7 @@ $zadanie->bar = $TaskModel->taskStatusPrc($zadanie->id);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Nie</button>
-            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&akceptuj=$id" ?>">Tak</a>
+            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&co=akceptuj" ?>">Tak</a>
           </div>
         </div>
       </div>
@@ -512,7 +516,7 @@ $zadanie->bar = $TaskModel->taskStatusPrc($zadanie->id);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Nie</button>
-            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&odrzuc=$id" ?>">Tak</a>
+            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&co=odrzuc" ?>">Tak</a>
           </div>
         </div>
       </div>
@@ -529,7 +533,7 @@ $zadanie->bar = $TaskModel->taskStatusPrc($zadanie->id);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Nie</button>
-            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&przyjmnij=$id" ?>">Tak</a>
+            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&co=przyjmnij" ?>">Tak</a>
           </div>
         </div>
       </div>
@@ -546,7 +550,7 @@ $zadanie->bar = $TaskModel->taskStatusPrc($zadanie->id);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Nie</button>
-            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&zakoncz=$id" ?>">Tak</a>
+            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&co=zakoncz" ?>">Tak</a>
           </div>
         </div>
       </div>
@@ -563,7 +567,7 @@ $zadanie->bar = $TaskModel->taskStatusPrc($zadanie->id);
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Nie</button>
-            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&anuluj=$id" ?>">Tak</a>
+            <a class="btn btn-primary pull-right" class="button"  href="<?= "?x=$x&xx=$xx&id=$id&co=anuluj" ?>">Tak</a>
           </div>
         </div>
       </div>

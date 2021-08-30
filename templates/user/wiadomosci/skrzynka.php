@@ -9,9 +9,9 @@ tytul_strony("Wiadomości - Skrzynka");
 	</section >
   </div>
 <?php
-$typ = (isset($_GET['type'])) ? (int)$_GET['type'] : null;
-$co = (isset($_GET['co'])) ? $_GET['co'] : null;
-$strona = (isset($_GET['str'])) ? (int)$_GET['str'] : null;
+$typ = Get::int('type');
+$co = Get::string('co');
+$strona = Get::int('str');
 
 if(!isset($typ)){ redirect('?x=wiadomosci&xx=skrzynka&type=1'); }
 

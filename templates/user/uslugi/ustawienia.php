@@ -42,7 +42,7 @@ if(isset($_POST) && !empty($_POST['id'])){
   }
 }
 if(!empty(Get::int('usluga')) && !empty(Get::int('on_off'))){
-  Model('Roundsound')->ustawienia_OnOff($_GET['serwer'],  Get::int('usluga'), Get::int('on_off'), $dostep->UslugiNowaUsluga);
+  Model('Roundsound')->ustawienia_OnOff(Get::int('serwer'),  Get::int('usluga'), Get::int('on_off'), $dostep->UslugiNowaUsluga);
   redirect("?x=$x&xx=$xx");
 }
 

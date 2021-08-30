@@ -10,7 +10,7 @@
 	</section >
   </div>
 <?
-$id = (isset($_GET['serwer'])) ? (int)$_GET['serwer'] : null;
+$id = Get::int('serwer');
 $serwer = SQL::row("SELECT `serwer_id`, `serwer_on`, `prefix_hls`, `mod`, `nazwa`, `ip`, `port` FROM `acp_serwery` WHERE `serwer_id` = $id LIMIT 1");
 if($id == null || $id == 0){
   Messe::array([

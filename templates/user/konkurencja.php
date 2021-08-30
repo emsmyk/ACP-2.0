@@ -51,7 +51,7 @@ usort($fora_items_all, function($a, $b) {
     $KonkurencjaController->dodaj($dostep->KonkurencjaDodaj);
     redirect("?x=$x");
   }
-  if(!empty($_GET['usun_cache'])){
+  if(!empty(Get::string('usun_cache'))){
     $KonkurencjaController->usun_cache($dostep->KonkurencjaCache);
     redirect("?x=$x");
   }
@@ -60,9 +60,9 @@ usort($fora_items_all, function($a, $b) {
     $_SESSION['konkurencja_show'] = array('sloneczny');
   }
   if($co == 'konkurencja_show'){
-    if(in_array($_GET['code'], $_SESSION['konkurencja_show'])){
+    if(in_array(Get::int('code'), $_SESSION['konkurencja_show'])){
       foreach ($_SESSION['konkurencja_show'] as $key => $value) {
-        if($value == $_GET['code']){
+        if($value == Get::int('code')){
           unset($_SESSION['konkurencja_show'][$key]);
 
           Messe::array([
@@ -73,7 +73,7 @@ usort($fora_items_all, function($a, $b) {
       }
     }
     else {
-      array_push($_SESSION['konkurencja_show'], $_GET['code']);
+      array_push($_SESSION['konkurencja_show'], Get::int('code'));
       Messe::array([
         'type' => 'info',
         'text' => "Na czas trwania sesji strona została ukryta z głównego strumienia danych."

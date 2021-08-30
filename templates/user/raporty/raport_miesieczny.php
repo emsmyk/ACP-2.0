@@ -10,8 +10,8 @@
 	</section >
   </div>
 <?
-$miesiac = (empty($_GET['miesiac'])) ? '' : $_GET['miesiac'] ;
-$rok = (empty($_GET['rok'])) ? '' : $_GET['rok'] ;
+$miesiac = Get::string('miesiac');
+$rok = Get::string('rok')
 
 $raporty = SQL::all("SELECT * FROM `raport_serwer`");
 

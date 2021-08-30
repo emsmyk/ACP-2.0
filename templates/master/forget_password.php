@@ -21,7 +21,7 @@ if(isset($_POST['nowe_haslo'])){
   <div class="login-logo">
     <a href="?x=default"><? echo $acp_system['acp_nazwa']; ?> | ACP</a>
   </div>
-  <? if(empty($_GET['hash'])): ?>
+  <? if(empty(Get::string('hash'))): ?>
   <div class="login-box-body">
     <p class="login-box-msg">Przypomnij hasło</p>
 
@@ -46,7 +46,7 @@ if(isset($_POST['nowe_haslo'])){
     <p class="login-box-msg">Wpisz nowe hasło</p>
 
     <form name="nowe_haslo" action="?x=<?= $x ?>" method="post">
-      <input type="hidden" value="<?= $_GET['hash'] ?>" name="hash">
+      <input type="hidden" value="<?= Get::string('hash') ?>" name="hash">
       <div class="form-group has-feedback">
         <input type="password" class="form-control" placeholder="Hasło" name="pass" >
         <span class="glyphicon glyphicon-user form-control-feedback"></span>

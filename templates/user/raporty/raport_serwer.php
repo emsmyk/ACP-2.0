@@ -10,7 +10,7 @@
 	</section >
   </div>
 <?
-  $serwer = (!empty($_GET['serwer'])) ? (int)$_GET['serwer'] : null;
+  $serwer = Get::int('serwer');
 
   if(empty($serwer)):
 ?>

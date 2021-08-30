@@ -10,9 +10,8 @@
     </div>
     <div class="box-body serwery_logi">
       <?
-       $logi = $_GET['logi'];
        $srv_dane->ftp_haslo = encrypt_decrypt('decrypt', $srv_dane->ftp_haslo);
-       $ftp_path = 'ftp://'.$srv_dane->ftp_user.':'.$srv_dane->ftp_haslo.'@'.$srv_dane->ftp_host.'/CS_GO/csgo/addons/sourcemod/logs/'.$logi.'';
+       $ftp_path = 'ftp://'.$srv_dane->ftp_user.':'.$srv_dane->ftp_haslo.'@'.$srv_dane->ftp_host.'/CS_GO/csgo/addons/sourcemod/logs/'.Get::string('logi').'';
        $curl = curl_init();
        curl_setopt($curl, CURLOPT_URL, $ftp_path);
        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

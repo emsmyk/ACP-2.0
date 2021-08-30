@@ -13,7 +13,7 @@
 require __DIR__ . './../../func/SourceQuery/bootstrap.php';
 use xPaw\SourceQuery\SourceQuery;
 
-$id = (isset($_GET['serwer'])) ? (int)$_GET['serwer'] : null;
+$id = Get::int('serwer');
 $serwer = SQL::row("SELECT `serwer_id`, `serwer_on`, `mod`, `nazwa`, `ip`, `port`, `rcon` FROM `acp_serwery` WHERE `serwer_id` = $id LIMIT 1");
 $serwer->rcon_dec = encrypt_decrypt('decrypt', $serwer->rcon);
 if($id == null || $id == 0){

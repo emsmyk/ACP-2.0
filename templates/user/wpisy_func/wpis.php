@@ -1,5 +1,5 @@
 <?
-$wpis_one = Text::clean($_GET['wpis']);
+$wpis_one = Text::clean(Get::string('wpis'));
 $wpis_id = Controller('Wpisy')->WpisId;
 
 Powiadomienia::read(Get::int('powiadomienie_id'));
@@ -16,6 +16,8 @@ Powiadomienia::read(Get::int('powiadomienie_id'));
 	</section>
   </div>
 <?
+$co = Get::string('co');
+$id = Get::int('id');
 if(isset($_POST['komentarz'])) {
   Controller('Wpisy')->storeComment();
   redirect("?x=$x&xx=$xx&wpis=$wpis_one&wpisid=$wpis_id");
@@ -29,16 +31,16 @@ if(isset($_POST['edytuj_wpis'])){
   Controller('Wpisy')->update($wpis_id, $dostep->WpisyEdytujWpis);
   redirect("?x=$x&xx=$xx&wpis=$wpis_one&wpisid=$wpis_id");
 }
-if(isset($_GET['close_open'])){
-  Controller('Wpisy')->close($_GET['close_open'], $dostep->WpisyZamknij);
+if($co == 'close_open'){
+  Controller('Wpisy')->close($id, $dostep->WpisyZamknij);
   redirect("?x=$x");
 }
-if(isset($_GET['usun'])){
-  Controller('Wpisy')->destroy($_GET['usun'], $dostep->WpisyUsun);
+if($co == 'usun'){
+  Controller('Wpisy')->destroy($id, $dostep->WpisyUsun);
   redirect("?x=$x");
 }
-if(isset($_GET['ogloszenie'])){
-  Controller('Wpisy')->ogloszenie($_GET['ogloszenie'], $dostep->WpisyOgloszenie);
+if($co == 'ogloszenie'){
+  Controller('Wpisy')->ogloszenie($id, $dostep->WpisyOgloszenie);
   redirect("?x=$x");
 }
 
@@ -62,7 +64,7 @@ if(isset($_GET['ogloszenie'])){
     	  <p style="word-wrap:break-word;"><?= $wpis->text; ?></p>
         <span class="pull-right">
           <? if(Permission::check($dostep->WpisyOgloszenie, false) == 1): ?>
-            <a href="<?= "?x=$x&xx=$xx&ogloszenie=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-bullhorn"></i> Ogłoszenie</button></a>
+            <a href="<?= "?x=$x&xx=$xx&co=ogloszenie&id=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-bullhorn"></i> Ogłoszenie</button></a>
           <? endif; ?>
 
           <? if(Permission::check($dostep->WpisyKategoria, false) == 1): ?>
@@ -70,7 +72,7 @@ if(isset($_GET['ogloszenie'])){
           <? endif; ?>
 
           <? if(Permission::check($dostep->WpisyZamknij, false) == 1): ?>
-            <a href="<?= "?x=$x&xx=$xx&close_open=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-eye-open"></i> <?= $wpis->closed ?></button></a>
+            <a href="<?= "?x=$x&xx=$xx&co=close_open&id=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-eye-open"></i> <?= $wpis->closed ?></button></a>
           <? endif; ?>
 
           <? if(Permission::check($dostep->WpisyEdytujWpis, false) == 1): ?>
@@ -78,7 +80,7 @@ if(isset($_GET['ogloszenie'])){
           <? endif; ?>
 
           <? if(Permission::check($dostep->WpisyUsun, false) == 1): ?>
-              <a href="<?= "?x=$x&xx=$xx&usun=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-remove"></i> Usuń</button></a>
+              <a href="<?= "?x=$x&xx=$xx&co=usun&id=$wpis->id" ?>"><button type="button" class="btn btn-default btn-xs"><i class="glyphicon glyphicon-remove"></i> Usuń</button></a>
           <? endif; ?>
         </span>
     	</div>

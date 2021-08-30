@@ -13,7 +13,7 @@ tytul_strony("Usługi: Moje Usługi");
 	</section >
   </div>
   <?
-  $co = (isset($_GET['co'])) ? $_GET['co'] : null;
+  $co = Get::string('co');
   if(isset($co)){
     $id = Get::int('id');
     $usluga_row = SQL::row("SELECT * FROM `acp_uslugi` WHERE `id` = $id LIMIT 1");

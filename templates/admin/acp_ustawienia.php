@@ -10,6 +10,8 @@
 	</section>
   </div>
 <?
+$id = Get::int('id');
+
 if(isset($_POST['edycja_podstwowe'])) {
   Controller('Ustawienia')->updateConf([
     [ 'name' => 'acp_nazwa', 'value' => $_POST['acp_nazwa'] ],
@@ -215,27 +217,27 @@ if(isset($_POST['edycja_wpisy'])) {
 }
 if(isset($_POST['wpisy_kategorie_zapisz'])){
   Controller('Ustawienia')->wpisySave();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 if(isset($_POST['wpisy_kategorie_dodaj'])){
   Controller('Ustawienia')->wpisyStore();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 if(isset($_POST['wpisy_kategorie_usun'])){
   Controller('Ustawienia')->wpisyDestroy();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 if(isset($_POST['danepub_menu_edycja_zapisz'])){
   Controller('Ustawienia')->danepub_zapisz(json_decode($acp_system['danepub_menu_list']));
-  redirect("?x=$x&id=".(int)$_GET["id"]."");
+  redirect("?x=$x&id=".$id."");
 }
 if(isset($_POST['danepub_menu_dodaj'])){
   Controller('Ustawienia')->danepub_dodaj(json_decode($acp_system['danepub_menu_list']));
-  redirect("?x=$x&id=".(int)$_GET["id"]."");
+  redirect("?x=$x&id=".$id."");
 }
 if(isset($_POST['danepub_menu_edycja_usun'])){
   Controller('Ustawienia')->danepub_usun(json_decode($acp_system['danepub_menu_list']));
-  redirect("?x=$x&id=".(int)$_GET["id"]."");
+  redirect("?x=$x&id=".$id."");
 }
 
 $cronOption = [

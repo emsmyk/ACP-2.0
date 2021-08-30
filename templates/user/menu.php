@@ -1,17 +1,17 @@
 <? require_once("./templates/user/menu-header.php");
 
 function akt_li($nazwa) {
-	if($nazwa == $_GET['x'])
+	if($nazwa == $x)
      echo "active";
 }
 function akt_li_srv($nazwa, $id = NULL) {
-	if($nazwa == $_GET['x'] && $id == $_GET['serwer_id'])
+	if($nazwa == $x && $id == Get::int('serwer_id'))
      echo "active";
 }
 function akt_kat($nazwa) {
 	$nazwa = explode(", ", $nazwa);
 
-	if(in_Array($_GET['x'],$nazwa))
+	if(in_Array($x,$nazwa))
      echo "active treeview menu-open";
 	else
 	 echo "treeview";

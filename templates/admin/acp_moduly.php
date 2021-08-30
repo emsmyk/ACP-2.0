@@ -10,38 +10,40 @@
 	</section>
   </div>
 <?
+$id = Get::int('id');
+
 if(isset($_POST['dodaj'])) {
   Controller('Ustawienia')->acp_moduly_dodaj();
   redirect("?x=$x");
 }
 if(isset($_POST['edycja_from'])) {
   Controller('Ustawienia')->acp_moduly_edytuj_modul();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 if(isset($_POST['edycja_from_uprawnienia_add'])){
   Controller('Ustawienia')->edycja_from_uprawnienia_add();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 if(isset($_POST['edycja_from_uprawnienia_zapisz'])){
   Controller('Ustawienia')->edycja_from_uprawnienia_zapisz();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 if(isset($_POST['edycja_from_uprawnienia_usun'])){
   Controller('Ustawienia')->edycja_from_uprawnienia_usun();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 
 if(isset($_POST['edycja_from_menu_add'])){
   Controller('Ustawienia')->edycja_from_menu_add();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 if(isset($_POST['edycja_from_menu_zapisz'])){
   Controller('Ustawienia')->edycja_from_menu_zapisz();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 if(isset($_POST['edycja_from_menu_usun'])){
   Controller('Ustawienia')->edycja_from_menu_usun();
-  redirect("?x=$x&id=".(int)$_GET["id"]."&co=edytuj");
+  redirect("?x=$x&id=".$id."&co=edytuj");
 }
 
 if(Get::string('co') == 'usun'){
@@ -52,8 +54,7 @@ if(Get::string('co') == 'usun'){
 
 <?
 if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
-  $edycja_id = $_GET["id"];
-  $edycja_mod = SQL::row("SELECT * FROM `acp_moduly` WHERE `id` = $edycja_id LIMIT 1;");
+  $edycja_mod = SQL::row("SELECT * FROM `acp_moduly` WHERE `id` = $id LIMIT 1;");
 ?>
 <div class="row">
   <div class="col-xs-12">
@@ -64,7 +65,7 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
         </div>
       </div>
       <div class="box-body">
-        <form name='edycja_from' method='post' action='<?= "?x=$x&id=$edycja_id&co=edytuj"; ?>'>
+        <form name='edycja_from' method='post' action='<?= "?x=$x&id=$id&co=edytuj"; ?>'>
           <input type='hidden' name='e_id' value='<?= $edycja_mod->id ?>'>
           <p><div class='form-group input-group'><span class='input-group-addon'>Nazwa (PHP)</span><input class='form-control' type='text' name='e_nazwa' value='<?= $edycja_mod->nazwa ?>'/></div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Nazwa Wyświetlana</span><input class='form-control' type='text' name='e_nazwa_wys' value='<?= $edycja_mod->nazwa_wys ?>'/></div></p>
@@ -96,12 +97,12 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
                 <th></th>
               </tr>
               <?
-              $mod_menu_q = SQL::all("SELECT * FROM  `acp_moduly_menu` WHERE `modul_id` = $edycja_id; ");
+              $mod_menu_q = SQL::all("SELECT * FROM  `acp_moduly_menu` WHERE `modul_id` = $id; ");
               foreach ($mod_menu_q as $mod_menu) { ?>
               <tr>
-              <form name='edycja_from_menu' method='post' action='<?= "?x=$x&id=$edycja_id&co=edytuj"; ?>'>
+              <form name='edycja_from_menu' method='post' action='<?= "?x=$x&id=$id&co=edytuj"; ?>'>
                 <input type="hidden" name="e_n_id" value="<?= $mod_menu->id ?>">
-                <input type="hidden" name="e_n_idmodulu" value="<?= $_GET["id"] ?>">
+                <input type="hidden" name="e_n_idmodulu" value="<?= $id ?>">
                 <input type="hidden" name="e_n_nazamodulu" value="<?= $edycja_mod->nazwa_wys ?>">
                 <td><input type="text" class="form-control" type="text" value="<?= $mod_menu->id ?>" disabled></td>
                 <td><input type="text" class="form-control" type="text" name="e_n_ikona" value="<?= $mod_menu->ikona ?>" ></td>
@@ -115,9 +116,9 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
               </tr>
               <? } ?>
               <tr>
-              <form name='edycja_from_menu_add' method='post' action='<?= "?x=$x&id=$edycja_id&co=edytuj"; ?>'>
+              <form name='edycja_from_menu_add' method='post' action='<?= "?x=$x&id=$id&co=edytuj"; ?>'>
                 <td><input type="text" class="form-control" value="-" disabled></td>
-                <input type="hidden" name="e_new_idmodulu" value="<?= $_GET["id"] ?>">
+                <input type="hidden" name="e_new_idmodulu" value="<?= $id ?>">
                 <input type="hidden" name="e_new_nazamodulu" value="<?= $edycja_mod->nazwa_wys ?>">
                 <td><input type="text" type="text" name="e_new_ikona" class="form-control"></td>
                 <td><input type="text" type="text" name="e_new_nazwa" class="form-control"></td>
@@ -142,13 +143,13 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
                 <th></th>
               </tr>
               <?
-              $akcje_q = SQL::all("SELECT * FROM  `acp_moduly_akcje` WHERE `modul_id` = $edycja_id; ");
+              $akcje_q = SQL::all("SELECT * FROM  `acp_moduly_akcje` WHERE `modul_id` = $id; ");
               foreach ($akcje_q as $akcje) {
                 if(empty($akcje->opis)) { $akcje->opis = 'brak opisu'; } ?>
               <tr>
-              <form name='edycja_from_uprawnienia' method='post' action='<?= "?x=$x&id=$edycja_id&co=edytuj"; ?>'>
+              <form name='edycja_from_uprawnienia' method='post' action='<?= "?x=$x&id=$id&co=edytuj"; ?>'>
                 <input type="hidden" name="e_n_id" value="<?= $akcje->id ?>">
-                <input type="hidden" name="e_n_idmodulu" value="<?= $_GET["id"] ?>">
+                <input type="hidden" name="e_n_idmodulu" value="<?= $id ?>">
                 <input type="hidden" name="e_n_nazamodulu" value="<?= $edycja_mod->nazwa_wys ?>">
                 <td><input type="text" class="form-control" type="text" value="<?= $akcje->id ?>" disabled></td>
                 <td><input type="text" class="form-control" type="text" name="e_n_akcja" value="<?= $akcje->akcja ?>" ></td>
@@ -162,9 +163,9 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
               </tr>
               <? } ?>
               <tr>
-              <form name='edycja_from_uprawnienia_add' method='post' action='<?= "?x=$x&id=$edycja_id&co=edytuj"; ?>'>
+              <form name='edycja_from_uprawnienia_add' method='post' action='<?= "?x=$x&id=$id&co=edytuj"; ?>'>
                 <td><input type="text" class="form-control" value="-" disabled></td>
-                <input type="hidden" name="e_new_idmodulu" value="<?= $_GET["id"] ?>">
+                <input type="hidden" name="e_new_idmodulu" value="<?= $id ?>">
                 <input type="hidden" name="e_new_nazamodulu" value="<?= $edycja_mod->nazwa_wys ?>">
                 <td><input type="text" type="text" name="e_new_akcja" class="form-control"></td>
                 <td><input type="text" type="text" name="e_new_akcja_wys" class="form-control"></td>
@@ -242,7 +243,7 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
             <h4 class="modal-title">Dodaj Moduł</h4>
           </div>
           <div class="modal-body">
-            <form name='dodaj' method='post' action='?x=<?= $_GET['x'] ?>'>
+            <form name='dodaj' method='post' action='?x=<?= $x ?>'>
               <p>
                 <div class='form-group input-group'>
                   <span class='input-group-addon'>Nazwa (PHP)</span>

@@ -1,12 +1,11 @@
 <?
-tytul_strony("Wpisy Kategoria: ".$_GET['nazwa']);
+tytul_strony("Wpisy Kategoria: ".Get::string('nazwa'));
 
 $category_id = Get::int('id');
 $category_dane = SQL::row("SELECT * FROM `acp_wpisy_kategorie` WHERE `id` = $category_id");
 
 $limit =  5; //Liczba wpisów na jednej stronie
 $strona = Get::int('str');
-//$strona = $_GET['str']; // Pobranie numeru strony
 
 if (!isset($strona)) {
     $limit1 = 0;
@@ -82,7 +81,7 @@ if (!isset($strona)) {
   			if ($liczba_stron == 1) {
   				echo '<button type="button" class="btn btn-secondary">'.$v.'</button>';
   			} else {
-  				echo '<a href="?x=wpisy-category&nazwa='.$_GET['nazwa'].'&id='.$category_id.'&str='.$v.'"><button type="button" class="btn btn-secondary">'.$v.'</button></a>';
+  				echo '<a href="?x=wpisy-category&nazwa='.Get::string('nazwa').'&id='.$category_id.'&str='.$v.'"><button type="button" class="btn btn-secondary">'.$v.'</button></a>';
   			}
   		}
   		?>

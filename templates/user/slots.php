@@ -10,7 +10,7 @@
 	</section >
   </div>
 <?
-$co = (isset($_GET['co'])) ? $_GET['co'] : null;
+$co = Get::string('co');
 if(isset($co) && isset($xx)){
     $dane_xx = SQL::row("SELECT `serwer_id`, `nazwa`, `mod`, `max_graczy`, `min`, `max`, `h_start`, `h_koniec`, `style` FROM `acp_serwery` LEFT JOIN `acp_slots_serwery` ON `acp_serwery`.`serwer_id` = `acp_slots_serwery`.`serwer` WHERE `serwer_id` = $xx LIMIT 1;");
     $dane_xx->style_array = array('LOW' => 'LOW', 'HARD' => 'HARD');

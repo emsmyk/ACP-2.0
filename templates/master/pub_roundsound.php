@@ -31,7 +31,7 @@ $dane = Controller('Roundsound')->DanePubliczne($id_roundsound);
           Controller('Roundsound')->propozycja($dane->rs->id);
           redirect("?x=$x&id_roundsound=$id_roundsound");
         }
-        if($_GET['co'] == 'vote'){
+        if(Get::string('co') == 'vote'){
           Controller('Roundsound')->vote($dane->rs->id, Get::int('id') );
           redirect("?x=$x&id_roundsound=$id_roundsound");
         }

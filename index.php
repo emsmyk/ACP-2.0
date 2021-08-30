@@ -88,8 +88,8 @@ else {
 }
 
 // wartość get x
-$x = (isset($_GET['x'])) ? $_GET['x'] : null;
-$xx = (isset($_GET['xx'])) ? $_GET['xx'] : null;
+$x = Get::string('x');
+$xx = Get::string('xx');
 
 // wyswietl bledy php 0 = OFF
 daj_bledy((int)$acp_system['dev_on'], $acp_system['dev_modul'], $x);
