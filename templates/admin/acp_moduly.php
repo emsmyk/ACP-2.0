@@ -217,7 +217,7 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
                 <td><?= $moduly->opis; ?></td>
                 <td>
                   <a href="<?= "?x=$x&id=$moduly->id&co=edytuj" ?>"><button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button></a>
-                  <a href="<?= "?x=$x&id=$moduly->id&co=usun" ?>"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
+                  <a href="<?= "?x=$x&id=$moduly->id&co=usun" ?>"><button type="button" onclick="return confirm('Jesteś Pewny?')" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
                 </td>
               </tr>
               <? } ?>

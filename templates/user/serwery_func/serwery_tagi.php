@@ -104,7 +104,7 @@ if(!empty($edycja_id)){
               <td>
                 <div class="btn-group">
                   <a href="<?= "?x=$x&xx=$xx&edycja=$tag->id" ?>" class="btn btn-primary" role="button" aria-pressed="true"><i class="fa fa-edit"></i> Edytuj</a>
-                  <a href="<?= "?x=$x&xx=$xx&co=usun&id=$tag->id" ?>" class="btn btn-danger" role="button" aria-pressed="true"><i class="fa fa-times"></i> Usuń</a>
+                  <a href="<?= "?x=$x&xx=$xx&co=usun&id=$tag->id" ?>" onclick="return confirm('Jesteś Pewny?')" class="btn btn-danger" role="button" aria-pressed="true"><i class="fa fa-times"></i> Usuń</a>
                 </div>
               </td>
 						</tr>

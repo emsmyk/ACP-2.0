@@ -173,7 +173,7 @@ else {
                   <td><?= $grupy->liczba_userow; ?></td>
                   <td>
                     <a href="<?= "?x=$x&co=edytuj_grupa&id=$grupy->id" ?>"><button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button></a>
-                    <a href="<?= "?x=$x&co=usun_grupa&id=$grupy->id" ?>"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
+                    <a href="<?= "?x=$x&co=usun_grupa&id=$grupy->id" ?>"><button type="button" onclick="return confirm('Jesteś Pewny?')" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
                   </td>
                 </tr>
                 <? } ?>

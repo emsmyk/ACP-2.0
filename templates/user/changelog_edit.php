@@ -98,7 +98,7 @@ if(!empty($edycja_id)){
 							<td><?= $logTab->user_name ?></td>
               <td>
                 <a href="<?= "?x=$x&xx=$xx&edycja=$logTab->id" ?>"><button type="button" class="btn btn-primary"><i class="fa fa-edit"></i></button></a>
-                <a href="<?= "?x=$x&xx=$xx&co=usun&id=$logTab->id" ?>"><button type="button" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
+                <a href="<?= "?x=$x&xx=$xx&co=usun&id=$logTab->id" ?>"><button type="button" onclick="return confirm('Jesteś Pewny?')" class="btn btn-danger"><i class="fa fa-times"></i></button></a>
               </td>
 						</tr>
 						<? } ?>

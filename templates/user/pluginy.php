@@ -207,7 +207,7 @@ if(isset($_POST['wgrywarka'])){
                 <td>
                   <div class="btn-group">
                     <a href="<?= "?x=$x&id=$pluginy->id" ?>" class="btn btn-primary" role="button" aria-pressed="true"><i class="fa fa-edit"></i> Detale</button></a>
-                    <a href="<?= "?x=$x&co=usun&id=$pluginy->id" ?>" class="btn btn-danger" role="button" aria-pressed="true"><i class="fa fa-times"></i> Usuń</button></a>
+                    <a href="<?= "?x=$x&co=usun&id=$pluginy->id" ?>" onclick="return confirm('Jesteś Pewny?')" class="btn btn-danger" role="button" aria-pressed="true"><i class="fa fa-times"></i> Usuń</button></a>
                   </div>
                 </td>
               </tr>

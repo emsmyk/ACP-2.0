@@ -294,7 +294,7 @@ if(Controller('ServerConHelpMenu')->id):
               <td>
                 <div class="btn-group">
                   <a href="<?= "?x=$x&xx=$xx&co=edycja&id=$serwer->id" ?>" class="btn btn-primary" role="button" aria-pressed="true"><i class="fa fa-edit"></i> Edytuj</a>
-                  <a href="<?= "?x=$x&xx=$xx&co=usun&id=$serwer->id" ?>" class="btn btn-danger" role="button" aria-pressed="true"><i class="fa fa-times"></i> Usuń</a>
+                  <a href="<?= "?x=$x&xx=$xx&co=usun&id=$serwer->id" ?>" onclick="return confirm('Jesteś Pewny?')"  class="btn btn-danger" role="button" aria-pressed="true"><i class="fa fa-times"></i> Usuń</a>
                 </div>
               </td>
 						</tr>

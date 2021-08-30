@@ -237,7 +237,7 @@ if(!empty($edycja_id_mapy)){
               <td>
                 <div class="btn-group">
                   <a href="<?= "?x=$x&xx=$xx&edycja=$acp_r->id" ?>" class="btn btn-primary" role="button" aria-pressed="true"><i class="fa fa-edit"></i> Edytuj</a>
-                  <a href="<?= "?x=$x&xx=$xx&co=usun&id=$acp_r->id" ?>" class="btn btn-danger" role="button" aria-pressed="true"><i class="fa fa-times"></i> Usuń</a>
+                  <a href="<?= "?x=$x&xx=$xx&co=usun&id=$acp_r->id" ?>" onclick="return confirm('Jesteś Pewny?')" class="btn btn-danger" role="button" aria-pressed="true"><i class="fa fa-times"></i> Usuń</a>
                 </div>
               </td>
 						</tr>

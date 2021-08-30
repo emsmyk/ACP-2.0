@@ -92,8 +92,8 @@ if(!empty($co)) {
 	 </div>
 	 <div class="box-footer">
 	  <div class="pull-right">
-	   <button type="submit" class="btn btn-default" onclick="window.location.href='?x=powiadomienia&co=odczytane_all'"><i class="fa fa fa-bell"></i> Odczytaj Wszystkie</button>
-	   <button type="submit" class="btn btn-danger" onclick="window.location.href='?x=powiadomienia&co=usun_all'"><i class="fa fa-times"></i> Usuń Wszystkie</button>
+	   <button type="submit" onclick="return confirm('Oznaczyć wszystkie powiadomienia jako odczytane?')"  class="btn btn-default" onclick="window.location.href='?x=powiadomienia&co=odczytane_all'"><i class="fa fa fa-bell"></i> Odczytaj Wszystkie</button>
+	   <button type="submit" onclick="return confirm('Czy jesteś pewny i chcesz usunąć wszystkie powiadomienia?')" class="btn btn-danger" onclick="window.location.href='?x=powiadomienia&co=usun_all'"><i class="fa fa-times"></i> Usuń Wszystkie</button>
 	  </div>
 	 </div>
 	</div>
