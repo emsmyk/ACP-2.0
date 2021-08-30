@@ -76,7 +76,7 @@ class ServerUstawieniaController
         'prefix_hls' => $from->prefix_hls,
         'serwer_on' => $from->wlaczony,
         'cronjobs' => $from->cronjobs,
-        'istotnosc' => $from->istotnosc,
+        'istotnosc' => $from->istonosc,
         'rcon' => $from->rcon,
         'czas_reklam' => $from->czasreklam,
         'liczba_map' => $from->liczbamap,
