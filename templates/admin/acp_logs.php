@@ -51,10 +51,11 @@ if(Get::string('co') == 'zdalny'){
 						<tbody>
 						<?
 						foreach(Controller('Logi')->index($ss_acp_logi) as $log){
+              show($log);
 						?>
 							<tr class="odd gradeX">
 								<td><?= $log->data; ?></td>
-								<td><a href="?x=account&id=<?= $log->id_user; ?>"><?= $log->nick; ?></a></td>
+								<td><?= $log->nick; ?></td>
 								<td><?= $log->tekst; ?></td>
 								<td><?= $log->page; ?></td>
 							</tr>

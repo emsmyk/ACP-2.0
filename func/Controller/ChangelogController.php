@@ -8,7 +8,12 @@ class ChangelogController
 
   function index()
   {
-    return $this->db->get_results("SELECT *, `user` AS `user_id`, (SELECT `login` FROM `acp_users` WHERE `user` = `user_id` LIMIT 1) AS `user_name` FROM `acp_log_serwery`; ", true);
+    $chanlogs = $this->db->get_results("SELECT * FROM `acp_log_serwery`; ", true);
+    foreach ($chanlogs as $log) {
+       $log->user = User::printName($log->user, true);
+    }
+
+    return $chanlogs;
   }
 
   function store($co)

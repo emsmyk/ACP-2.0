@@ -53,8 +53,8 @@ $dane = Controller('Roundsound')->DanePubliczne($id_roundsound);
                     <tbody>
                       <?
                       foreach ($dane->lista_piosenek as $value):
-                        $dane->piosenka->$value = SQL::row("SELECT `id`, `nazwa`, `wykonawca`, `album`, `link_yt`, `vote`, `mp3_code` FROM `rs_utwory` WHERE `id` = $value LIMIT 1");
-                        $dane->piosenka_vote[$value] = array('id' => $value, 'vote' => $dane->piosenka->$value->vote);
+                        $dane->piosenka_details[$value] = SQL::row("SELECT `id`, `nazwa`, `wykonawca`, `album`, `link_yt`, `vote`, `mp3_code` FROM `rs_utwory` WHERE `id` = $value LIMIT 1");
+                        $dane->piosenka_vote[$value] = [ 'id' => $value, 'vote' => $dane->piosenka_details[$value]->vote  ];
                       endforeach;
 
                       array_multisort(array_map(function($element) {
@@ -65,26 +65,26 @@ $dane = Controller('Roundsound')->DanePubliczne($id_roundsound);
                       <?
                       $i=1;
                       foreach ($dane->piosenka_vote as $piosenka):
-                        $piosenka_id = $piosenka[id];
-                        if(!empty($dane->piosenka->$piosenka_id->nazwa)):
-                          $dane->piosenka->$piosenka_id->yt_cover = explode("?v=",$dane->piosenka->$piosenka_id->link_yt);
+                        $piosenka_id = $piosenka['id'];
+                        if(!empty($dane->piosenka_details[$piosenka_id]->nazwa)):
+                          $dane->piosenka_details[$piosenka_id]->yt_cover = explode("?v=",$dane->piosenka_details[$piosenka_id]->link_yt);
                       ?>
                         <tr>
                           <td style="vertical-align: middle;"><button class="btn bg-blue-active color-palette pull-right btn-block btn-sm"> <br><?= $i++ ?><br> &nbsp;</button></td>
-                          <td style="vertical-align: middle;"><img src="https://img.youtube.com/vi/<?= $dane->piosenka->$piosenka_id->yt_cover[1] ?>/mqdefault.jpg" class="img-rounded"></img></td>
+                          <td style="vertical-align: middle;"><img src="https://img.youtube.com/vi/<?= $dane->piosenka_details[$piosenka_id]->yt_cover[1] ?>/mqdefault.jpg" class="img-rounded"></img></td>
                           <td style="vertical-align: middle;">
-                            <p><?= $dane->piosenka->$piosenka_id->nazwa ?> -  <?= $dane->piosenka->$piosenka_id->wykonawca ?></p>
-                            <p><small>Album: <?= $dane->piosenka->$piosenka_id->album ?></small></p>
+                            <p><?= $dane->piosenka_details[$piosenka_id]->nazwa ?> -  <?= $dane->piosenka_details[$piosenka_id]->wykonawca ?></p>
+                            <p><small>Album: <?= $dane->piosenka_details[$piosenka_id]->album ?></small></p>
                             <audio controls preload="none" controlsList="nodownload" id="bgAudio">
-                              <source src="www/mp3/<?= $dane->piosenka->$piosenka_id->mp3_code  ?>.mp3" type="audio/mpeg">
+                              <source src="www/mp3/<?= $dane->piosenka_details[$piosenka_id]->mp3_code  ?>.mp3" type="audio/mpeg">
                             </audio>
                             <p><a href="<?= "?x=$x&id_roundsound=$id_roundsound&co=vote&id=$piosenka_id" ?>" class="btn btn-success btn-block btn-xs">Oddaj Głos</a></p>
                           </td>
                           <td style="vertical-align: middle;">
-                            <button class="btn bg-orange-active color-palette pull-right btn-block btn-sm"><?= $dane->piosenka->$piosenka_id->vote ?><br>Głosów</button>
+                            <button class="btn bg-orange-active color-palette pull-right btn-block btn-sm"><?= $dane->piosenka_details[$piosenka_id]->vote ?><br>Głosów</button>
                           </td>
                           <td style="vertical-align: middle;">
-                            <a href="<?= $dane->piosenka->$piosenka_id->link_yt ?>" target="_blank" ><button type="button" class="btn btn btn"><i class="fa fa-play"></i><br>PLAY <br>YT</button></a>
+                            <a href="<?= $dane->piosenka_details[$piosenka_id]->link_yt ?>" target="_blank" ><button type="button" class="btn btn btn"><i class="fa fa-play"></i><br>PLAY <br>YT</button></a>
                           </td>
                         </tr>
                       <?
@@ -104,10 +104,12 @@ $dane = Controller('Roundsound')->DanePubliczne($id_roundsound);
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="<?= "?x=$x&id_roundsound=".Controller('Roundsound')->DanePubliczneAktualnyID() ?>">Aktualnie Gramy: <b><?= Controller('Roundsound')->DanePubliczneAktualny(); ?></b></a>
                   </li>
+                  <? if(Controller('Roundsound')->DanePubliczneKolejnyID() != ''): ?>
                   <li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="<?= "?x=$x&id_roundsound=".Controller('Roundsound')->DanePubliczneKolejnyID() ?>">W trakcie przygotowania <b><?= Controller('Roundsound')->DanePubliczneKolejny(); ?></b></a>
-                  <!-- </li>
-                  <li class="list-group-item d-flex justify-content-between align-items-center">
+                  </li>
+                  <? endif; ?>
+                  <!--<li class="list-group-item d-flex justify-content-between align-items-center">
                     <a href="">Historia</a>
                   </li> -->
                 </ul>

@@ -23,7 +23,6 @@ if($serverId){
   if($serwer->chefadmin == '') $serwer->chefadmin = 'brak';
 
   $serwer->mapa = Model('Server')->map_img($serwer->mapa);
-
 ?>
  <div class="row">
    <div class="col-xs-12">

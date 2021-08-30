@@ -12,7 +12,7 @@
 <?
 $co = Get::string('co');
 
-$row = Controller('RoundsoundLista')->edit(Get::int('id'));
+$row = Controller('RoundsoundList')->edit(Get::int('id'));
 tytul_strony("RoundSound: Lista - $row->nazwa");
 
 if(empty($row)){
@@ -20,7 +20,7 @@ if(empty($row)){
 }
 
 if(isset($_POST['edit'])) {
-  Controller('RoundsoundLista')->update($row->id, $dostep->RsListaEdycja);
+  Controller('RoundsoundList')->update($row->id, $dostep->RsListaEdycja);
   redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if(isset($_POST['dodaj_piosenke'])) {
@@ -28,15 +28,15 @@ if(isset($_POST['dodaj_piosenke'])) {
   redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if($co == 'usun'){
-  Controller('RoundsoundLista')->destroy($row->id, $dostep->RsListaUsun);
+  Controller('RoundsoundList')->destroy($row->id, $dostep->RsListaUsun);
   redirect("?x=$x");
 }
 if($co == 'usun_piosenke_z_listy'){
-  Controller('RoundsoundListaSong')->deletesong(Get::int('id_piosenki'), $row->id, $dostep->RsListaUsunPiosenke);
+  Controller('RoundsoundListSong')->deletesong(Get::int('id_piosenki'), $row->id, $dostep->RsListaUsunPiosenke);
   redirect("?x=$x&xx=$xx&id=$row->id");
 }
 if($co == 'ustaw_status'){
-  Controller('RoundsoundLista')->status($row->id, Get::string('jaki'), $dostep->RsUstawStatus);
+  Controller('RoundsoundList')->status($row->id, Get::string('jaki'), $dostep->RsUstawStatus);
   redirect("?x=$x&xx=$xx&id=$row->id");
 }
 
@@ -78,13 +78,13 @@ if($co == 'ustaw_status'){
             <?
             $row->lista_piosenek = json_decode($row->lista_piosenek);
             foreach ($row->lista_piosenek as $value):
-              $row->piosenka->$value = SQL::row("SELECT `nazwa`, `wykonawca`, `album`, `link_yt`, `vote`, `mp3`, `mp3_code` FROM `rs_utwory` WHERE `id` = $value LIMIT 1");
-              if(!empty($row->piosenka->$value)):
-                $row->piosenka->$value->mp3_color = ($row->piosenka->$value->mp3 == 1) ? 'success' : 'danger';
+              $row->piosenka_details[$value] = SQL::row("SELECT `nazwa`, `wykonawca`, `album`, `link_yt`, `vote`, `mp3`, `mp3_code` FROM `rs_utwory` WHERE `id` = $value LIMIT 1");
+              if(!empty( $row->piosenka_details[$value] )):
+                $row->piosenka_details[$value]->mp3_color = ($row->piosenka_details[$value]->mp3 == 1) ? 'success' : 'danger';
                 ?>
                 <li class="list-group-item">
-                  <b><?= $row->piosenka->$value->nazwa ?> - <?= $row->piosenka->$value->wykonawca ?></b> <i><?= $row->piosenka->$value->album ?></i>
-                  <span class="label label-<?= $row->piosenka->$value->mp3_color ?>"> <i class="fa fa-music"> </i> Mp3 File</span>
+                  <b><?= $row->piosenka_details[$value]->nazwa ?> - <?= $row->piosenka_details[$value]->wykonawca ?></b> <i><?= $row->piosenka_details[$value]->album ?></i>
+                  <span class="label label-<?= $row->piosenka_details[$value]->mp3_color ?>"> <i class="fa fa-music"> </i> Mp3 File</span>
                   <div class="tools">
                     <a href="<?= "?x=$x&xx=piosenki_edit&id=$value" ?>"><i class="fa fa-edit"></i> Edytuj</a>
                     <a href="<?= "?x=$x&xx=$xx&id=$row->id&co=usun_piosenke_z_listy&id_piosenki=$value" ?>"><i class="fa fa-trash-o"></i> Usuń</a>

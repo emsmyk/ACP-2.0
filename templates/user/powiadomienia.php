@@ -6,6 +6,8 @@
 		</div>
 	</div>
 <?
+tytul_strony('Powiadomienia');
+
 $co = Get::string('co');
 $id = Get::int('id');
 

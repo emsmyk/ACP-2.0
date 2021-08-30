@@ -14,7 +14,7 @@ tytul_strony("RoundSound: Listy");
   </div>
 <?
 if(isset($_POST['nowe'])) {
-  Controller('RoundsoundLista')->store($dostep->RsListaDodaj);
+  Controller('RoundsoundList')->store($dostep->RsListaDodaj);
   redirect("?x=$x&xx=$xx");
 }
 ?>

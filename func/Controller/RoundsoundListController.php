@@ -1,5 +1,5 @@
 <?php
-class RoundsoundController
+class RoundsoundListController
 {
   function __construct()
   {
