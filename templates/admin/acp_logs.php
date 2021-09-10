@@ -51,7 +51,6 @@ if(Get::string('co') == 'zdalny'){
 						<tbody>
 						<?
 						foreach(Controller('Logi')->index($ss_acp_logi) as $log){
-              show($log);
 						?>
 							<tr class="odd gradeX">
 								<td><?= $log->data; ?></td>

@@ -11,7 +11,7 @@
   </div>
 <?
 $miesiac = Get::string('miesiac');
-$rok = Get::string('rok')
+$rok = Get::string('rok');
 
 $raporty = SQL::all("SELECT * FROM `raport_serwer`");
 

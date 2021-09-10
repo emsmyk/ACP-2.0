@@ -58,7 +58,8 @@ if($co == 'edycja'):
           <input type='hidden' name='id' value='<?= $severEdit->serwer_id ?>'>
           <input type='hidden' name='nazwa' value='<?= $severEdit->nazwa ?>'>
           <div class="col-xs-12">
-            <p><div class='form-group input-group'><span class='input-group-addon'>ID</span><input class='form-control' type='number' value='<?= $severEdit->serwer_id ?>' disabled /></div></p>
+            <p>Podstawowe:</p>
+            <p><div class='form-group input-group'><span class='input-group-addon'>Serwer ID</span><input class='form-control' type='number' value='<?= $severEdit->serwer_id ?>' disabled /></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Nazwa Serwera</span><input class='form-control' type='text' value='<?= $severEdit->nazwa ?>' disabled /></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Pozycja Serwera (Kolejność)</span><input class='form-control' type='number' name='istonosc' value='<?= $severEdit->istotnosc ?>'/></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Mod</span><input class='form-control' type='text' name='mod' value='<?= $severEdit->mod ?>'/></div></p>
@@ -66,11 +67,11 @@ if($co == 'edycja'):
             <p><div class='form-group input-group'><span class='input-group-addon'>PORT</span><input class='form-control' type='text' name='port' value='<?= $severEdit->port ?>'/></div></p>
           </div>
           <div class="col-md-6 col-xs-12">
-            <p>Podstawowe:</p>
+            <p>Dodatkowe:</p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Serwer Włączony</span>
               <?= optionHtml($tak_nie_array, ['name' => 'wlaczony' , 'value' => $severEdit->serwer_on]); ?>
             </div></p>
-            <p><div class='form-group input-group'><span class='input-group-addon'>Edycja Plików</span>
+            <p><div class='form-group input-group'><span class='input-group-addon'>Prace Zdalne</span>
               <?= optionHtml($tak_nie_array, ['name' => 'cronjobs' , 'value' => $severEdit->cronjobs]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Sourcebans (Database Prefix)</span><input class='form-control' type='text' name='prefix_sb' value='<?= $severEdit->prefix_sb ?>'/></div></p>
@@ -78,8 +79,8 @@ if($co == 'edycja'):
 
           </div>
           <div class="col-md-6 col-xs-12">
-            <p>Połaczenie:</p>
-            <p><div class='form-group input-group'><span class='input-group-addon'>RCON</span><input class='form-control' type='password' name='rcon' autocomplete='new-password'/></div></p>
+            <p>Połaczenie Zdalne:</p>
+            <p><div class='form-group input-group'><span class='input-group-addon'>Hasło RCON</span><input class='form-control' type='password' name='rcon' autocomplete='new-password'/></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>FTP Login</span><input class='form-control' type='text' name='ftpu' value='<?= $severEdit->ftp_user ?>'/></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>FTP Hasło</span><input class='form-control' type='password' name='ftpp' autocomplete='new-password'/></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>FTP Host</span><input class='form-control' type='text' name='ftph' value='<?= $severEdit->ftp_host ?>'/></div></p>
@@ -99,7 +100,7 @@ if($co == 'edycja'):
             <p><div class='form-group input-group'><span class='input-group-addon'>Opiekun</span>
               <?= optionHtml($users_list, ['name' => 'opiekun' , 'value' => $severEdit->ser_a_opiekun]); ?>
             </div></p>
-            <p><div class='form-group input-group'><span class='input-group-addon'>Chef Admin</span>
+            <p><div class='form-group input-group'><span class='input-group-addon'>Zastępca Opiekuna</span>
               <?= optionHtml($users_list, ['name' => 'copiekun' , 'value' => $severEdit->ser_a_copiekun]); ?>
             </div></p>
           </div>
@@ -109,8 +110,7 @@ if($co == 'edycja'):
         </form>
         <form method="POST" enctype="multipart/form-data">
           <div class="col-md-12 col-xs-12">
-            <p>Banner Serwera:</p>
-            <? $severEdit->banner_img = (file_exists("www/server_banner/$severEdit->serwer_id.png")) ? "www/server_banner/$severEdit->serwer_id.png" : "https://acp.sloneczny-dust.pl/www/server_banner/0.png"; ?>
+            <? $severEdit->banner_img = (file_exists("www/server_banner/$severEdit->serwer_id.png")) ? "www/server_banner/$severEdit->serwer_id.png" : "www/server_banner/0.png"; ?>
             <div class="col-md-6 col-xs-12">
               <p><img src='<?= $severEdit->banner_img; ?>' class='img-fluid'></img></p>
             </div>
@@ -166,7 +166,7 @@ if($co == 'cron'):
             <p><div class='form-group input-group'><span class='input-group-addon'>Katalog Główny</span><input class='form-control' type='text' name='katalog' value='<?= $serverCron->katalog ?>'/></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Typ połaczenia</span>
               <?= optionHtml(
-                ['ftp' => 'FTP', 'sftp' => 'SFTP (Nie działa)' ],
+                ['ftp' => 'FTP', 'sftp' => 'SFTP (Aktualnie nie działa)' ],
                 ['name' => 'typ_polaczenia' , 'value' => $serverCron->typ_polaczenia]
               ); ?>
             </div></p>
