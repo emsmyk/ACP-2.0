@@ -1,15 +1,18 @@
 <?
 $changelog = Controller('Changelog');
-
 $serwer_id = Get::int('serwer_id');
 Model('Server')->dostep($serwer_id, $player->user);
+$srv_dane = Controller('ServerDet')->index( $serwer_id )['srv_data'];
 
-$srv_dane = SQL::row("SELECT *, (SELECT `login` FROM `acp_users` WHERE `user` = `ser_a_copiekun`) AS `nick_copiekun` FROM `acp_serwery` WHERE `serwer_id` = $serwer_id; ");
-$obrazek_mapy = Model('Server')->map_img($serwer->mapa);
-$srv_dane->procent_zapelnienia = (empty($srv_dane->graczy)) ? 0 : round($srv_dane->graczy*100/$srv_dane->max_graczy);
-$srv_dane->procent_pustych_slotow = 100-$srv_dane->procent_zapelnienia;
+if(empty($_SESSION['ServerDet_'. Get::int('serwer_id') ])  || !isset($_SESSION['ServerDet_'. Get::int('serwer_id') ])){
+  $_SESSION['ServerDet_'. Get::int('serwer_id') ] = [
+    'wyk-graczy-zakres' => 'hour',
+    'srv_det_graczy' => 30,
+    'srv_det_gosetti_pozycja' => 10,
+    'srv_det_gosetti_tura' => 10
+  ];
+}
 
-$require_once = 'templates/user/serwery_det/';
 ?>
 <style>
 .example-modal .modal { position: relative; top: auto; bottom: auto; right: auto; left: auto; display: block; z-index: 1; }
@@ -23,12 +26,12 @@ $require_once = 'templates/user/serwery_det/';
       <?= Model('Server')->kontrola($serwer_id); ?>
   	</section >
   </div>
-<? require_once($require_once.'Form.php'); ?>
+<? Model('Server')->require('Form.php'); ?>
 
   <div class="row">
     <?
     if(Permission::check($dostep->serwery_det_logi, false) && !empty( Get::string('logi') )):
-      require_once($require_once.'Logi.php');
+      Model('Server')->require('Logi.php');
     endif;
     ?>
     <div class="col-md-8">
@@ -42,7 +45,7 @@ $require_once = 'templates/user/serwery_det/';
           <div class="tab-pane active" id="dane_podstawowe">
             <div class="box-body table-responsive no-padding">
               <div class="col-lg-5">
-                <p><img src="<?= $obrazek_mapy ?>" class="img-thumbnail"></p>
+                <p><img src="<?= Controller('ServerDet')->index( $serwer_id )['obrazek_mapy'] ?>" class="img-thumbnail"></p>
               </div>
               <div class="col-lg-7">
                 <p>Nazwa: <?= $srv_dane->nazwa ?></p>
@@ -79,20 +82,13 @@ $require_once = 'templates/user/serwery_det/';
                   <th>Tekst</th>
                   <th>Dodał</th>
                 </tr>
-                <?
-                $changelog_last_Q = SQL::all("SELECT *, `user` AS `user_id`, (SELECT `login` FROM `acp_users` WHERE `user` = `user_id`) AS `nick` FROM `acp_log_serwery` WHERE `serwer_id` = $serwer_id ORDER BY `data` DESC LIMIT 5");
-                if(empty($changelog_last_Q)):?>
-                  <tr> <td colspan="3">Brak danych do zaprezentowania..</id></tr>
-                <? else:
-                  foreach ($changelog_last_Q as $changelog_last):
-                  ?>
-                  <tr>
-                    <td><?= $changelog_last->data ?></td>
-                    <td><?= $changelog_last->tekst ?></td>
-                    <td><?= $changelog_last->nick ?></td>
-                  </tr>
-                <? endforeach;
-                endif;?>
+                <? foreach (Controller('ServerDet')->index( $serwer_id )['changelogs'] as $changelog): ?>
+                <tr>
+                  <td><?= $changelog->data ?></td>
+                  <td><?= $changelog->tekst ?></td>
+                  <td><?= User::printName($changelog->user, true) ?></td>
+                </tr>
+                <? endforeach; ?>
               </table>
             </div>
           </div>
@@ -123,17 +119,23 @@ $require_once = 'templates/user/serwery_det/';
     </div>
   </div>
 
-  <? require_once($require_once.'row/RowListaAdminow.php'); ?>
-  <? require_once($require_once.'row/RowPraceCykliczne.php'); ?>
-  <? require_once($require_once.'row/RowWykresy.php'); ?>
+  <?
+  Model('Server')->require('row/RowListaAdminow.php');
+  Model('Server')->require('row/RowPraceCykliczne.php');
+  Model('Server')->require('row/RowWykresy.php');
+  ?>
 
   <div class="row">
-    <? require_once($require_once.'modal/ModalChangelog.php'); ?>
-    <? require_once($require_once.'modal/ModalRegulamin.php'); ?>
-    <? require_once($require_once.'modal/ModalWykresy.php'); ?>
-    <? require_once($require_once.'modal/ModalListaAdminow.php'); ?>
-    <? require_once($require_once.'modal/RaportOpiekuna.php'); ?>
-    <? require_once($require_once.'modal/ModalLogi.php'); ?>
+
+    <?
+    Model('Server')->require('modal/ModalChangelog.php');
+    Model('Server')->require('modal/ModalRegulamin.php');
+    Model('Server')->require('modal/ModalWykresy.php');
+    Model('Server')->require('modal/ModalListaAdminow.php');
+    Model('Server')->require('modal/RaportOpiekuna.php');
+    Model('Server')->require('modal/ModalLogi.php');
+    ?>
+
     <div class="modal fade" id="wgraj_mape">
       <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -193,7 +195,9 @@ $require_once = 'templates/user/serwery_det/';
   ['name' => '#tab_lista_adminow_raport', 'display' => '100']
 ]); ?>
 
-<? require_once($require_once.'js/JsWykresy.php'); ?>
+<?
+Model('Server')->require('js/JsWykresy.php');
+?>
 
 <script>
   $(document).ready(function () {

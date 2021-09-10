@@ -12,7 +12,7 @@
             <div class='form-group input-group'>
               <span class='input-group-addon'>Zakres</span>
               <select class="form-control" name="wyk-graczy-zakres">
-                <option value="<?= $_SESSION["wyk-graczy-zakres-$serwer_id"] ?>">Aktualnie wybrany: <?= $_SESSION["wyk-graczy-zakres-$serwer_id"] ?></option>
+                <option value="<?= $_SESSION['ServerDet_'. Get::int('serwer_id') ]['wyk-graczy-zakres'] ?>">Aktualnie wybrany: <?= $_SESSION['ServerDet_'. Get::int('serwer_id') ]['wyk-graczy-zakres'] ?></option>
                 <option value="hour">Godzinowy</option>
                 <option value="day">Dzienny</option>
                 <option value="month">Miesięczny</option>
@@ -22,21 +22,21 @@
           <p>
             <div class='form-group input-group'>
               <span class='input-group-addon'>Ilość</span>
-              <input class="form-control" name="wyk-graczy-ilosc" type="number" value="<?= $_SESSION["srv_det_graczy_$serwer_id"] ?>">
+              <input class="form-control" name="wyk-graczy-ilosc" type="number" value="<?= $_SESSION['ServerDet_'. Get::int('serwer_id') ]['srv_det_graczy'] ?>">
             </div>
           </p>
           <h4>Wykres - GOSetti Pozycja:</h4>
           <p>
             <div class='form-group input-group'>
               <span class='input-group-addon'>Ilość</span>
-              <input class="form-control" name="wyk-gosetti-pozycja-ilosc" type="number" value="<?= $_SESSION["srv_det_gosetti_pozycja_$serwer_id"] ?>">
+              <input class="form-control" name="wyk-gosetti-pozycja-ilosc" type="number" value="<?= $_SESSION['ServerDet_'. Get::int('serwer_id') ]['srv_det_gosetti_pozycja'] ?>">
             </div>
           </p>
           <h4>Wykres - GOSetti Punkty:</h4>
           <p>
             <div class='form-group input-group'>
               <span class='input-group-addon'>Ilość</span>
-              <input class="form-control" name="wyk-gosetti-punkty-ilosc" type="number" value="<?= $_SESSION["srv_det_gosetti_tura_$serwer_id"] ?>">
+              <input class="form-control" name="wyk-gosetti-punkty-ilosc" type="number" value="<?= $_SESSION['ServerDet_'. Get::int('serwer_id') ]['srv_det_gosetti_tura'] ?>">
             </div>
           </p>
         </div>

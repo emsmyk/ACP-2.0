@@ -10,7 +10,7 @@
         </div>
       </div>
       <div class="box-body">
-        <? $lista_adminow = SQL::row("SELECT * FROM `acp_serwery_listaadminow` WHERE `serwer` = $serwer_id LIMIT 1");
+        <? $lista_adminow = Controller('ServerDet')->index($serwer_id)['admin_list'];
         if(!empty($lista_adminow)):
           $lista_adminow->dane = json_decode($lista_adminow->dane);
         ?>

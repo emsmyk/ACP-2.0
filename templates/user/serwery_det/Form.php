@@ -47,16 +47,11 @@ if(isset($_POST['wgraj_mape'])){
 //
 // Wykresy
 //
-if(empty($_SESSION["wyk-graczy-zakres-$serwer_id"])) { $_SESSION["wyk-graczy-zakres-$serwer_id"] = 'hour'; }
-if(empty($_SESSION["srv_det_graczy_$serwer_id"])) { $_SESSION["srv_det_graczy_$serwer_id"] = 30; }
-if(empty($_SESSION["srv_det_gosetti_pozycja_$serwer_id"])) { $_SESSION["srv_det_gosetti_pozycja_$serwer_id"] = 10; }
-if(empty($_SESSION["srv_det_gosetti_tura_$serwer_id"])) { $_SESSION["srv_det_gosetti_tura_$serwer_id"] = 10; }
-if(empty($_SESSION["srv_det_gosetti_tura_$serwer_id"])) { $_SESSION["srv_det_gosetti_tura_$serwer_id"] = 10; }
 if(Get::string('wykresy') == 'wykresy'){
-  $_SESSION["wyk-graczy-zakres-$serwer_id"] = $_POST["wyk-graczy-zakres"];
-  $_SESSION["srv_det_graczy_$serwer_id"] = $_POST["wyk-graczy-ilosc"];
-  $_SESSION["srv_det_gosetti_pozycja_$serwer_id"] = $_POST["wyk-gosetti-pozycja-ilosc"];
-  $_SESSION["srv_det_gosetti_tura_$serwer_id"] = $_POST["wyk-gosetti-punkty-ilosc"];
+  $_SESSION['ServerDet_'. Get::int('serwer_id') ]['wyk-graczy-zakres'] = $_POST["wyk-graczy-zakres"];
+  $_SESSION['ServerDet_'. Get::int('serwer_id') ]['srv_det_graczy'] = $_POST["wyk-graczy-ilosc"];
+  $_SESSION['ServerDet_'. Get::int('serwer_id') ]['srv_det_gosetti_pozycja'] = $_POST["wyk-gosetti-pozycja-ilosc"];
+  $_SESSION['ServerDet_'. Get::int('serwer_id') ]['srv_det_gosetti_tura'] = $_POST["wyk-gosetti-punkty-ilosc"];
 
   redirect("?x=$x&serwer_id=$serwer_id");
 }

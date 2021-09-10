@@ -7,7 +7,7 @@
       element: 'iloscGraczy_Morris',
       resize: true,
       data: [
-        <?= Controller('ServerDet')->wykres_pobierz_dane('wykres_graczy_morris', 'data', $_SESSION["wyk-graczy-zakres-$serwer_id"], $serwer_id, $_SESSION["srv_det_graczy_$serwer_id"]); ?>
+        <?= Controller('ServerDet')->wykres_pobierz_dane('wykres_graczy_morris', 'data', $_SESSION['ServerDet_'. Get::int('serwer_id') ]['wyk-graczy-zakres'], $serwer_id, $_SESSION['ServerDet_'.Get::int('serwer_id')]['srv_det_graczy'] ); ?>
       ],
       xkey: 'y',
       ykeys: ['item1', 'item2'],
@@ -21,7 +21,7 @@
     //   element: 'hlstats_wykres',
     //   resize: true,
     //   data: [
-    //     <?= Controller('ServerDet')->wykres_pobierz_dane('wykres_hlstats', 'data', $_SESSION["wyk-graczy-zakres-$serwer_id"], $serwer_id, $_SESSION["srv_det_graczy_$serwer_id"]); ?>
+    //     <?= Controller('ServerDet')->wykres_pobierz_dane('wykres_hlstats', 'data', $_SESSION['ServerDet_'. Get::int('serwer_id') ]['wyk-graczy-zakres']], $serwer_id, $_SESSION['ServerDet_'.Get::int('serwer_id')]['srv_det_graczy'] ); ?>
     //   ],
     //   xkey: 'y',
     //   ykeys: ['item1', 'item2', 'item3', 'item4', 'item5', 'item6'],
@@ -35,7 +35,7 @@
       element: 'GOSettiRANK',
       resize: true,
       data: [
-          <?= Controller('ServerGosetti')->wykres($serwer_id, $_SESSION["srv_det_gosetti_pozycja_$serwer_id"])->gosetti_rank_all; ?>
+          <?= Controller('ServerGosetti')->wykres($serwer_id, $_SESSION['ServerDet_'.Get::int('serwer_id')]['srv_det_gosetti_pozycja'] )->gosetti_rank_all; ?>
       ],
       xkey: 'y',
       ykeys: ['item1', 'item2'],
@@ -49,7 +49,7 @@
       element: 'GOSettiPUNKTY',
       resize: true,
       data: [
-        <?= Controller('ServerGosetti')->wykres($serwer_id, $_SESSION["srv_det_gosetti_tura_$serwer_id"])->rank_tura; ?>
+        <?= Controller('ServerGosetti')->wykres($serwer_id, $_SESSION['ServerDet_'.Get::int('serwer_id')]['srv_det_gosetti_tura'] )->rank_tura; ?>
       ],
       barColors: ['#3498DB', '#34495E','#26B99A', '#DE8244'],
       xkey: 'y',

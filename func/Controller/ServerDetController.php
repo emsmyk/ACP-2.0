@@ -7,6 +7,26 @@ class ServerDetController
 
   }
 
+
+  function index($serwer_id)
+  {
+    $serwer_id = (int)$serwer_id;
+    $srv_dane = SQL::row("SELECT *, (SELECT `login` FROM `acp_users` WHERE `user` = `ser_a_copiekun`) AS `nick_copiekun` FROM `acp_serwery` WHERE `serwer_id` = $serwer_id; ");
+
+    $srv_dane->procent_zapelnienia = (empty($srv_dane->graczy)) ? 0 : round($srv_dane->graczy*100/$srv_dane->max_graczy);
+    $srv_dane->procent_pustych_slotow = ($srv_dane->procent_zapelnienia == 0 || is_null($srv_dane->procent_zapelnienia) || $srv_dane->procent_zapelnienia == '') ? 0 : 100-$srv_dane->procent_zapelnienia;
+
+    $changelogs = SQL::all("SELECT * FROM `acp_log_serwery` WHERE `serwer_id` = $serwer_id ORDER BY `data` DESC LIMIT 5");
+    $admin_list = SQL::row("SELECT * FROM `acp_serwery_listaadminow` WHERE `serwer` = $serwer_id LIMIT 1");
+
+    return [
+      'srv_data' => $srv_dane,
+      'obrazek_mapy' => Model('Server')->map_img($srv_dane->mapa),
+      'changelogs' => $changelogs,
+      'admin_list' => $admin_list,
+    ];
+  }
+
   function editUstPodstawowe($server, $dostep)
   {
     Permission::check($dostep);
