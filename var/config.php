@@ -3,9 +3,7 @@ define( 'SEND_ERRORS_TO', 'zabawa@emsmyk.pl' ); //set email notification email a
 define( 'DISPLAY_DEBUG', true ); //display db errors?
 
 define( 'ACP_V', '2.01' );
-
-//adres strony http://adres-strony.pl
-$config['site'] = 'https://acp.sloneczny-dust.pl';
+define( 'SITE', 'https://acp.sloneczny-dust.pl');
 
 $db = new DB();
 

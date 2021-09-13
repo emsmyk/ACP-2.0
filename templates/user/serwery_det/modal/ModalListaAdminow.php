@@ -12,7 +12,7 @@
           <input type="hidden" name="serwer_id" value="<?= $serwer_id ?>">
           <? $api_sb_last_admin = Model('Sourcebans')->last_admin($srv_dane->prefix_sb); ?>
           <input type="hidden" name="last_admin" value="<?= $api_sb_last_admin ?>">
-          <input type="hidden" name="site" value="<?= $config['site'] ?>">
+          <input type="hidden" name="site" value="<?= SITE ?>">
           <p>
             <div class='form-group input-group'>
               <span class='input-group-addon'>Nick</span>
