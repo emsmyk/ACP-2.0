@@ -22,7 +22,7 @@ if(isset($_POST['acp_grupa_sesja'])){
 ?>
 
 <footer class="main-footer">
-	<div class="pull-right hidden-xs"><b>Version</b> <?= $acp_system['acp_wersja']; ?></div>
+	<div class="pull-right hidden-xs"><b>Version</b> <?= ACP_V ?></div>
 	<strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Admin Control Panel  by <a href="https://steamcommunity.com/profiles/76561198015904879" target="_blank">EMCE!</a>
 </footer>
 

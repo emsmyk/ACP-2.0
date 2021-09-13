@@ -15,7 +15,6 @@ $id = Get::int('id');
 if(isset($_POST['edycja_podstwowe'])) {
   Controller('Ustawienia')->updateConf([
     [ 'name' => 'acp_nazwa', 'value' => $_POST['acp_nazwa'] ],
-    [ 'name' => 'acp_wersja', 'value' => $_POST['acp_wersja'] ],
     [ 'name' => 'acp_mail', 'value' => $_POST['acp_mail'] ],
     [ 'name' => 'acp_timezone', 'value' => $_POST['acp_timezone'] ],
     [ 'name' => 'acp_special_key', 'value' => $_POST['acp_special_key'] ],
@@ -274,7 +273,7 @@ $cronOption = [
     					<div class="box-body">
                 <form name='e_podstawowe' method='post'>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Nazwa</span><input class='form-control' type='text' name='acp_nazwa' value='<?= $acp_system['acp_nazwa']; ?>'/></div></p>
-                 <p><div class='form-group input-group'><span class='input-group-addon'>Wersja</span><input class='form-control' type='text' name='acp_wersja' value='<?= $acp_system['acp_wersja']; ?>'/></div></p>
+                 <p><div class='form-group input-group'><span class='input-group-addon'>Wersja</span><input class='form-control' type='text' value='<?= ACP_V; ?>' disabled /></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Mail</span><input class='form-control' type='text' name='acp_mail' value='<?= $acp_system['acp_mail']; ?>'/></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Timezone</span><input class='form-control' type='text' name='acp_timezone' value='<?= $acp_system['acp_timezone']; ?>'/></div></p>
                  <hr>

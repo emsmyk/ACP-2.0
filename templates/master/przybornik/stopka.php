@@ -4,7 +4,7 @@
 <footer class="main-footer">
   <div class="container">
     <div class="pull-right hidden-xs">
-      <b>Version</b> <? echo $acp_system['acp_wersja']; ?>
+      <b>Version</b> <?= ACP_V; ?>
     </div>
     <strong>Copyright &copy; <script>document.write(new Date().getFullYear());</script> Admin Control Panel  by <a href="https://steamcommunity.com/profiles/76561198015904879" target="_blank">EMCE!</a>
   </div>
