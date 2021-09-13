@@ -1,5 +1,5 @@
 <?php
-ini_set('display_errors', 1); ini_set('display_startup_errors', 1); error_reporting(E_ALL);
+ini_set('error_reporting', E_ALL);
 
 require_once('func/x_old_mysql.php');
 require_once('func/SQL.php');
@@ -53,7 +53,7 @@ if(empty($player))
 //moduly dostepu
 $podstawa = [ "blad", "login", "register", "forget_password", "logout", "ajax",
 "default", "cronjobs", "cronjobs_stats", "cronjobs_optym", "cronjobs_serwer", "api", "plugins_lic",
-"pub_sourcebans", "pub_admin_list", "pub_galeria_map", "pub_changelog", "pub_serwery", "pub_hlstats_top", "pub_roundsound", "pub_zadanie", "pub_iframe", "test"
+"pub_sourcebans", "pub_admin_list", "pub_galeria_map", "pub_changelog", "pub_serwery", "pub_hlstats_top", "pub_roundsound", "pub_zadanie", "pub_iframe"
 ];
 $podstawa_clear = ['download'];
 $gosc = array_merge($podstawa, $podstawa_clear);
