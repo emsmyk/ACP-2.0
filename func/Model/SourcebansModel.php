@@ -11,14 +11,14 @@ class SourcebansModel
     $this->db = new DB($this->sb_host, $this->sb_user, $this->sb_pass, $this->sb_db);
   }
 
-  function admins($srv)
+  function admins($prf)
   {
-    return $this->db->get_results("SELECT `aid`, `user`, `authid`, `immunity`, `srv_group`, `srv_flags` FROM `".$srv."_admins` WHERE `authid` != '' AND `aid` != '' AND `user` != 'CONSOLE' ORDER BY FIELD(`srv_group`, 'Opiekun', 'Starszy Admin', 'Admin', 'Legenda', '')", true);
+    return $this->db->get_results("SELECT `aid`, `user`, `authid`, `immunity`, `srv_group`, `srv_flags` FROM `".$prf."_admins` WHERE `authid` != '' AND `aid` != '' AND `user` != 'CONSOLE' ORDER BY FIELD(`srv_group`, 'Opiekun', 'Starszy Admin', 'Admin', 'Legenda', '')", true);
   }
 
-  function admin_exist($srv, $aid)
+  function admin_exist($prf, $aid)
   {
-    $admin = $this->db->get_row("SELECT `user`, `authid` FROM `".$srv."_admins` WHERE `aid` = $aid LIMIT 1")[0];
+    $admin = $this->db->get_row("SELECT `user`, `authid` FROM `".$prf."_admins` WHERE `aid` = $aid LIMIT 1")[0];
 
     if(empty($Server)){
       return false;
@@ -27,24 +27,29 @@ class SourcebansModel
     return $admin;
   }
 
-  function admins_list($srv)
+  /*
+    $prf = prefix serwera
+    $where = dane jakie mają zostać weliminowane
+    $order = order
+  */
+  function admins_list($prf, $where='', $order='')
   {
-    return $this->db->get_results("SELECT `aid`, `user`, `authid`, `srv_group` FROM `".$srv."_admins` WHERE `authid` != '' AND `aid` != '' AND `user` != 'CONSOLE' AND `srv_group` NOT IN ('', 'Legenda', 'VIP', 'Weteran') ORDER BY FIELD(`srv_group`, 'Opiekun', 'Starszy Admin', 'Admin')", true);
+    return $this->db->get_results("SELECT `aid`, `user`, `authid`, `srv_group` FROM `".$prf."_admins` $where  $order", true);
   }
 
-  function groups($srv)
+  function groups($prf)
   {
-    return $this->db->get_results("SELECT * FROM `".$srv."_srvgroups` ORDER BY `immunity` ASC", true);
+    return $this->db->get_results("SELECT * FROM `".$prf."_srvgroups` ORDER BY `immunity` ASC", true);
   }
 
-  function servers($srv)
+  function servers($prf)
   {
-    return $this->db->get_results("SELECT * FROM `".$srv."_servers`", true);
+    return $this->db->get_results("SELECT * FROM `".$prf."_servers`", true);
   }
 
-  function server_exist($srv, $ip, $port)
+  function server_exist($prf, $ip, $port)
   {
-    $Server = $this->db->get_row("SELECT `sid` FROM `".$srv."_servers` WHERE `ip` = ".$ip." AND `port` = ".$port." LIMIT 1")[0];
+    $Server = $this->db->get_row("SELECT `sid` FROM `".$prf."_servers` WHERE `ip` = ".$ip." AND `port` = ".$port." LIMIT 1")[0];
 
     if(empty($Server)){
       return false;
@@ -53,25 +58,25 @@ class SourcebansModel
     return true;
   }
 
-  function last_admin($srv)
+  function last_admin($prf)
   {
-    return $this->db->get_results("SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '".$srv."_admins'", true);
+    return $this->db->get_results("SELECT `auto_increment` FROM INFORMATION_SCHEMA.TABLES WHERE table_name = '".$prf."_admins'", true);
   }
 
-  function raport_opiekuna($srv)
+  function raport_opiekuna($prf)
   {
     return [
-      'liczba_ban' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$srv."_bans`")[0],
-      'liczba_mute' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$srv."_comms` WHERE `type` = 1")[0],
-      'liczba_gag' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$srv."_comms` WHERE `type` = 2")[0],
-      'liczba_unban' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$srv."_bans` WHERE `RemovedBy` IS NOT NULL AND `RemovedOn` IS NOT NULL")[0],
-      'liczba_unmute' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$srv."_comms` WHERE `type` = 2 AND `RemovedBy` IS NOT NULL AND `RemovedOn` IS NOT NULL")[0],
-      'liczba_ungag' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$srv."_comms` WHERE `type` = 2 AND `RemovedBy` IS NOT NULL AND `RemovedOn` IS NOT NULL")[0],
+      'liczba_ban' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$prf."_bans`")[0],
+      'liczba_mute' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$prf."_comms` WHERE `type` = 1")[0],
+      'liczba_gag' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$prf."_comms` WHERE `type` = 2")[0],
+      'liczba_unban' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$prf."_bans` WHERE `RemovedBy` IS NOT NULL AND `RemovedOn` IS NOT NULL")[0],
+      'liczba_unmute' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$prf."_comms` WHERE `type` = 2 AND `RemovedBy` IS NOT NULL AND `RemovedOn` IS NOT NULL")[0],
+      'liczba_ungag' => $this->db->get_row("SELECT COUNT(`bid`) FROM `".$prf."_comms` WHERE `type` = 2 AND `RemovedBy` IS NOT NULL AND `RemovedOn` IS NOT NULL")[0],
 
     ];
   }
 
-  function admin_store($srv, $dostep)
+  function admin_store($prf, $dostep)
   {
     Permission::check($dostep);
 
@@ -91,14 +96,14 @@ class SourcebansModel
 
     $from->serwer_dane = Model('Server')->more($serwer);
 
-    if(!$this->server_exist($srv, $from->serwer_dane->ip, $from->serwer_dane->port)) {
+    if(!$this->server_exist($prf, $from->serwer_dane->ip, $from->serwer_dane->port)) {
       return Messe::array([
         'type' => 'info',
         'text' => "Wskazany serwer nie istnieje w systemie Sourcebans"
       ]);
     }
 
-    $this->db->insert($srv."_admins", [
+    $this->db->insert($prf."_admins", [
       'user' => $from->ranga_explode[1]." - ".$from->nick,
       'authid' => $from->steam,
       'password' => '',
@@ -109,7 +114,7 @@ class SourcebansModel
       'immunity' => '0',
     ]);
 
-    $this->db->insert($srv."_admins_servers_groups", [
+    $this->db->insert($prf."_admins_servers_groups", [
       'admin_id' => $this->db->lastid(),
       'group_id' => $from->ranga_explode[0],
       'srv_group_id' => '-1',
@@ -122,7 +127,7 @@ class SourcebansModel
       Logs::server("$from->nick (STEAM: $from->steam) został ".$from->ranga_explode[1]." na serwerze", $from->serwer_id);
     }
   }
-  function admin_update($srv, $dostep)
+  function admin_update($prf, $dostep)
   {
     Permission::check($dostep);
 
@@ -142,7 +147,7 @@ class SourcebansModel
 
     $from->serwer_dane = Model('Server')->more($serwer);
 
-    if(!$this->server_exist($srv, $from->serwer_dane->ip, $from->serwer_dane->port)) {
+    if(!$this->server_exist($prf, $from->serwer_dane->ip, $from->serwer_dane->port)) {
       return Messe::array([
         'type' => 'info',
         'text' => "Wskazany serwer nie istnieje w systemie Sourcebans"
@@ -150,7 +155,7 @@ class SourcebansModel
     }
 
     if($from->ranga_explode[0] == 0){
-      $this->db->update($srv."_admins",
+      $this->db->update($prf."_admins",
       [
         'user' => $from->nick,
         'authid' => $from->steam
@@ -161,7 +166,7 @@ class SourcebansModel
       1);
     }
     else {
-      $this->db->update($srv."_admins",
+      $this->db->update($prf."_admins",
         [
           'user' => $from->nick,
           'authid' => $from->steam,
@@ -173,7 +178,7 @@ class SourcebansModel
         1
       );
 
-      $this->db->update($srv."_admins_servers_groups",
+      $this->db->update($prf."_admins_servers_groups",
         [
           'group_id' => $from->ranga_explode[0],
         ],
@@ -187,24 +192,24 @@ class SourcebansModel
     Logs::log("Zedytowano poprawnie ".$from->ranga_explode[1]." (STEAM: $from->steam)");
   }
 
-  function admin_degradacja($srv, $dostep)
+  function admin_degradacja($prf, $dostep)
   {
     Permission::check($dostep);
 
     $from = From::check();
     $from->serwer_dane = Model('Server')->more($serwer);
 
-    if(!$this->server_exist($srv, $from->serwer_dane->ip, $from->serwer_dane->port)) {
+    if(!$this->server_exist($prf, $from->serwer_dane->ip, $from->serwer_dane->port)) {
       return Messe::array([
         'type' => 'info',
         'text' => "Wskazany serwer nie istnieje w systemie Sourcebans"
       ]);
     }
 
-    $admin = $this->admin_exist($srv, $from->aid);
+    $admin = $this->admin_exist($prf, $from->aid);
     $admin->user_ex = explode($admin->user, ' - ');
 
-    $this->db->update($srv."_admins",
+    $this->db->update($prf."_admins",
     [
       'user' => 'Degradacja - '.$admin->user_ex['1'],
       'srv_group' => ''
@@ -213,29 +218,29 @@ class SourcebansModel
       'aid' => $from->aid
     ],
     1);
-    $this->db->delete($srv."_admins_servers_groups", [ 'id' => $from->aid ], 1);
+    $this->db->delete($prf."_admins_servers_groups", [ 'id' => $from->aid ], 1);
 
     Logs::log("Zdegradowano $admin->user (STEAM: $admin->authid)");
   }
 
-  function admin_rezygnacja($srv, $dostep)
+  function admin_rezygnacja($prf, $dostep)
   {
     Permission::check($dostep);
 
     $from = From::check();
     $from->serwer_dane = Model('Server')->more($serwer);
 
-    if(!$this->server_exist($srv, $from->serwer_dane->ip, $from->serwer_dane->port)) {
+    if(!$this->server_exist($prf, $from->serwer_dane->ip, $from->serwer_dane->port)) {
       return Messe::array([
         'type' => 'info',
         'text' => "Wskazany serwer nie istnieje w systemie Sourcebans"
       ]);
     }
 
-    $admin = $this->admin_exist($srv, $from->aid);
+    $admin = $this->admin_exist($prf, $from->aid);
     $admin->user_ex = explode($admin->user, ' - ');
 
-    $this->db->update($srv."_admins",
+    $this->db->update($prf."_admins",
     [
       'user' => 'Rezygnacja - '.$admin->user_ex['1'],
       'srv_group' => ''
@@ -244,29 +249,29 @@ class SourcebansModel
       'aid' => $from->aid
     ],
     1);
-    $this->db->delete($srv."_admins_servers_groups", [ 'id' => $from->aid ], 1);
+    $this->db->delete($prf."_admins_servers_groups", [ 'id' => $from->aid ], 1);
 
     Logs::log("Oznaczono Rezygnację $admin->user (STEAM: $admin->authid)");
   }
 
-  function admin_destry($srv, $dostep)
+  function admin_destry($prf, $dostep)
   {
     Permission::check($dostep);
 
     $from = From::check();
     $from->serwer_dane = Model('Server')->more($serwer);
 
-    if(!$this->server_exist($srv, $from->serwer_dane->ip, $from->serwer_dane->port)) {
+    if(!$this->server_exist($prf, $from->serwer_dane->ip, $from->serwer_dane->port)) {
       return Messe::array([
         'type' => 'info',
         'text' => "Wskazany serwer nie istnieje w systemie Sourcebans"
       ]);
     }
 
-    $admin = $this->admin_exist($srv, $from->aid);
+    $admin = $this->admin_exist($prf, $from->aid);
 
-    $this->db->delete($srv."_admins", [ 'aid' => $from->aid ], 1);
-    $this->db->delete($srv."_admins_servers_groups", [ 'id' => $from->aid ], 1);
+    $this->db->delete($prf."_admins", [ 'aid' => $from->aid ], 1);
+    $this->db->delete($prf."_admins_servers_groups", [ 'id' => $from->aid ], 1);
 
     Logs::log("Usunięto poprawnie $admin->user (STEAM: $admin->authid)");
   }

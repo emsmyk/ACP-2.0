@@ -11,6 +11,8 @@ $aktualizacja_source = Model("SourceUpdate")->sprawdz_dostepne((int)$acp_system[
 // Serwery Aktualizacja danych
 //
 foreach($servers->servers as $servers){
+  $servers->prefix_sb = SQL::one('SELECT `prefix_sb` FROM `acp_serwery` WHERE `serwer_id` = '.$servers->serwer_id.' LIMIT 1 ');
+
   //sv_tags
   $servers->rcon_dec = encrypt_decrypt('decrypt', SQL::one('SELECT `rcon` FROM `acp_serwery` WHERE `serwer_id` = '.$servers->serwer_id.' LIMIT 1') );
   if(!empty($servers->rcon_dec)){
@@ -94,7 +96,6 @@ foreach($servers->servers as $servers){
       ]);
 
       Model('Cronjobs')->UpdateTime('cron_serwery');
-      echo "<p>Dane Serwera ID: $servers->serwer_id - ".$servers->sourcequery['HostName']." zostały zaktualizowane.</p>";
     }
     catch( Exception $e )
     {
@@ -128,20 +129,24 @@ foreach($servers->servers as $servers){
     $admin_list = new stdClass();
     $admin_list_det = new stdClass();
     $i = 1;
-    foreach (Model('Sourcebans')->admins_list($servers->prefix_sb) as $admin) {
+    foreach (Model('Sourcebans')->admins_list(
+        $servers->prefix_sb,
+        "WHERE `authid` != '' AND `aid` != '' AND `user` != 'CONSOLE' AND `srv_group` NOT IN ('', 'Legenda', 'VIP', 'Weteran')",
+        "ORDER BY FIELD(`srv_group`, 'Opiekun', 'Starszy Admin', 'Admin')"
+      )
+    as $admin) {
       $steamData = $Steam->GetSteamData($admin->authid);
 
       $admin_list->{$i++} = $admin_list_det = new stdClass();
-
-      $admin_list_det->{user} = $admin->user;
-      $admin_list_det->{srv_group} = $admin->srv_group;
-      $admin_list_det->{authid} = $admin->authid;
-      $admin_list_det->{steam} = $admin->authid;
-      $admin_list_det->{steam_nick} = htmlentities($steamData[personaname]);
-      $admin_list_det->{steam_lastlogoff} = $steamData[lastlogoff];
-      $admin_list_det->{steam_profileurl} = $steamData[profileurl];
-      $admin_list_det->{steam_avatar} = $steamData[avatar];
-      $admin_list_det->{steam_status} = $steamData[personastate];
+      $admin_list_det->{'user'} = $admin->user;
+      $admin_list_det->{'srv_group'} = $admin->srv_group;
+      $admin_list_det->{'authid'} = $admin->authid;
+      $admin_list_det->{'steam'} = $admin->authid;
+      $admin_list_det->{'steam_nick'} = htmlentities($steamData['personaname']);
+      $admin_list_det->{'steam_lastlogoff'} = $steamData['lastlogoff'];
+      $admin_list_det->{'steam_profileurl'} = $steamData['profileurl'];
+      $admin_list_det->{'steam_avatar'} = $steamData['avatar'];
+      $admin_list_det->{'steam_status'} = $steamData['personastate'];
     }
 
     $admin_list = Model('Cronjobs')->jsonRemoveUnicodeSequences($admin_list);
