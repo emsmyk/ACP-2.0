@@ -74,7 +74,11 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
             <?=
             optionHtml(
               ['0' => 'NIE (Brak pozycji w menu)','1' => 'Tak (Pojedyńczy link)',  '2' => 'Tak (Rozwiana lista)'],
+<<<<<<< Updated upstream
               ['name' => 'e_menu' , 'value' => $edycja_mod->menu, 'disable' => 0 ]
+=======
+              ['name' => 'e_menu' , 'value' => $edycja_mod->menu, 'disable' => 0]
+>>>>>>> Stashed changes
             );
             ?>
           </div></p>
