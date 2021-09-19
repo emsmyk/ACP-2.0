@@ -69,10 +69,10 @@ if($co == 'edycja'):
           <div class="col-md-6 col-xs-12">
             <p>Dodatkowe:</p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Serwer Włączony</span>
-              <?= optionHtml($tak_nie_array, ['name' => 'wlaczony' , 'value' => $severEdit->serwer_on]); ?>
+              <?= optionHtml($tak_nie_array, ['name' => 'wlaczony' , 'value' => $severEdit->serwer_on, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Prace Zdalne</span>
-              <?= optionHtml($tak_nie_array, ['name' => 'cronjobs' , 'value' => $severEdit->cronjobs]); ?>
+              <?= optionHtml($tak_nie_array, ['name' => 'cronjobs' , 'value' => $severEdit->cronjobs, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Sourcebans (Database Prefix)</span><input class='form-control' type='text' name='prefix_sb' value='<?= $severEdit->prefix_sb ?>'/></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Hlstats (Server ID)</span><input class='form-control' type='text' name='prefix_hls' value='<?= $severEdit->prefix_hls ?>'/></div></p>
@@ -88,20 +88,20 @@ if($co == 'edycja'):
           <div class="col-md-6 col-xs-12">
             <p>Różne:</p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Serwer Testowy</span>
-              <?= optionHtml([1 => 'Tak', 0 => 'Nie'], ['name' => 'test_serwer' , 'value' => $severEdit->test_serwer]); ?>
+              <?= optionHtml([1 => 'Tak', 0 => 'Nie'], ['name' => 'test_serwer' , 'value' => $severEdit->test_serwer, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Link GOTV</span><input class='form-control' type='text' name='gotvlink' value='<?= $severEdit->link_gotv ?>'/></div></p>
           </div>
           <div class="col-md-6 col-xs-12">
             <p>Osoby Odpowiedzialne:</p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Junior Admin</span>
-              <?= optionHtml($users_list, ['name' => 'junioradmin' , 'value' => $severEdit->ser_a_jr]); ?>
+              <?= optionHtml($users_list, ['name' => 'junioradmin' , 'value' => $severEdit->ser_a_jr, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Opiekun</span>
-              <?= optionHtml($users_list, ['name' => 'opiekun' , 'value' => $severEdit->ser_a_opiekun]); ?>
+              <?= optionHtml($users_list, ['name' => 'opiekun' , 'value' => $severEdit->ser_a_opiekun, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Zastępca Opiekuna</span>
-              <?= optionHtml($users_list, ['name' => 'copiekun' , 'value' => $severEdit->ser_a_copiekun]); ?>
+              <?= optionHtml($users_list, ['name' => 'copiekun' , 'value' => $severEdit->ser_a_copiekun, 'disable' => 1 ]); ?>
             </div></p>
           </div>
           <div class="col-md-12">
@@ -167,7 +167,7 @@ if($co == 'cron'):
             <p><div class='form-group input-group'><span class='input-group-addon'>Typ połaczenia</span>
               <?= optionHtml(
                 ['ftp' => 'FTP', 'sftp' => 'SFTP (Aktualnie nie działa)' ],
-                ['name' => 'typ_polaczenia' , 'value' => $serverCron->typ_polaczenia]
+                ['name' => 'typ_polaczenia' , 'value' => $serverCron->typ_polaczenia, 'disable' => 1 ]
               ); ?>
             </div></p>
           </div>
@@ -175,25 +175,25 @@ if($co == 'cron'):
             <p><div class='form-group input-group'><span class='input-group-addon'>Rangi [HexTags]</span>
               <?= optionHtml(
                 [1 => 'Tak',  0 => 'Nie'],
-                ['name' => 'hextags' , 'value' => $serverCron->hextags]
+                ['name' => 'hextags' , 'value' => $serverCron->hextags, 'disable' => 1 ]
               ); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Reklamy</span>
               <?= optionHtml(
                 [1 => 'Tak',  0 => 'Nie'],
-                ['name' => 'reklamy' , 'value' => $serverCron->reklamy]
+                ['name' => 'reklamy' , 'value' => $serverCron->reklamy, 'disable' => 1 ]
               ); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Bazy Danych</span>
               <?= optionHtml(
                 [1 => 'Tak',  0 => 'Nie'],
-                ['name' => 'bazy' , 'value' => $serverCron->bazy]
+                ['name' => 'bazy' , 'value' => $serverCron->bazy, 'disable' => 1 ]
               ); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Usługi</span>
               <?= optionHtml(
                 [1 => 'Tak',  0 => 'Nie'],
-                ['name' => 'uslugi' , 'value' => $serverCron->uslugi]
+                ['name' => 'uslugi' , 'value' => $serverCron->uslugi, 'disable' => 1 ]
               ); ?>
             </div></p>
           </div>
@@ -201,7 +201,7 @@ if($co == 'cron'):
             <p><div class='form-group input-group'><span class='input-group-addon'>Mapy</span>
               <?= optionHtml(
                 [1 => 'Tak',  0 => 'Nie'],
-                ['name' => 'mapy' , 'value' => $serverCron->mapy]
+                ['name' => 'mapy' , 'value' => $serverCron->mapy, 'disable' => 1 ]
               ); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Mapy Plugin</span>
@@ -223,13 +223,13 @@ if($co == 'cron'):
             <p><div class='form-group input-group'><span class='input-group-addon'>Cvary</span>
               <?= optionHtml(
                 [1 => 'Tak',  0 => 'Nie'],
-                ['name' => 'cvary' , 'value' => $serverCron->cvary]
+                ['name' => 'cvary' , 'value' => $serverCron->cvary, 'disable' => 1 ]
               ); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Help Menu</span>
               <?= optionHtml(
                 [1 => 'Tak',  0 => 'Nie'],
-                ['name' => 'help_menu' , 'value' => $serverCron->help_menu]
+                ['name' => 'help_menu' , 'value' => $serverCron->help_menu, 'disable' => 1 ]
               ); ?>
             </div></p>
           </div>

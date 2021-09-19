@@ -51,7 +51,7 @@ if(!empty($edycja_id)){
             <input type='hidden' name='id' value='<?= $tag->id ?>'>
             <div class="col-xs-12">
               <p><div class='form-group input-group'><span class='input-group-addon'>Serwer</span>
-                <?= optionHtml($serwer_array, ['name' => 'serwer' , 'value' => $tag->serwer]); ?>
+                <?= optionHtml($serwer_array, ['name' => 'serwer' , 'value' => $tag->serwer, 'disable' => 1 ]); ?>
               </div></p>
               <p><div class='form-group input-group'><span class='input-group-addon'>Tag</span><input class='form-control' type='text' name='tag' value='<?= $tag->tekst ?>'/></div></p>
               <p>

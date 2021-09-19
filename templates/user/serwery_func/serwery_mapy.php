@@ -73,7 +73,7 @@ if(!empty($edycja_id)){
           <? $acp_r_d = SQL::row("SELECT * FROM `acp_serwery_mapy` WHERE `id` = $edycja_id LIMIT 1;"); ?>
           <input type='hidden' name='id' value='<?= $acp_r_d->id ?>'>
           <p><div class='form-group input-group'><span class='input-group-addon'>Serwer</span>
-            <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $acp_r_d->serwer_id]); ?>
+            <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $acp_r_d->serwer_id, 'disable' => 1 ]); ?>
           </div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Group Name</span><input class='form-control' type='text' name='e_nazwa' value='<?= $acp_r_d->nazwa ?>'/></div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Nazwa</span><input class='form-control' type='text' name='e_display_template' value='<?= $acp_r_d->display_template ?>'/></div></p>

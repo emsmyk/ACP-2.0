@@ -74,12 +74,12 @@ if(Get::string('co') == 'edytuj' && !empty(Get::int('id'))) {
             <?=
             optionHtml(
               ['0' => 'NIE (Brak pozycji w menu)','1' => 'Tak (Pojedyńczy link)',  '2' => 'Tak (Rozwiana lista)'],
-              ['name' => 'e_menu' , 'value' => $edycja_mod->menu]
+              ['name' => 'e_menu' , 'value' => $edycja_mod->menu, 'disable' => 0 ]
             );
             ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Kategoria Menu</span>
-            <?= optionHtml(['1' => 'Serwery Gier', '0' => 'Podstawowe', '2' => 'Administracja'], ['name' => 'e_menu_kategoria' , 'value' => $edycja_mod->menu_kategoria]); ?>
+            <?= optionHtml(['1' => 'Serwery Gier', '0' => 'Podstawowe', '2' => 'Administracja'], ['name' => 'e_menu_kategoria' , 'value' => $edycja_mod->menu_kategoria, 'disable' => 2 ] ); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Opis</span><input class='form-control' type='text' name='e_opis' value='<?= $edycja_mod->opis ?>'/></div></p>
           <p><input name='edycja_from' class='btn btn-primary btn-sm btn-block' type='submit' value='Edytuj'/></p>

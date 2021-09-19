@@ -56,10 +56,10 @@ tytul_strony("Usługi: Moje Usługi");
             <div class="col-xs-12">
               <input type='hidden' name='id' value='<?= $usluga_row->id ?>'>
               <p><div class='form-group input-group'><span class='input-group-addon'>Serwer</span>
-                <?= optionHtml($serwer_array, ['name' => 'serwer' , 'value' => $usluga_row->serwer]); ?>
+                <?= optionHtml($serwer_array, ['name' => 'serwer' , 'value' => $usluga_row->serwer, 'disable' => 1 ]); ?>
               </div></p>
               <p><div class='form-group input-group'><span class='input-group-addon'>Rodzaj</span>
-                <?= optionHtml($rodzaj_array, ['name' => 'rodzaj' , 'value' => $usluga_row->rodzaj]); ?>
+                <?= optionHtml($rodzaj_array, ['name' => 'rodzaj' , 'value' => $usluga_row->rodzaj, 'disable' => 1 ]); ?>
               </div></p>
 
               <p><div class='form-group input-group'><span class='input-group-addon'>STEAM</span><input class='form-control' type='text' name='steam' value='<?= $usluga_row->steam_id ?>'/></div></p>

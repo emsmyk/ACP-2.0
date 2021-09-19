@@ -131,22 +131,22 @@ if(Controller('ServerConHelpMenu')->id):
           <input type='hidden' name='id' value='<?= $acp_r_d->id ?>'>
           <input type='hidden' name='serwer' value='<?= $acp_r_d->serwer_id ?>'>
           <p><div class='form-group input-group'><span class='input-group-addon'>Serwer</span>
-            <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $acp_r_d->serwer_id]); ?>
+            <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $acp_r_d->serwer_id, 'disable' => 1 ]); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Lista Serwerów</span>
-            <?= optionHtml($wl_wyl_array, ['name' => 'wl_wyl_array' , 'value' => $acp_r_d->lista_serwerow]); ?>
+            <?= optionHtml($wl_wyl_array, ['name' => 'wl_wyl_array' , 'value' => $acp_r_d->lista_serwerow, 'disable' => 1 ]); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Lista Adminów</span>
-            <?= optionHtml($wl_wyl_array, ['name' => 'lista_adminow' , 'value' => $acp_r_d->lista_adminow]); ?>
+            <?= optionHtml($wl_wyl_array, ['name' => 'lista_adminow' , 'value' => $acp_r_d->lista_adminow, 'disable' => 1 ]); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Opis Vipa</span>
-            <?= optionHtml($wl_wyl_array, ['name' => 'opis_vipa' , 'value' => $acp_r_d->opis_vipa]); ?>
+            <?= optionHtml($wl_wyl_array, ['name' => 'opis_vipa' , 'value' => $acp_r_d->opis_vipa, 'disable' => 1 ]); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Lista Komend</span>
-            <?= optionHtml($wl_wyl_array, ['name' => 'lista_komend' , 'value' => $acp_r_d->lista_komend]); ?>
+            <?= optionHtml($wl_wyl_array, ['name' => 'lista_komend' , 'value' => $acp_r_d->lista_komend, 'disable' => 1 ]); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Statystyki</span>
-            <?= optionHtml($wl_wyl_array, ['name' => 'statystyki' , 'value' => $acp_r_d->statystyki]); ?>
+            <?= optionHtml($wl_wyl_array, ['name' => 'statystyki' , 'value' => $acp_r_d->statystyki, 'disable' => 1 ]); ?>
           </div></p>
           <p><input name='edycja_from' class='btn btn-primary btn btn-block' type='submit' value='Edytuj'/></p>
         </form>

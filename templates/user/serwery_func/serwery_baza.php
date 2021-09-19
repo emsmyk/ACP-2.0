@@ -51,7 +51,7 @@ if(Controller('ServerConDB')->id){
         <form name='edycja_from' method='post' action='<?= "?x=$x&xx=$xx&edycja=$databaseEdit->id"; ?>'>
           <input type='hidden' name='id' value='<?= $databaseEdit->id ?>'>
           <p><div class='form-group input-group'><span class='input-group-addon'>Serwer</span>
-            <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $databaseEdit->serwer_id]); ?>
+            <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $databaseEdit->serwer_id, 'disable' => 1 ]); ?>
           </div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Nazwa</span><input class='form-control' type='text' name='e_nazwa' value='<?= $databaseEdit->nazwa ?>'/></div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Driver</span><input class='form-control' type='text' name='e_driver' value='<?= $databaseEdit->d_driver ?>'/></div></p>
@@ -62,7 +62,7 @@ if(Controller('ServerConDB')->id){
 					<p><div class='form-group input-group'><span class='input-group-addon'>Port</span><input class='form-control' type='text' name='e_port' value='<?= $databaseEdit->d_port ?>'/></div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>TimeOut</span><input class='form-control' type='text' name='e_timeout' value='<?= $databaseEdit->d_timeout ?>'/></div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Port/TimeOut</span>
-            <?= optionHtml($wl_wyl_array, ['name' => 'e_time_out_on' , 'value' => $databaseEdit->d_time_port_on]); ?>
+            <?= optionHtml($wl_wyl_array, ['name' => 'e_time_out_on' , 'value' => $databaseEdit->d_time_port_on, 'disable' => 1 ]); ?>
           </div></p>
 					<p><input name='edycja_from' class='btn btn-primary btn btn-block' type='submit' value='Edytuj Bazę Danych'/></p>
         </form>

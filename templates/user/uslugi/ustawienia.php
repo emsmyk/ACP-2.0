@@ -67,7 +67,7 @@ $cronOption = [
         <div class="box-body">
           <form method='post'>
             <p><div class='form-group input-group'><span class='input-group-addon'>Aktualizacja</span>
-              <?= optionHtml($cronOption, ['name' => 'time_uslugi', 'value' => $acp_system['time_uslugi']]); ?></div></p>
+              <?= optionHtml($cronOption, ['name' => 'time_uslugi', 'value' => $acp_system['time_uslugi'], 'disable' => 1 ]); ?></div></p>
            <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia Aktualizacja</span><input class='form-control' type='text' value='<?= $acp_system['cron_uslugi']; ?>' disabled /></div></p>
            <p><div class='form-group input-group'><span class='input-group-addon'>cron_optym_stare_uslugi_limit</span><input class='form-control' type='text' name='cron_optym_stare_uslugi_limit' value='<?= $acp_system['cron_optym_stare_uslugi_limit']; ?>' /></div></p>
            <p><div class='form-group input-group'><span class='input-group-addon'>cron_optym_stare_uslugi_hour</span><input class='form-control' type='text' name='cron_optym_stare_uslugi_hour' value='<?= $acp_system['cron_optym_stare_uslugi_hour']; ?>' /></div></p>

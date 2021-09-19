@@ -1,4 +1,16 @@
 <?php
+/*
+ $array = [
+   1 => 'asd',
+   12 => 'asd sd',
+   3 => 'asd12',
+ ],
+ $data = [
+   'name' => 'name a post value',
+   'value' => 'if have value a option',
+   'disable' => 1 or 0 where ..... if 0 is value
+ ]
+*/
 function optionHtml($array, $data)
 {
   $tekst = '<select class="form-control" name="'.$data['name'].'">';
@@ -6,9 +18,14 @@ function optionHtml($array, $data)
   if($data['value'] == ''){
     $tekst .= '<option>Wybierz</option>';
   }
-
   elseif(!in_array($data['value'], $array) && !$data['value'] != ''){
-    $tekst .= '<option value="'.$data['value'].'">Brak Danych.. (ID: '.$data['value'].')</option>';
+
+    if($data['disable'] == 0 || !isset($data['disable'])){
+      $tekst .= '<option value="'.$data['value'].'">Brak Danych.. (ID: '.$data['value'].')</option>';
+    }
+    else {
+      $tekst .= '<option value="'.$data['value'].'">'.$array[$data['value']].'</option>';
+    }
   }
 
   else {

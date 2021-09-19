@@ -419,43 +419,43 @@ $cronOption = [
               <div class="box-body">
                 <form name='e_cronjobs' method='post'>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Serwery</span>
-                   <?= optionHtml($cronOption, ['name' => 'time_serwery', 'value' => $acp_system['time_serwery']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'time_serwery', 'value' => $acp_system['time_serwery'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Serwerów</span><input class='form-control' value='<?= $acp_system['cron_serwery']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Usługi [admins_simple]</span>
-                   <?= optionHtml($cronOption, ['name' => 'time_uslugi', 'value' => $acp_system['time_uslugi']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'time_uslugi', 'value' => $acp_system['time_uslugi'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Usług</span><input class='form-control' value='<?= $acp_system['cron_uslugi']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Rangi [HexTags]</span>
-                   <?= optionHtml($cronOption, ['name' => 'time_hextags', 'value' => $acp_system['time_hextags']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'time_hextags', 'value' => $acp_system['time_hextags'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Rang [HexTags]</span><input class='form-control' value='<?= $acp_system['cron_hextags']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Reklamy</span>
-                   <?= optionHtml($cronOption, ['name' => 'time_reklamy', 'value' => $acp_system['time_reklamy']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'time_reklamy', 'value' => $acp_system['time_reklamy'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Reklam</span><input class='form-control' value='<?= $acp_system['cron_reklamy']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Bazy Danych</span>
-                   <?= optionHtml($cronOption, ['name' => 'time_baza', 'value' => $acp_system['time_baza']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'time_baza', 'value' => $acp_system['time_baza'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Baz Danych</span><input class='form-control' value='<?= $acp_system['cron_baza']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Listy Map</span>
-                   <?= optionHtml($cronOption, ['name' => 'time_mapy', 'value' => $acp_system['time_mapy']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'time_mapy', 'value' => $acp_system['time_mapy'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Listy Map</span><input class='form-control' value='<?= $acp_system['cron_mapy']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Cvary</span>
-                   <?= optionHtml($cronOption, ['name' => 'time_cvary', 'value' => $acp_system['time_cvary']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'time_cvary', 'value' => $acp_system['time_cvary'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Cvarów</span><input class='form-control' value='<?= $acp_system['cron_cvary']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Help Menu</span>
-                   <?= optionHtml($cronOption, ['name' => 'time_help_menu', 'value' => $acp_system['time_help_menu']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'time_help_menu', 'value' => $acp_system['time_help_menu'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Help Menu</span><input class='form-control' value='<?= $acp_system['cron_help_menu']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Lista Map Serwerów</span>
-                   <?= optionHtml($cronOption, ['name' => 'cron_file_list_mapy_time', 'value' => $acp_system['cron_file_list_mapy_time']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'cron_file_list_mapy_time', 'value' => $acp_system['cron_file_list_mapy_time'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Listy Map</span><input class='form-control' value='<?= $acp_system['cron_file_list_mapy']; ?>' disabled /></div></p>
 
                  <p><div class='form-group input-group'><span class='input-group-addon'>Lista Pluginów Serwerów</span>
-                   <?= optionHtml($cronOption, ['name' => 'cron_file_list_pluginy_time', 'value' => $acp_system['cron_file_list_pluginy_time']]); ?></div></p>
+                   <?= optionHtml($cronOption, ['name' => 'cron_file_list_pluginy_time', 'value' => $acp_system['cron_file_list_pluginy_time'], 'disable' => 1 ]); ?></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia aktualizacja Listy Pluginów</span><input class='form-control' value='<?= $acp_system['cron_file_list_pluginy']; ?>' disabled /></div></p>
 
                  <p><input name='edycja_cronjobs_czasy' class='btn btn-primary btn-sm btn-block' type='submit' value='Edytuj'/></p>
@@ -658,7 +658,7 @@ $cronOption = [
     					<div class="box-body">
                 <form name='e_sourcebans' method='post'>
                   <p><div class='form-group input-group'><span class='input-group-addon'>Czas</span>
-                    <?= optionHtml($cronOption, ['name' => 'sb_optymalize_time', 'value' => $acp_system['sb_optymalize_time']]); ?></div></p>
+                    <?= optionHtml($cronOption, ['name' => 'sb_optymalize_time', 'value' => $acp_system['sb_optymalize_time'], 'disable' => 0 ]); ?></div></p>
                   <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia optymalizacja</span><input class='form-control' value='<?= $acp_system['sb_optymalize_last']; ?>' disabled /></div></p>
                  <p><input name='edycja_sourcebans' class='btn btn-primary btn-sm btn-block' type='submit' value='Edytuj'/></p>
                 </from>
@@ -687,7 +687,7 @@ $cronOption = [
     					<div class="box-body">
                 <form name='edycja_hlstats' method='post'>
                   <p><div class='form-group input-group'><span class='input-group-addon'>Czas</span>
-                    <?= optionHtml($cronOption, ['name' => 'hlx_optymalize_time', 'value' => $acp_system['hlx_optymalize_time']]); ?></div></p>
+                    <?= optionHtml($cronOption, ['name' => 'hlx_optymalize_time', 'value' => $acp_system['hlx_optymalize_time'], 'disable' => 0 ]); ?></div></p>
                   <p><div class='form-group input-group'><span class='input-group-addon'>Ostatnia optymalizacja</span><input class='form-control' value='<?= $acp_system['hlx_optymalize_last']; ?>' disabled /></div></p>
                  <p><input name='edycja_hlstats' class='btn btn-primary btn-sm btn-block' type='submit' value='Edytuj'/></p>
                 </from>

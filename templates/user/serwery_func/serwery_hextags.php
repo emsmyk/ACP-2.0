@@ -76,23 +76,23 @@ if(Controller('ServerConHextags')->id){
         <form name='edycja_from' method='post' action='<?= "?x=$x&xx=$xx&edycja=$rangEdit->id"; ?>'>
           <input type='hidden' name='id' value='<?= $rangEdit->id ?>'>
           <p><div class='form-group input-group'><span class='input-group-addon'>Serwer</span>
-            <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $rangEdit->serwer_id ]); ?>
+            <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $rangEdit->serwer_id, 'disable' => 1 ]); ?>
           </div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Typ</span><input class='form-control' type='text' name='e_hextags' value='<?= $rangEdit->hextags ?>'/></div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Nazwa Tagu</span><input class='form-control' type='text' name='e_TagName' value='<?= $rangEdit->TagName ?>'/></div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Tag Tabela</span><input class='form-control' type='text' name='e_ScoreTag' value='<?= $rangEdit->ScoreTag ?>'/></div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Tag Say</span><input class='form-control' type='text' name='e_ChatTag' value='<?= $rangEdit->ChatTag ?>'/></div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Tagu Say</span>
-            <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'e_TagColor' , 'value' => $rangEdit->TagColor ]); ?>
+            <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'e_TagColor' , 'value' => $rangEdit->TagColor, 'disable' => 1 ]); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Say</span>
-            <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'e_ChatColor' , 'value' => $rangEdit->ChatColor ]); ?>
+            <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'e_ChatColor' , 'value' => $rangEdit->ChatColor, 'disable' => 1 ]); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Nicku Say</span>
-            <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'e_NameColor' , 'value' => $rangEdit->NameColor ]); ?>
+            <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'e_NameColor' , 'value' => $rangEdit->NameColor, 'disable' => 1 ]); ?>
           </div></p>
           <p><div class='form-group input-group'><span class='input-group-addon'>Force</span>
-            <?= optionHtml(Controller('ServerConHextags')->YesNo, ['name' => 'e_Force' , 'value' => $rangEdit->Force ]); ?>
+            <?= optionHtml(Controller('ServerConHextags')->YesNo, ['name' => 'e_Force' , 'value' => $rangEdit->Force, 'disable' => 1 ]); ?>
           </div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Komentarz</span><input class='form-control' type='text' name='e_komentarz' value='<?= $rangEdit->komentarz ?>'/></div></p>
 					<p><div class='form-group input-group'><span class='input-group-addon'>Czasowa</span><input class='form-control' type='text' name='e_komentarz' value='<?= Controller('ServerConHextags')->type[$rangEdit->czasowa] ?>' disabled /></div></p>

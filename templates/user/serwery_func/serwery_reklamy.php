@@ -51,22 +51,22 @@ if(Controller('ServerConReklamy')->id){
           <input type='hidden' name='id' value='<?= $reklamaEdit->id ?>'>
           <div class="col-xs-12">
             <p><div class='form-group input-group'><span class='input-group-addon'>Serwer</span>
-              <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $reklamaEdit->serwer_id]); ?>
+              <?= optionHtml($serwer_array, ['name' => 'e_serwerid' , 'value' => $reklamaEdit->serwer_id, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Gdzie</span>
-              <?= optionHtml(Controller('ServerConReklamy')->gdzie, ['name' => 'e_gdzie' , 'value' => $reklamaEdit->gdzie]); ?>
+              <?= optionHtml(Controller('ServerConReklamy')->gdzie, ['name' => 'e_gdzie' , 'value' => $reklamaEdit->gdzie, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Tekst</span><input class='form-control' type='text' name='e_tekst' value='<?= $reklamaEdit->tekst ?>'/></div></p>
           </div>
           <div class="col-xs-6">
             <p><div class='form-group input-group'><span class='input-group-addon'>Reklama Czasowa</span>
-              <?= optionHtml(Controller('ServerConReklamy')->YesNo, ['name' => 'e_czasowa' , 'value' => $reklamaEdit->czasowa]); ?>
+              <?= optionHtml(Controller('ServerConReklamy')->YesNo, ['name' => 'e_czasowa' , 'value' => $reklamaEdit->czasowa, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Koniec</span><input class='form-control' type='date' name='e_czasowa_end' value='<?= $reklamaEdit->czasowa_end ?>'/></div></p>
           </div>
           <div class="col-xs-6">
             <p><div class='form-group input-group'><span class='input-group-addon'>Zakres Czasu</span>
-              <?= optionHtml(Controller('ServerConReklamy')->YesNo, ['name' => 'e_zakres' , 'value' => $reklamaEdit->zakres]); ?>
+              <?= optionHtml(Controller('ServerConReklamy')->YesNo, ['name' => 'e_zakres' , 'value' => $reklamaEdit->zakres, 'disable' => 1 ]); ?>
             </div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Od dnia</span><input class='form-control' type='number' name='e_zakres_start' value='<?= $reklamaEdit->zakres_start ?>'/></div></p>
             <p><div class='form-group input-group'><span class='input-group-addon'>Do dnia</span><input class='form-control' type='number' name='e_zakres_koniec' value='<?= $reklamaEdit->zakres_stop ?>'/></div></p>
