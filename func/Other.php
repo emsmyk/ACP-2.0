@@ -19,7 +19,6 @@ function optionHtml($array, $data)
     $tekst .= '<option>Wybierz</option>';
   }
   elseif(!in_array($data['value'], $array) && !$data['value'] != ''){
-
     if($data['disable'] == 0 || !isset($data['disable'])){
       $tekst .= '<option value="'.$data['value'].'">Brak Danych.. (ID: '.$data['value'].')</option>';
     }
