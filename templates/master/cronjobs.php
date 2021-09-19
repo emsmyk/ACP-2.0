@@ -8,6 +8,12 @@ use xPaw\SourceQuery\SourceQuery;
 $aktualizacja_source = Model("SourceUpdate")->sprawdz_dostepne((int)$acp_system['sourceupdate_wymus']);
 
 //
+// Powiadomienia Wirepusher
+//
+
+Model('Wirepusher')->bell();
+
+//
 // Serwery Aktualizacja danych
 //
 foreach($servers->servers as $servers){
