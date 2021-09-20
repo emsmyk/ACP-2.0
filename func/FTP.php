@@ -1,51 +1,42 @@
 <?php
 class FTP
 {
+  public $conn;
+
   function __construct($ftp)
   {
     $this->db = DB::getInstance();
 
     $this->ftp = $ftp;
     $this->server = $ftp['sever'];
-
     if(empty($this->ftp)){
-      return '[FTP] Brak danych ftp..';
+      return Logs::ftpServer($this->server, "?x=cronjobs_serwer", "[FTP] Błąd danych ftp.", "Błąd danych ftp, brak array ftp_user, ftp_password, ftp_hosta and ftp_server");
     }
-
     if(empty($this->ftp['ftp_user'])){
-      return '[FTP] Brak Loginu do połączenia FTP';
+      return Logs::ftpServer($this->server, "?x=cronjobs_serwer", "[FTP] Brak usera.", "Błąd danych ftp: brak array ftp_user");
     }
     if(empty($this->ftp['ftp_password'])){
-      return '[FTP] Brak Hasła do połączenia FTP';
+      return Logs::ftpServer($this->server, "?x=cronjobs_serwer", "[FTP] Brak hasła.", "Błąd danych ftp: brak array ftp_password");
     }
     if(empty($this->ftp['ftp_host'])){
-      return '[FTP] Brak Serwera do połączenia FTP';
+      return Logs::ftpServer($this->server, "?x=cronjobs_serwer", "[FTP] Brak hosta.", "Błąd danych ftp: brak array ftp_hosta");
     }
 
     $this->conn = $this->connect();
-    $this->ifCon();
-  }
-
-  function ifCon(){
-    if(empty($this->conn)){
-      echo 'sa';
-      die('brak polaczenia ftp');
-    }
-    return $this->conn;
   }
 
   function connect()
   {
     $conn = ftp_connect($this->ftp['ftp_host']);
     if($conn == false){
-      // Logs::ftpServer($serwer, "?x=cronjobs_serwer", "[FTP] Błąd połaczenia (Brak odpowiedzi serwera)", "FTP connection has failed! Attempted to connect to $ftp->serwer");
+      Logs::ftpServer($this->server, "?x=cronjobs_serwer", "[FTP] Błąd połaczenia (Brak odpowiedzi serwera)", "FTP connection has failed! Attempted to connect to $ftp->serwer");
   		return '[FTP] Błąd połaczenia ftp';
     }
 
     $login = ftp_login($conn, $this->ftp['ftp_user'], $this->ftp['ftp_password']);
 
     if(!$login){
-      // Logs::ftpServer($serwer, "?x=cronjobs_serwer", "[FTP] Błąd połaczenia (Złe Hasło/Login)", "FTP connection has failed! Attempted to connect to $ftp->serwer for user $ftp->user");
+      Logs::ftpServer($this->server, "?x=cronjobs_serwer", "[FTP] Błąd połaczenia (Złe Hasło/Login)", "FTP connection has failed! Attempted to connect to $ftp->serwer for user $ftp->user");
       return '[FTP] Błąd logowania, złe hasło lub login..';
     }
     return $conn;
@@ -171,7 +162,7 @@ class FTP
           }
         }
       }
-      // Logs::ftpServer($value->serwer_id, $value->modul, "[FTP] Wystąpił problem ze zmianą katalogu przy wgrywaniu pliku $value->ftp_dest_file_name", "Błąd zmiany katalogu ($value->ftp_directory), pliku $value->ftp_dest_file_name na serwerze ftp $ftp->serwer [Serwer ID: $serwer]");
+      // Logs::ftpServer($value->serwer_id, $value->modul, "[FTP] Wystąpił problem ze zmianą katalogu przy wgrywaniu pliku $value->ftp_dest_file_name", "Błąd zmiany katalogu ($value->ftp_directory), pliku $value->ftp_dest_file_name na serwerze ftp $ftp->serwer [Serwer ID: $this->server]");
     }
 
 
@@ -180,11 +171,5 @@ class FTP
     $sHomeDir = str_repeat('../', count($aPath) - 1);
     ftp_chdir($this->conn, $sHomeDir);
   }
-
-  function __destruct()
-  {
-   ftp_close($this->conn);
-   return;
- }
 }
  ?>

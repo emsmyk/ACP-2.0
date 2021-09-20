@@ -6,12 +6,9 @@ $MakeFile = Model('MakeFile');
 $Cronjobs = Model('Cronjobs');
 
 $test_servers = ($TEST == 1) ? 'AND `test_serwer` = 1' : 'AND `serwer_on` = 1 AND `cronjobs` = 1';
-$servers = SQL::all("SELECT `serwer_id`, `test_serwer`, `nazwa`, `serwer_on`, `ftp_user`, `ftp_haslo`, `ftp_host`, `rangi`, `mapy`, `mapy_plugin`, `help_menu`, `bazy`, `reklamy`, `hextags`, `uslugi`, `katalog` FROM `acp_serwery` LEFT JOIN (`acp_serwery_cronjobs`) ON `acp_serwery`.`serwer_id` = `acp_serwery_cronjobs`.`serwer` WHERE `ip` != '' AND `port` != '' $test_servers");
+$servers = SQL::all("SELECT `serwer_id`, `mod`, `test_serwer`, `nazwa`, `serwer_on`, `ftp_user`, `ftp_haslo`, `ftp_host`, `rangi`, `mapy`, `mapy_plugin`, `help_menu`, `bazy`, `reklamy`, `hextags`, `uslugi`, `katalog` FROM `acp_serwery` LEFT JOIN (`acp_serwery_cronjobs`) ON `acp_serwery`.`serwer_id` = `acp_serwery_cronjobs`.`serwer` WHERE `ip` != '' AND `port` != '' $test_servers");
 
 foreach ($servers as $server) {
-  $MakeFile->makeFile("admins_simple.ini", $server->serwer_id, "uslugi");
-
-
   if($TEST == 1){
     show('UWAGA! Włączony tryb testowy!', false);
   }
@@ -277,7 +274,7 @@ foreach ($servers as $server) {
 
 // Blokowanie cronjoba gdy 5 razy w ciagu 6 h wystapi problem z polaczeniem
 foreach($servers as $server){
-  (int)$liczba_bledow = SQL::one("SELECT COUNT(*) FROM `acp_serwery_bledy` WHERE `serwer_id` = $server->serwer_id AND `status` = 1 AND `data` > NOW() - INTERVAL 6 HOUR");
+  (int)$liczba_bledow = SQL::one("SELECT COUNT(*) FROM `acp_serwery_bledy` WHERE `serwer_id` = $server->serwer_id AND `status` = 1 AND `data` > NOW() - INTERVAL 3 HOUR");
   if($liczba_bledow >= 5 && $server->test_serwer == 0){
     SQL::query("UPDATE `acp_serwery` SET `cronjobs` = '-1' WHERE `serwer_id` = $server->serwer_id;");
 
@@ -285,7 +282,7 @@ foreach($servers as $server){
       User::getUserHavePermission('SerwerCron'),
       [],
       "?x=serwery_ust&edycja=$server->serwer_id",
-      "Cronjobs | Serwer: $server->nazwa [$server->mod](ID: $server->serwer_id) został zablokowany z powodu problemów z połaczeniem. Sprawdź dane FTP a następnie ustaw edycję plików na Tak",
+      "Cronjobs | Serwer: $server->nazwa [$server->mod](ID: $server->serwer_id) został zablokowany z powodu problemów z połaczeniem. Sprawdź dane FTP a następnie ustaw edycję plików na [Tak]",
       "fa fa-server"
     );
   }
