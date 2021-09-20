@@ -142,14 +142,15 @@ if(isset($_POST['wgrywarka'])){
             <?
             $plugin_serwer = new stdClass();
             $plugin_serwer->serwery_ist = new stdClass();
-            $plugin_serwer->lista = array();
+            $plugin_serwer->lista = [];
             $plugin_serwer->nazwa_pluginu = SQL::one("SELECT `ftp_dest_file_name` FROM `acp_pluginy_pliki` WHERE `plugin_id` = $dane->id AND `ftp_source_file_name` LIKE '%smx%' AND `kod_zrodlowy` IS NULL AND `starsza_wersja` IS NULL");
             $plugin_serwer->serwery = SQL::all("SELECT `get`, `data` FROM `acp_cache_api` WHERE `dane` LIKE '%$plugin_serwer->nazwa_pluginu%';");
             foreach ($plugin_serwer->serwery as $key => $value):
-              $plugin_serwer->serwery_ist->$key->serwer_id = str_replace(array('serwer_id','_pluginy'), "", $value->get);
-              $plugin_serwer->serwery_ist->$key->data = str_replace(array('serwer_id','_pluginy'), "", $value->data);
-              $plugin_serwer->serwery_ist->$key->dane = SQL::row("SELECT `nazwa`, `mod`, `serwer_id` FROM `acp_serwery` WHERE `serwer_id` = ".$plugin_serwer->serwery_ist->$key->serwer_id." LIMIT 1");
-              $plugin_serwer->lista[] = $plugin_serwer->serwery_ist->$key->serwer_id;
+              $plugin_serwer->serwery_ist->$key = [
+                'serwer_id' => str_replace(array('serwer_id','_pluginy'), "", $value->get),
+                'data' => str_replace(array('serwer_id','_pluginy'), "", $value->data),
+              ];
+              $plugin_serwer->lista[] = $plugin_serwer->serwery_ist->$key['serwer_id'];
             endforeach;
             unset($plugin_serwer->serwery);
             ?>
@@ -159,11 +160,12 @@ if(isset($_POST['wgrywarka'])){
             <?
               else:
               foreach ($plugin_serwer->serwery_ist as $value):
+                $server = Model('Server')->basic($value['serwer_id']);
             ?>
               <p>
                 <a href='?x=serwery_det&serwer_id=<?= $value->serwer_id ?>'>
                   <li class='list-group-item list-group-item-dark'>
-                    <b>[<?= $value->dane->mod ?>]</b> <?= $value->dane->nazwa ?><br><small>Informacja z <?= $value->data ?></small>
+                    <b>[<?= $server->mod ?>]</b> <?= $server->nazwa ?><br><small>Informacja z <?= $value['data'] ?></small>
                   </li>
                 </a>
               </p>

@@ -135,6 +135,11 @@ class FTP
       ]]);
     }
 
+    // powrót do katalogu pierwszego.
+    $aPath = explode('/',ftp_pwd($this->conn));
+    $sHomeDir = str_repeat('../', count($aPath) - 1);
+    ftp_chdir($this->conn, $sHomeDir);
+
     return;
   }
 
