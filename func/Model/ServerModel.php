@@ -104,13 +104,6 @@ class ServerModel
       redirect('?x=serwery');
     }
   }
-
-  function require($file)
-  {
-    $require_once = 'templates/user/serwery_det/';
-
-    return require_once($require_once.$file);
-  }
 }
 
 ?>

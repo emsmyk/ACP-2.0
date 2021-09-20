@@ -3,7 +3,7 @@
     <div class="box">
       <div class="box-header with-border">
         <i class="glyphicon glyphicon-stats"></i>
-        <h3 class="box-title">Ilość Graczy (<?= $_SESSION["wyk-graczy-zakres-$serwer_id"] ?>)</h3>
+        <h3 class="box-title">Ilość Graczy (<?= $_SESSION["ServerDet_$serwer_id"]["wyk-graczy-zakres"] ?>)</h3>
         <div class="box-tools pull-right">
           <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
           <button type="button" class="btn btn-box-tool" data-toggle="modal" data-target="#wykresy"><i class="fa fa-wrench"></i></button>

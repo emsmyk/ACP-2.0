@@ -10,7 +10,8 @@
         </div>
       </div>
       <div class="box-body">
-        <? $lista_adminow = Controller('ServerDet')->index($serwer_id)['admin_list'];
+        <?
+        $lista_adminow = Controller('ServerDet')->index( Get::int('serwer_id') )['admin_list'];
         if(!empty($lista_adminow)):
           $lista_adminow->dane = json_decode($lista_adminow->dane);
         ?>
@@ -29,7 +30,11 @@
               </thead>
               <tbody>
               <?
-              $api_api_sb_admins = Model('Sourcebans')->admins($srv_dane->prefix_sb);
+              $api_api_sb_admins = Model('Sourcebans')->admins_list(
+                  SQL::one('SELECT `prefix_sb` FROM `acp_serwery` WHERE `serwer_id` = '.Get::int('serwer_id').' LIMIT 1'),
+                  "WHERE `authid` != '' AND `aid` != '' AND `user` != 'CONSOLE' AND `srv_group` NOT IN ('', 'Legenda', 'VIP', 'Weteran')",
+                  "ORDER BY FIELD(`srv_group`, 'Opiekun', 'Starszy Admin', 'Admin')"
+                );
 
               $lista_adminow_dane = new stdClass();
               $lista_adminow_dane->adminow = 0;
@@ -45,7 +50,7 @@
               if(!empty($api_api_sb_admins)):
                 foreach($api_api_sb_admins as $adm_list):
                   //wzbogacenie danych
-                  $adm_list->steam = Model('ServerDetal')->AdminListCache($serwer_id, $adm_list->user);
+                  $adm_list->steam = Model('ServerDetal')->AdminListCache( Get::int('serwer_id') , $adm_list->user);
 
 
                   $adm_list->steam['steam_status_dot'] = Model('ServerDetal')->AdminListStatus($adm_list->steam['steam_status']);
@@ -97,7 +102,7 @@
                 <td><?= $adm_list->aid ?></td>
                 <td><img src="<?= $adm_list->steam['steam_avatar'] ?>" width="36px" height="auto"></td>
                 <td><?= $adm_list->steam['steam_status_dot'] ?> <?= $adm_list->user ?> <i>(<?= $adm_list->steam['steam_nick'] ?>)</i></td>
-                <td><a href="<?= $adm_list->steam['steam_profileurl'] ?>" target="_blank"><?= $Steam->toCommunityID($adm_list->authid) ?></a> <br><small><i>(Ostatnio: <?= Date::relative($adm_list->steam['steam_lastlogoff']) ?>)</i></small></td>
+                <td><a href="<?= $adm_list->steam['steam_profileurl'] ?>" target="_blank"><?= $adm_list->authid ?></a> <br><small><i>(Ostatnio: <?= Date::relative($adm_list->steam['steam_lastlogoff']) ?>)</i></small></td>
                 <td><?= $adm_list->srv_group ?></td>
                 <td>
                   <form method="post">

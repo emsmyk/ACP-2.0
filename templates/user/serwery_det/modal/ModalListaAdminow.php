@@ -1,4 +1,4 @@
-<? $api_sb_groups = Model('Sourcebans')->groups($srv_dane->prefix_sb); ?>
+<? $api_sb_groups = Model('Sourcebans')->groups( SQL::one('SELECT `prefix_sb` FROM `acp_serwery` WHERE `serwer_id` = '.Get::int('serwer_id').' LIMIT 1') ); ?>
 
 <div class="modal fade" id="admin_list_add_admin">
   <div class="modal-dialog modal-lg">
@@ -9,7 +9,7 @@
       </div>
       <div class="modal-body">
         <form method='post'>
-          <input type="hidden" name="serwer_id" value="<?= $serwer_id ?>">
+          <input type="hidden" name="serwer_id" value="<?= $srv_dane->serwer_id ?>">
           <? $api_sb_last_admin = Model('Sourcebans')->last_admin($srv_dane->prefix_sb); ?>
           <input type="hidden" name="last_admin" value="<?= $api_sb_last_admin ?>">
           <input type="hidden" name="site" value="<?= SITE ?>">

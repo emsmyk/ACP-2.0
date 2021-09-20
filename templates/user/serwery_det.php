@@ -12,6 +12,7 @@ if(empty($_SESSION['ServerDet_'. Get::int('serwer_id') ])  || !isset($_SESSION['
     'srv_det_gosetti_tura' => 10
   ];
 }
+$require_once_detal = 'templates/user/serwery_det/';
 
 ?>
 <style>
@@ -26,12 +27,12 @@ if(empty($_SESSION['ServerDet_'. Get::int('serwer_id') ])  || !isset($_SESSION['
       <?= Model('Server')->kontrola($serwer_id); ?>
   	</section >
   </div>
-<? Model('Server')->require('Form.php'); ?>
+<? require_once($require_once_detal.'Form.php') ?>
 
   <div class="row">
     <?
     if(Permission::check($dostep->serwery_det_logi, false) && !empty( Get::string('logi') )):
-      Model('Server')->require('Logi.php');
+      require_once($require_once_detal.'Logi.php');
     endif;
     ?>
     <div class="col-md-8">
@@ -120,20 +121,20 @@ if(empty($_SESSION['ServerDet_'. Get::int('serwer_id') ])  || !isset($_SESSION['
   </div>
 
   <?
-  Model('Server')->require('row/RowListaAdminow.php');
-  Model('Server')->require('row/RowPraceCykliczne.php');
-  Model('Server')->require('row/RowWykresy.php');
+  require_once($require_once_detal.'row/RowListaAdminow.php');
+  require_once($require_once_detal.'row/RowPraceCykliczne.php');
+  require_once($require_once_detal.'row/RowWykresy.php');
   ?>
 
   <div class="row">
 
     <?
-    Model('Server')->require('modal/ModalChangelog.php');
-    Model('Server')->require('modal/ModalRegulamin.php');
-    Model('Server')->require('modal/ModalWykresy.php');
-    Model('Server')->require('modal/ModalListaAdminow.php');
-    Model('Server')->require('modal/RaportOpiekuna.php');
-    Model('Server')->require('modal/ModalLogi.php');
+    require_once($require_once_detal.'modal/ModalChangelog.php');
+    require_once($require_once_detal.'modal/ModalRegulamin.php');
+    require_once($require_once_detal.'modal/ModalWykresy.php');
+    require_once($require_once_detal.'modal/ModalListaAdminow.php');
+    require_once($require_once_detal.'modal/RaportOpiekuna.php');
+    require_once($require_once_detal.'modal/ModalLogi.php');
     ?>
 
     <div class="modal fade" id="wgraj_mape">
@@ -196,7 +197,7 @@ if(empty($_SESSION['ServerDet_'. Get::int('serwer_id') ])  || !isset($_SESSION['
 ]); ?>
 
 <?
-Model('Server')->require('js/JsWykresy.php');
+require_once($require_once_detal.'js/JsWykresy.php');
 ?>
 
 <script>

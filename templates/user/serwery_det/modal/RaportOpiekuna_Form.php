@@ -4,7 +4,6 @@ $raport->get->old_data->gt_low = (empty($raport->get->old_data->gt_low)) ? 0 : $
 $raport->get->old_data->gt_hight = (empty($raport->get->old_data->gt_hight)) ? 0 : $raport->get->old_data->gt_hight;
 $raport->get->old_data->finanse_koszt = (empty($raport->get->old_data->finanse_koszt)) ? 0 : $raport->get->old_data->finanse_koszt;
 ?>
-
 <form method='post'>
   <div class="col-lg-4">
     <h4>Sourcebans:</h4>
@@ -131,7 +130,7 @@ $raport->get->old_data->finanse_koszt = (empty($raport->get->old_data->finanse_k
           $raport_admin->czas_polaczenia = Model('Hlstats')->czas_polaczenia($srv_dane->prefix_hls, $raport_admin->authid);
 
           // dane z okresu poprzedniego
-          $raport_admin_old = SQL::row("SELECT `forum_posty`, `forum_warny`, `opinia` FROM `raport_opiekun` WHERE `steamid` = '$raport_admin->authid' AND `serwer` = '$serwer_id' AND `miesiac` = '".$raport->data['ubiegly_miesiac']."'  LIMIT 1");
+          $raport_admin_old = SQL::row("SELECT `forum_posty`, `forum_warny`, `opinia` FROM `raport_opiekun` WHERE `steamid` = '$raport_admin->authid' AND `serwer` = '$srv_dane->serwer_id' AND `miesiac` = '".$raport->data['ubiegly_miesiac']."'  LIMIT 1");
           $raport_admin->forum_posty = (empty($raport_admin_old->forum_posty)) ? 0 : $raport_admin_old->forum_posty;
           $raport_admin->forum_warny = (empty($raport_admin_old->forum_warny)) ? 0 : $raport_admin_old->forum_warny;
           $raport_admin->opinia = (empty($raport_admin_old->opinia)) ? 0 : $raport_admin_old->opinia;
