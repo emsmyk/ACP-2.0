@@ -23,14 +23,13 @@ if(isset($_POST['nowe'])){
 
 if(isset($_POST['filtruj'])){
   $from = From::check();
-
   $filtry_txt = 'WHERE `procent_wykonania` > 0';
-  if(!empty($filtry->data_start)) { $filtry_txt .= " AND `data` >= '$filtry->data_start'"; }
-  if(!empty($filtry->data_end)) { $filtry_txt .= " AND `data` <= '$filtry->data_end'"; }
-  if(!empty($filtry->status_min) && $filtry->status_min != 99) { $filtry_txt .= ' AND `status` < '.$filtry->status_min; }
-  if(!empty($filtry->status_max) && $filtry->status_max != 99) { $filtry_txt .= ' AND `status` > '.$filtry->status_max; }
-  if($filtry->platforma != 99) { $filtry_txt .= ' AND `platforma` = '. $filtry->platforma; }
-  if($filtry->serwer != 99) { $filtry_txt .= ' AND `serwer_id` = '. $filtry->serwer; }
+  if(!empty($from->data_start)) { $filtry_txt .= " AND `data` >= '$from->data_start'"; }
+  if(!empty($from->data_end)) { $filtry_txt .= " AND `data` <= '$from->data_end'"; }
+  if(!empty($from->status_min) && $filtry->status_min != 99) { $filtry_txt .= ' AND `status` > '.$from->status_min; }
+  if(!empty($from->status_max) && $filtry->status_max != 99) { $filtry_txt .= ' AND `status` < '.$from->status_max; }
+  if(!empty($from->platforma)) { $filtry_txt .= ' AND `platforma` = '. $from->platforma; }
+  if(!empty($from->serwer)) { $filtry_txt .= ' AND `serwer_id` = '. $from->serwer; }
 }
 else {
   $filtry_txt = '';
