@@ -42,7 +42,6 @@ if(isset($_POST['komenda'])){
   Logs::log("[RCON] Wysłano komendę: ".$_POST['text']." Serwer: $serwer->mod (ID: $id)");
 }
 
-
 define( 'SQ_SERVER_ADDR', $serwer->ip );
 define( 'SQ_SERVER_PORT', $serwer->port );
 define( 'SQ_TIMEOUT',     1 );
