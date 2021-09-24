@@ -16,9 +16,12 @@ class LogiController
     }
   }
 
-  function index($ss_acp_logi)
+  function index($array)
   {
-    $where = ($ss_acp_logi == 1) ? 'WHERE `user` != 0' : '';
+    $where = '';
+    $where .= ($array['hide'] == 1) ? ' WHERE `user` != 0' : '';
+    $where .= ($array['sort'] == 1) ? ' ORDER BY `'. $array['sort_column'] .'` '.$array['sort_type'] : '';
+    $where .= ($array['limit'] == 1) ? ' LIMIT '.$array['limit_count'] : '';
     $logs = $this->db->get_results("SELECT *,`user` AS `id_user`, (SELECT `login` FROM `acp_users` WHERE `user` = `id_user`) AS `nick` FROM `acp_log` $where", true);
     foreach ($logs as $log) {
       $log->nick = (empty($log->nick) || is_null($log->nick)) ? 'Praca Zdalna' : $log->nick;

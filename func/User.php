@@ -68,6 +68,15 @@ class User
     }
   }
 
+  public static function printUrlAvatar($user)
+  {
+    $db = DB::getInstance();
+
+    $img = $db->get_results('SELECT `steam_avatar` FROM `acp_users` WHERE `user` = '. $user .' LIMIT 1');
+
+    return User::Avatar($img[0]['steam_avatar']);
+  }
+
   public static function updateLastLogin($user='')
   {
     if(strtotime($user['last_login']) < (time() - 120)) {

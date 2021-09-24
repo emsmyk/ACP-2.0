@@ -77,36 +77,26 @@ $func = Controller('Account');
   		</ul>
   		<div class="tab-content">
   		  <div class="active tab-pane" id="activity">
-          <?
-          if(is_array( $func->index(Get::int('id'))['wpisy'] )):
-            foreach( $func->index(Get::int('id'))['wpisy']  as $wpis):
-          ?>
-          <div class="post">
+          <? foreach( $func->index(Get::int('id'))['activiti']  as $act): ?>
+          <div class="post activiti">
     			  <div class="user-block">
-      				<img class="img-circle img-bordered-sm" src="<?= User::Avatar($wpis->steam_avatar); ?>" alt="user image">
+      				<img class="img-circle img-bordered-sm" src="<?= User::printUrlAvatar($act['user']) ?>" alt="user image">
     					<span class="username">
-    					  <a href="?x=wpisy-one&wpisid=<?= $wpis->id ?>"><?= User::LoginSteam($wpis->steam_login, $wpis->login); ?></a>
+                <?= User::printName($act['user']); ?>
     					</span>
-      				<span class="description"><?= $wpis->kategoria_nazwa; ?> - <?= Date::relative($wpis->data); ?></span>
+      				<span class="description"><?= $act['description']; ?> - <?= $act['data']; ?></span>
     			  </div>
-    			  <p> <?= str_replace(array("\r\n", "\n", "\r"), "<br>", Text::limit(strip_tags($wpis->text), 1500)); ?></p>
+    			  <p> <?= $act['text'] ?></p>
     			  <ul class="list-inline">
     				  <li>
-                <a href="?x=wpisy&xx=wpis&wpis=<?= Text::clean($wpis->tytul); ?>&wpisid=<?= $wpis->id; ?>" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Idź do wpisu..</a>
+                <a href="<?= $act['link']; ?>" class="link-black text-sm"><i class="fa fa-share margin-r-5"></i> Przejdź dalej </a>
               </li>
       				<li class="pull-right">
-      				  <i class="fa fa-comments-o margin-r-5"></i> <?= $wpis->komentarzy; ?> Komentarzy
+                <?= $act['more_right'] ?>
               </li>
     			  </ul>
     			</div>
-          <?
-            endforeach;
-          else:
-          ?>
-          <div class="post">
-            <p>Brak zawartości do wyświetlenia..</p>
-          </div>
-        <? endif; ?>
+          <? endforeach; ?>
   		  </div>
 
         <div class="tab-pane" id="detale">

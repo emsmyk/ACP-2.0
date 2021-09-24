@@ -50,7 +50,9 @@ if(Get::string('co') == 'zdalny'){
 						</thead>
 						<tbody>
 						<?
-						foreach(Controller('Logi')->index($ss_acp_logi) as $log){
+						foreach(Controller('Logi')->index(
+              ['hide' => $ss_acp_logi, 'sort' => 0, 'sort_type' => '', 'sort_column' => '', 'limit' => 0, 'limit_count' => '' ]
+            ) as $log){
 						?>
 							<tr class="odd gradeX">
 								<td><?= $log->data; ?></td>

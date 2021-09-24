@@ -184,8 +184,6 @@
 <!-- jvectormap  -->
 <script src="./www/plugins/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script src="./www/plugins/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
-<!-- SlimScroll -->
-<script src="./www/bower_components/jquery-slimscroll/jquery.slimscroll.min.js"></script>
 <!-- ChartJS -->
 <script src="./www/bower_components/chart.js/Chart.js"></script>
 <script>

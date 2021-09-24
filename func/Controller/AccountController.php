@@ -18,18 +18,38 @@ class AccountController
       redirect("?x=wpisy");
     }
 
-    $wpisy = $this->db->get_results("SELECT *,
-    (SELECT `steam_avatar` FROM `acp_users` WHERE `user` = `u_id`) AS `steam_avatar`,
-    (SELECT `login` FROM `acp_users` WHERE `user` = `u_id`) AS `login`,
-    (SELECT `steam_login` FROM `acp_users` WHERE `user` = `u_id`) AS `steam_login`,
+    $activiti = [];
 
-    (SELECT `nazwa` FROM `acp_wpisy_kategorie` WHERE `id` = `kategoria`) AS `kategoria_nazwa`,
-    (SELECT COUNT(*) FROM `acp_wpisy_komentarze` WHERE `wpis_id` = `id`) AS `komentarzy`
-    FROM `acp_wpisy` WHERE `u_id` = $this->id ORDER BY `id` DESC LIMIT 5", true);
+    $wpisy = $this->db->get_results("SELECT *, (SELECT `nazwa` FROM `acp_wpisy_kategorie` WHERE `id` = `kategoria`) AS `kategoria_nazwa`, (SELECT COUNT(*) FROM `acp_wpisy_komentarze` WHERE `wpis_id` = `id`) AS `komentarzy` FROM `acp_wpisy` WHERE `u_id` = $this->id ORDER BY `id` DESC LIMIT 10", true);
+    foreach ($wpisy as $value) {
+      $activiti[] = [
+        'user' => $value->u_id,
+        'description' => $value->kategoria_nazwa,
+        'more_right' => '<i class="fa fa-comments-o margin-r-5"></i> '. $value->komentarzy .' Komentarzy',
+        'text' => str_replace(array("\r\n", "\n", "\r"), "<br>", Text::limit(strip_tags($value->text), 1500)),
+        'link' => '?x=wpisy&xx=wpis&wpis='. Text::clean($value->tytul) .'&wpisid='.$value->id,
+        'data' => $value->data
+      ];
+    }
+
+    foreach (Controller('Logi')->index(
+      ['hide' => 0, 'sort' => 1, 'sort_type' => 'DESC', 'sort_column' => 'id', 'limit' => 1, 'limit_count' => 10 ]
+    ) as $key => $value) {
+      if($value->user = $this->id){
+        $activiti[] = [
+          'user' => $value->user,
+          'description' => 'Moduł: '.$value->page,
+          'more_right' => '',
+          'text' => str_replace(array("\r\n", "\n", "\r"), "<br>", Text::limit(strip_tags($value->tekst), 1500)),
+          'link' => $value->link,
+          'data' => $value->data
+        ];
+      }
+    }
 
     return [
       'user' => $user,
-      'wpisy' => $wpisy
+      'activiti' => $this->array_msort($activiti, [ 'data' => SORT_DESC ])
     ];
   }
 
@@ -104,6 +124,31 @@ class AccountController
       'type' => 'success',
       'text' => 'Zaktualizowano twoje ustawienia'
     ]);
+  }
+
+  function array_msort($array, $cols)
+  {
+      $colarr = array();
+      foreach ($cols as $col => $order) {
+          $colarr[$col] = array();
+          foreach ($array as $k => $row) { $colarr[$col]['_'.$k] = strtolower($row[$col]); }
+      }
+      $eval = 'array_multisort(';
+      foreach ($cols as $col => $order) {
+          $eval .= '$colarr[\''.$col.'\'],'.$order.',';
+      }
+      $eval = substr($eval,0,-1).');';
+      eval($eval);
+      $ret = array();
+      foreach ($colarr as $col => $arr) {
+          foreach ($arr as $k => $v) {
+              $k = substr($k,1);
+              if (!isset($ret[$k])) $ret[$k] = $array[$k];
+              $ret[$k][$col] = $array[$k][$col];
+          }
+      }
+      return $ret;
+
   }
 }
 ?>
