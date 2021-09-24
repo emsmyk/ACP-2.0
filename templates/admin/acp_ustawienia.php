@@ -713,10 +713,16 @@ $cronOption = [
                   </p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Tag Tabela</span><input class='form-control' type='text' name='hlx_top50_tag_tabela' value='<?= $acp_system['hlx_top50_tag_tabela']; ?>'/></div></p>
                  <p><div class='form-group input-group'><span class='input-group-addon'>Tag Chat</span><input class='form-control' type='text' name='hlx_top50_tag_say' value='<?= $acp_system['hlx_top50_tag_say']; ?>'/></div></p>
-                 <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Tagu</span><input class='form-control' type='text' name='hlx_top50_color_tag' value='<?= $acp_system['hlx_top50_color_tag']; ?>'/></div></p>
-                 <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Nicku</span><input class='form-control' type='text' name='hlx_top50_color_nick' value='<?= $acp_system['hlx_top50_color_nick']; ?>'/></div></p>
-                 <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Tekstu</span><input class='form-control' type='text' name='hlx_top50_color_tekst' value='<?= $acp_system['hlx_top50_color_tekst']; ?>'/></div></p>
-                 <p><div class='form-group input-group'><span class='input-group-addon'>Ilość Nagród</span><input class='form-control' type='number' min="1" max="10" name='hlx_ilosc' value='<?= $acp_system['hlx_ilosc']; ?>'/></div></p>
+                 <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Tagu Say</span>
+                   <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'hlx_top50_color_tag' , 'value' => $acp_system['hlx_top50_color_tag'], 'disable' => 1 ]); ?>
+                 </div></p>
+                 <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Nicku</span>
+                   <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'hlx_top50_color_nick' , 'value' => $acp_system['hlx_top50_color_nick'], 'disable' => 1 ]); ?>
+                 </div></p>
+                 <p><div class='form-group input-group'><span class='input-group-addon'>Kolor Tekstu</span>
+                   <?= optionHtml(Controller('ServerConHextags')->colors, ['name' => 'hlx_top50_color_tekst' , 'value' => $acp_system['hlx_top50_color_tekst'], 'disable' => 1 ]); ?>
+                 </div></p>
+                 <p><div class='form-group input-group'><span class='input-group-addon'>Nagradzanych X top?</span><input class='form-control' type='number' min="1" max="10" name='hlx_ilosc' value='<?= $acp_system['hlx_ilosc']; ?>'/></div></p>
                  <p><input name='edycja_hlstats' class='btn btn-primary btn-sm btn-block' type='submit' value='Edytuj'/></p>
                 </from>
             	</div>

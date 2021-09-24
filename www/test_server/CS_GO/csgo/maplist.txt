@@ -1,0 +1,42 @@
+////////////////////////////////////// 
+//////////// EMCE ACP //////////////// 
+////////////////////////////////////// 
+
+//Grupa Map: AWP
+awp_avb_sd
+awp_batson_dev
+awp_comeback_fix
+awp_dust_sloneczny
+awp_fort_sloneczny
+awp_gony_final
+awp_greesia_sloneczny
+awp_hot_summer_go
+awp_ice_csgo
+awp_india
+awp_india_2_sd
+awp_india_winter
+awp_kox
+awp_l4f_lego
+awp_l4f_polandfox
+awp_lego_2011
+awp_lego_2015
+awp_lego_2_christmas
+awp_lego_2_sd
+awp_lego_3_sd
+awp_lego_4bunkers_meow_v1a
+awp_lego_9
+awp_lego_asia
+awp_lego_expert
+awp_lego_freedback_go
+awp_lego_rad_sd
+awp_lego_remix_final
+awp_minecraft_crash_go
+awp_nuke_w
+awp_outland_sloneczny
+awp_summer
+awp_western_classic
+awp_zvk_sd
+
+////////////////////////////////////// 
+//// Wykonano 2021-09-24 19:49:53 //// 
+//////////////////////////////////////
