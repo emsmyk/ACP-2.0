@@ -19,6 +19,7 @@ class LogiController
   function index($array)
   {
     $where = '';
+    $where .= ($array['where'] == 1) ? ' WHERE '.$array['where_query'] : '';
     $where .= ($array['hide'] == 1) ? ' WHERE `user` != 0' : '';
     $where .= ($array['sort'] == 1) ? ' ORDER BY `'. $array['sort_column'] .'` '.$array['sort_type'] : '';
     $where .= ($array['limit'] == 1) ? ' LIMIT '.$array['limit_count'] : '';

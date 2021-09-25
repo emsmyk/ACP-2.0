@@ -51,7 +51,7 @@ if(Get::string('co') == 'zdalny'){
 						<tbody>
 						<?
 						foreach(Controller('Logi')->index(
-              ['hide' => $ss_acp_logi, 'sort' => 0, 'sort_type' => '', 'sort_column' => '', 'limit' => 0, 'limit_count' => '' ]
+              ['hide' => $ss_acp_logi, 'sort' => 0, 'sort_type' => '', 'sort_column' => '', 'limit' => 0, 'limit_count' => '', 'where' => 0, 'where_query' => '' ]
             ) as $log){
 						?>
 							<tr class="odd gradeX">

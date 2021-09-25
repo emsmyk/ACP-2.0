@@ -12,7 +12,14 @@ class AccountController
       redirect("?x=wpisy");
     }
 
-    $user = $this->db->get_row("SELECT `user`, `login`, `role`, `grupa`, `last_login`, `data_rejestracji`, `urodziny`, `banned`, `cash`, `ulubiony_serwer`, `lokalizacja`, `wyksztalcenie`, wirepusher,  `steam`, `steam_update`, `steam_avatar`, `steam_login`, (SELECT `nazwa` FROM `acp_serwery` WHERE `serwer_id` = `ulubiony_serwer` LIMIT 1) AS `ulubiony_serwer_nazwa`, (SELECT `nazwa` FROM `acp_users_grupy` WHERE `id` = `grupa` lIMIT 1) AS `nazwa_grupy`, (SELECT COUNT(*) FROM `acp_wpisy` WHERE `u_id` = `user`) AS `ilosc_wpisow` FROM `acp_users` WHERE `user` = $this->id;", true);
+    $user = $this->db->get_row("SELECT `user`, `login`, `role`, `grupa`, `last_login`, `data_rejestracji`, `urodziny`, `banned`, `cash`, `ulubiony_serwer`, `lokalizacja`, `wyksztalcenie`, wirepusher,  `steam`, `steam_update`, `steam_avatar`, `steam_login`,
+      (SELECT `nazwa` FROM `acp_serwery` WHERE `serwer_id` = `ulubiony_serwer` LIMIT 1) AS `ulubiony_serwer_nazwa`,
+      (SELECT `nazwa` FROM `acp_users_grupy` WHERE `id` = `grupa` lIMIT 1) AS `nazwa_grupy`
+    FROM `acp_users` WHERE `user` = $this->id;", true);
+    $user->ilosc_wpisow = $this->db->get_row('SELECT COUNT(*) FROM `acp_wpisy` WHERE `u_id` = '.$user->user)[0];
+    $user->ilosc_zadan = $this->db->get_row('SELECT COUNT(*) FROM `acp_zadania` WHERE `zlecajacy_id` = '.$user->user)[0];
+    $user->ilosc_uslug = $this->db->get_row('SELECT COUNT(*) FROM `acp_uslugi` WHERE `user` = '.$user->user)[0];
+
 
     if(empty($user->user)){
       redirect("?x=wpisy");
@@ -33,18 +40,16 @@ class AccountController
     }
 
     foreach (Controller('Logi')->index(
-      ['hide' => 0, 'sort' => 1, 'sort_type' => 'DESC', 'sort_column' => 'id', 'limit' => 1, 'limit_count' => 10 ]
+      ['hide' => 0, 'sort' => 1, 'sort_type' => 'DESC', 'sort_column' => 'id', 'limit' => 1, 'limit_count' => 10, 'where' => 1,'where_query' => '`user` = '.$this->id ]
     ) as $key => $value) {
-      if($value->user = $this->id){
-        $activiti[] = [
-          'user' => $value->user,
-          'description' => 'Moduł: '.$value->page,
-          'more_right' => '',
-          'text' => str_replace(array("\r\n", "\n", "\r"), "<br>", Text::limit(strip_tags($value->tekst), 1500)),
-          'link' => $value->link,
-          'data' => $value->data
-        ];
-      }
+      $activiti[] = [
+        'user' => $value->user,
+        'description' => 'Moduł: '.$value->page,
+        'more_right' => '',
+        'text' => str_replace(array("\r\n", "\n", "\r"), "<br>", Text::limit(strip_tags($value->tekst), 1500)),
+        'link' => $value->link,
+        'data' => $value->data
+      ];
     }
 
     return [

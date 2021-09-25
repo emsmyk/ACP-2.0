@@ -33,13 +33,13 @@ $func = Controller('Account');
   		  <p class="text-muted text-center"><?= $user->nazwa_grupy; ?></p>
   		  <ul class="list-group list-group-unbordered">
     			<li class="list-group-item">
-    			  <b>Ilość Wpisów</b> <a class="pull-right"><?= $user->ilosc_wpisow ?></a>
+    			  <b>Założonych Wpisów</b> <a class="pull-right"><?= $user->ilosc_wpisow ?></a>
     			</li>
     			<li class="list-group-item">
-    			  <b>Zadań</b> <a class="pull-right">X</a>
+    			  <b>Zgłoszonych Zadań</b> <a class="pull-right"><?= $user->ilosc_zadan ?></a>
     			</li>
     			<li class="list-group-item">
-    			  <b>Usług</b> <a class="pull-right">X</a>
+    			  <b>Posiadanych Usług</b> <a class="pull-right"><?= $user->ilosc_uslug ?></a>
     			</li>
   		  </ul>
   		  <a href="?x=wiadomosci&xx=wiadomosc&&to=<?= $user->login ?>" class="btn btn-primary btn-block"><b>Wiadomość</b></a>
