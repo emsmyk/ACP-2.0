@@ -96,7 +96,7 @@ if(isset($_POST['nowy_wpis'])) {
 		<? if($wpis->closed == 1) {?>
 		<div class="box-footer">
 		 <div class="input-group-btn">
-		  <button type="button" class="btn btn-danger btn-block btn-xs">Zablokowany <?= $wpis->closed_data ?></button>
+		  <button type="button" class="btn btn-danger btn-block btn-xs">Wpis zablokowany <?= Date::relative($wpis->closed_data) ?></button>
 		 </div>
 		</div>
 		<? } else {?>

@@ -153,7 +153,6 @@ class AccountController
           }
       }
       return $ret;
-
   }
 }
 ?>

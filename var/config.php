@@ -1,6 +1,6 @@
 <?php
-define( 'SEND_ERRORS_TO', 'zabawa@emsmyk.pl' ); //set email notification email address
-define( 'DISPLAY_DEBUG', true ); //display db errors?
+define( 'SEND_ERRORS_TO', 'mail@em.pl' ); //set email notification email address
+define( 'DISPLAY_DEBUG', false ); //display db errors?
 
 define( 'ACP_V', '2.01' );
 define( 'SITE', 'https://acp.sloneczny-dust.pl');
