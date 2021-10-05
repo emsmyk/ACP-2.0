@@ -30,14 +30,14 @@ class FTP
     $conn = ftp_connect($this->ftp['ftp_host']);
     if($conn == false){
       Logs::ftpServer($this->server, "?x=cronjobs_serwer", "[FTP] Błąd połaczenia (Brak odpowiedzi serwera)", "FTP connection has failed! Attempted to connect to $ftp->serwer");
-  		return '[FTP] Błąd połaczenia ftp';
+  		return false;
     }
 
     $login = ftp_login($conn, $this->ftp['ftp_user'], $this->ftp['ftp_password']);
 
     if(!$login){
       Logs::ftpServer($this->server, "?x=cronjobs_serwer", "[FTP] Błąd połaczenia (Złe Hasło/Login)", "FTP connection has failed! Attempted to connect to $ftp->serwer for user $ftp->user");
-      return '[FTP] Błąd logowania, złe hasło lub login..';
+      return false;
     }
     return $conn;
   }

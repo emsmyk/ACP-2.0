@@ -1,24 +1,27 @@
 <?
 require_once('func/FTP.php');
 
-$TEST = 0;
+if(Get::int('test') == 1){
+  show('UWAGA! Włączony tryb testowy!', false);
+}
+
 $MakeFile = Model('MakeFile');
 $Cronjobs = Model('Cronjobs');
 
-$test_servers = ($TEST == 1) ? 'AND `test_serwer` = 1' : 'AND `serwer_on` = 1 AND `cronjobs` = 1';
+$test_servers = (Get::int('test') == 1) ? 'AND `test_serwer` = 1' : 'AND `serwer_on` = 1 AND `cronjobs` = 1';
 $servers = SQL::all("SELECT `serwer_id`, `mod`, `test_serwer`, `nazwa`, `serwer_on`, `ftp_user`, `ftp_haslo`, `ftp_host`, `rangi`, `mapy`, `mapy_plugin`, `help_menu`, `bazy`, `reklamy`, `hextags`, `uslugi`, `katalog` FROM `acp_serwery` LEFT JOIN (`acp_serwery_cronjobs`) ON `acp_serwery`.`serwer_id` = `acp_serwery_cronjobs`.`serwer` WHERE `ip` != '' AND `port` != '' $test_servers");
 
 foreach ($servers as $server) {
-  if($TEST == 1){
-    show('UWAGA! Włączony tryb testowy!', false);
-  }
-
   $connect_server = new FTP([
     'ftp_user' => $server->ftp_user,
     'ftp_password' => encrypt_decrypt('decrypt', $server->ftp_haslo),
     'ftp_host' => $server->ftp_host,
     'sever' => $server->serwer_id
   ]);
+
+  if($connect_server->conn == false || empty($connect_server->conn)){
+    show('Błąd połączenia z serwerem ID: '. $server->serwer_id .' Mod: '. $server->mod);
+  }
 
   if($Cronjobs->ThisTime($acp_system['cron_uslugi'], $acp_system['time_uslugi']) && $server->uslugi == 1){
     $connect_server->upload([
